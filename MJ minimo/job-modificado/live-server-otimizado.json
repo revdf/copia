@@ -1,0 +1,76 @@
+{
+  "port": 8080,
+  "host": "0.0.0.0",
+  "root": "./frontend/src",
+  "open": true,
+  "file": "A_01__index.html",
+  "wait": 1000,
+  "logLevel": 2,
+  "proxy": [
+    {
+      "path": "/api",
+      "target": "http://localhost:5001",
+      "changeOrigin": true,
+      "secure": false,
+      "logLevel": "debug"
+    }
+  ],
+  "cors": true,
+  "corsOptions": {
+    "origin": "*",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204,
+    "credentials": true
+  },
+  "https": {
+    "enable": false,
+    "cert": "",
+    "key": "",
+    "passphrase": ""
+  },
+  "mount": [
+    ["/", "./frontend/src"],
+    ["/css", "./frontend/src/css"],
+    ["/js", "./frontend/src/js"],
+    ["/images", "./frontend/src/images"]
+  ],
+  "ignoreFiles": [
+    ".vscode/**",
+    "**/*.scss",
+    "**/*.sass",
+    "**/*.ts",
+    "**/*.js.map",
+    "**/*.css.map",
+    "**/*.json",
+    "**/node_modules/**",
+    "**/.git/**",
+    "**/backend/**",
+    "**/fotinha/**",
+    "**/*.md",
+    "**/*.txt",
+    "**/*.ps1",
+    "**/*.sh",
+    "**/*.pkg",
+    "**/backup-*/**",
+    "**/*.backup"
+  ],
+  "fullReload": true,
+  "forceReload": false,
+  "openOnStart": true,
+  "autoRefreshPreview": true,
+  "keepPreviousPreview": false,
+  "donotShowInfoMsg": true,
+  "donotVerifyTags": true,
+  "useLocalIp": true,
+  "customBrowser": "chrome",
+  "advanceCustomBrowserCmdLine": "--disable-web-security --disable-features=VizDisplayCompositor --allow-running-insecure-content --disable-blink-features=AutomationControlled",
+  "multiRootWorkspaceName": "mansao-do-job"
+}
+
+
+
+
+
+
+

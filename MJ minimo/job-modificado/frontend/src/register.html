@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro - Mansão do Job</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .register {
+        max-width: 500px;
+        margin: 30px auto 20px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .register__title {
+        color: #333;
+        text-align: center;
+        margin-bottom: 15px;
+        font-size: 24px;
+      }
+
+      .register__social-proof {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+        color: #666;
+      }
+
+      .register__social-proof svg {
+        fill: #666;
+      }
+
+      .logo-text {
+        color: #e25352;
+        font-size: 24px;
+        font-weight: bold;
+        margin: 0;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .google-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 12px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-bottom: 20px;
+      }
+
+      .google-button:hover {
+        background-color: #f5f5f5;
+      }
+
+      .field-wrapper {
+        margin-bottom: 15px;
+      }
+
+      .fm-input-text {
+        position: relative;
+        margin-bottom: 12px;
+      }
+
+      .fm-input-text__input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #666;
+        border-radius: 4px;
+        background-color: #fff;
+      }
+      
+      .fm-input-text__input:focus {
+        border-color: #e25352;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(226, 83, 82, 0.2);
+      }
+
+      .fm-input-text__label {
+        position: absolute;
+        left: 12px;
+        top: -8px;
+        background-color: #f8f9fa;
+        padding: 0 5px;
+        font-size: 12px;
+        color: #666;
+      }
+
+      .register__form-checkbox-group {
+        margin: 15px 0;
+      }
+
+      .checkbox__container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .register__reCaptcha {
+        font-size: 12px;
+        color: #666;
+        text-align: center;
+        margin: 15px 0;
+      }
+
+      .submit-button {
+        width: 100%;
+        padding: 12px;
+        background-color: #e25352;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      .submit-button:hover {
+        background-color: #d14342;
+      }
+
+      .login-button {
+        display: block;
+        text-align: center;
+        color: #e25352;
+        text-decoration: none;
+        margin-top: 8px;
+      }
+
+      .not-consumer-register {
+        text-align: center;
+        margin-top: 15px;
+        color: #666;
+      }
+
+      .not-consumer-register a {
+        color: #e25352;
+        text-decoration: none;
+      }
+
+      .or-divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 20px 0;
+        position: relative;
+      }
+
+      .or-divider::before,
+      .or-divider::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .or-divider span {
+        padding: 0 10px;
+        color: #666;
+        font-size: 14px;
+        background-color: #f8f9fa;
+      }
+
+      .input-hint {
+        display: block;
+        font-size: 12px;
+        color: #666;
+        margin-top: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="main-header" style="height: 70px">
+      <div class="header-container">
+        <div class="header-left">
+          <a
+            href="#"
+            class="home-btn"
+            title="Voltar para página inicial"
+            onclick="goBackToOrigin(); return false;"
+          >
+            <i class="fa fa-home"></i>
+          </a>
+        </div>
+
+        <div class="header-right">
+          <h1 class="logo-text">Mansão do Job</h1>
+          <div class="header-buttons">
+            <div class="sign-button" id="cadastre-se-gratis">
+              <button class="sign-button__action">
+                <p class="sign-button__title sign-button__title-register">
+                  cadastre-se grátis
+                </p>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M17.5481 7.89971L11.9928 13.2027L6.43758 7.89971C5.87919 7.36668 4.97718 7.36668 4.41879 7.89971C3.8604 8.43274 3.8604 9.29379 4.41879 9.82682L10.9906 16.1002C11.549 16.6332 12.451 16.6332 13.0094 16.1002L19.5812 9.82682C20.1396 9.29379 20.1396 8.43274 19.5812 7.89971C19.0228 7.38035 18.1065 7.36668 17.5481 7.89971Z"
+                    fill="#e25352"
+                  />
+                </svg>
+              </button>
+              <div class="sign-button__tooltip">
+                <a href="register.html" class="sign-button__link"
+                  >Cadastrar cliente</a
+                >
+                <a href="criar-conta-Anuncio.html" class="sign-button__link"
+                  >Cadastro de Acompanhante</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+    <div class="register">
+      <form class="register__form">
+        <h1 class="register__title">Crie sua conta, É gratis e seguro!</h1>
+
+        <section class="register__social-proof">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
+              fill="currentColor"
+            />
+          </svg>
+          <p>
+            Cadastre-se como cliente, e venha fazer parte do CAMAROTE Mansão do
+            Job, com vantagens exclusivas.
+          </p>
+        </section>
+
+        <a
+          href="https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=SEU_CLIENT_ID&redirect_uri=http://localhost:5500/auth/google/callback&scope=email%20profile&access_type=offline&prompt=consent"
+          class="google-button"
+        >
+          <svg
+            class="google-icon"
+            xmlns="https://www.w3.org/2000/svg"
+            width="20"
+            height="24"
+            viewBox="0 0 40 48"
+            aria-hidden="true"
+          >
+            <path
+              fill="#4285F4"
+              d="M39.2 24.45c0-1.55-.16-3.04-.43-4.45H20v8h10.73c-.45 2.53-1.86 4.68-4 6.11v5.05h6.5c3.78-3.48 5.97-8.62 5.97-14.71z"
+            ></path>
+            <path
+              fill="#34A853"
+              d="M20 44c5.4 0 9.92-1.79 13.24-4.84l-6.5-5.05C24.95 35.3 22.67 36 20 36c-5.19 0-9.59-3.51-11.15-8.23h-6.7v5.2C5.43 39.51 12.18 44 20 44z"
+            ></path>
+            <path
+              fill="#FABB05"
+              d="M8.85 27.77c-.4-1.19-.62-2.46-.62-3.77s.22-2.58.62-3.77v-5.2h-6.7C.78 17.73 0 20.77 0 24s.78 6.27 2.14 8.97l6.71-5.2z"
+            ></path>
+            <path
+              fill="#E94235"
+              d="M20 12c2.93 0 5.55 1.01 7.62 2.98l5.76-5.76C29.92 5.98 25.39 4 20 4 12.18 4 5.43 8.49 2.14 15.03l6.7 5.2C10.41 15.51 14.81 12 20 12z"
+            ></path>
+          </svg>
+          <span>Fazer login com o Google</span>
+        </a>
+
+        <div class="or-divider">
+          <span>ou</span>
+        </div>
+
+        <div class="field-wrapper">
+          <div class="fm-input-text">
+            <input
+              type="text"
+              class="fm-input-text__input"
+              id="nickname"
+              name="nickname"
+              required
+              maxlength="15"
+              pattern="[a-zA-Z0-9_\-]+"
+              title="Apenas letras, números, hífen e underscore são permitidos"
+            />
+            <label class="fm-input-text__label" for="nickname"
+              >Escolha um nick (apelido ou nome de usuário)</label
+            >
+            <small class="input-hint"
+              >Máximo 15 caracteres. Apenas letras, números, hífen e
+              underscore.</small
+            >
+          </div>
+          <div class="fm-input-text">
+            <input
+              type="email"
+              class="fm-input-text__input"
+              id="email"
+              name="email"
+              required
+              pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+              title="Digite um email válido"
+            />
+            <label class="fm-input-text__label" for="email">Email</label>
+            <small class="input-hint">Exemplo: nome@dominio.com</small>
+          </div>
+          <div class="fm-input-text">
+            <input
+              type="password"
+              class="fm-input-text__input"
+              id="password"
+              name="password"
+              required
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+              title="A senha deve conter pelo menos 8 caracteres, uma letra maiúscula, uma minúscula, um número e um caractere especial"
+            />
+            <label class="fm-input-text__label" for="password"
+              >Digite sua senha</label
+            >
+            <small class="input-hint"
+              >Mínimo 8 caracteres, 1 maiúscula, 1 minúscula, 1 número e 1
+              caractere especial</small
+            >
+          </div>
+          <div class="fm-input-text">
+            <input
+              type="password"
+              class="fm-input-text__input"
+              id="confirm_password"
+              name="confirm_password"
+              required
+            />
+            <label class="fm-input-text__label" for="confirm_password"
+              >Confirme sua senha</label
+            >
+          </div>
+        </div>
+
+        <div class="register__form-checkbox-group">
+          <div class="register__use-terms">
+            <label for="checkbox-use-terms" class="checkbox__container">
+              <p class="register__use-terms-label">
+                Li e aceito os
+                <a href="/terms?consumer" target="blank">termos de uso</a>
+              </p>
+              <input
+                id="checkbox-use-terms"
+                type="checkbox"
+                class="checkbox__input"
+              />
+              <span class="checkmark"></span>
+            </label>
+          </div>
+
+          <div class="register__mail-acceptance">
+            <label for="checkbox-register-mail" class="checkbox__container">
+              <p class="register__mail-acceptance-label">
+                Quero receber novidades e descontos exclusivos da Mansão do Job
+                por e-mail
+              </p>
+              <input
+                id="checkbox-register-mail"
+                type="checkbox"
+                class="checkbox__input"
+              />
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+
+        <div
+          class="g-recaptcha"
+          data-sitekey="YOUR_SITE_KEY"
+          data-callback="onRecaptchaSuccess"
+        ></div>
+
+        <p class="register__reCaptcha">
+          Este site é protegido pelo reCAPTCHA e o
+          <a href="https://policies.google.com/privacy" target="_blank"
+            >Google Privacidade & Termos</a
+          >
+          e
+          <a href="https://policies.google.com/terms" target="_blank"
+            >Termos de Serviço</a
+          >
+          se aplicam.
+        </p>
+
+        <button type="submit" class="submit-button">Cadastrar grátis</button>
+        <a href="/login?consumer" class="login-button">Já possuo cadastro</a>
+      </form>
+
+      <div class="not-consumer-register">
+        <p>
+          É Acompanhante ou do JOB ?
+          <a href="/ad-api/v1/register">Cadastre-se grátis</a> conosco.
+        </p>
+      </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+      import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+      import { getFirestore, collection, addDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+      // Firebase Configuration - Projeto mansao-do-job
+      const firebaseConfig = {
+        apiKey: "AIzaSyCCU3l-J-7JrlWXKVlQJAit9VypIi7hn38",
+        authDomain: "mansao-do-job.firebaseapp.com",
+        projectId: "mansao-do-job",
+        storageBucket: "mansao-do-job.firebasestorage.app",
+        messagingSenderId: "606628146135",
+        appId: "1:606628146135:web:b374ed2678d20991577992",
+        measurementId: "G-4EZJTTZNC4"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      // Tornar disponível globalmente
+      window.firebaseAuth = auth;
+      window.firebaseDb = db;
+      window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+      window.addDoc = addDoc;
+      window.collection = collection;
+      window.setDoc = setDoc;
+      window.doc = doc;
+    </script>
+    <script src="app.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector(".register__form");
+        const nicknameInput = document.getElementById("nickname");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const confirmPasswordInput =
+          document.getElementById("confirm_password");
+
+        // Função para sanitizar input
+        function sanitizeInput(input) {
+          return input.replace(/[<>'"]/g, "");
+        }
+
+        // Validação do nickname
+        nicknameInput.addEventListener("input", function (e) {
+          this.value = sanitizeInput(this.value);
+        });
+
+        // Validação do email
+        emailInput.addEventListener("input", function (e) {
+          const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          if (!emailRegex.test(this.value)) {
+            this.setCustomValidity("Por favor, insira um email válido");
+          } else {
+            this.setCustomValidity("");
+          }
+        });
+
+        // Validação da senha
+        passwordInput.addEventListener("input", function (e) {
+          const passwordRegex =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+          if (!passwordRegex.test(this.value)) {
+            this.setCustomValidity(
+              "A senha deve conter pelo menos 8 caracteres, uma letra maiúscula, uma minúscula, um número e um caractere especial"
+            );
+          } else {
+            this.setCustomValidity("");
+          }
+        });
+
+        // Validação de confirmação de senha
+        confirmPasswordInput.addEventListener("input", function (e) {
+          if (this.value !== passwordInput.value) {
+            this.setCustomValidity("As senhas não coincidem");
+          } else {
+            this.setCustomValidity("");
+          }
+        });
+
+        // Função para cadastrar cliente usando Firebase Authentication
+        async function submitForm(formData) {
+          try {
+            console.log("📤 Cadastrando cliente no Firebase:", formData);
+            
+            // Aguardar Firebase carregar
+            if (!window.firebaseAuth || !window.createUserWithEmailAndPassword) {
+              await new Promise(resolve => setTimeout(resolve, 1000));
+              if (!window.firebaseAuth || !window.createUserWithEmailAndPassword) {
+                alert("❌ Firebase não está carregado. Aguarde um momento e tente novamente.");
+                return;
+              }
+            }
+
+            // Criar usuário no Firebase Authentication
+            const userCredential = await window.createUserWithEmailAndPassword(
+              window.firebaseAuth,
+              formData.email,
+              formData.password
+            );
+
+            const user = userCredential.user;
+            console.log("✅ Usuário criado no Firebase Auth:", user.uid);
+
+            // Salvar dados adicionais do cliente no Firestore
+            try {
+              await window.setDoc(window.doc(window.firebaseDb, "clientes", user.uid), {
+                nickname: formData.nickname,
+                email: formData.email,
+                displayName: formData.nickname,
+                tipo: "cliente",
+                dataCadastro: new Date().toISOString(),
+                aceitaTermos: true,
+                recebeEmails: document.getElementById("checkbox-register-mail").checked || false
+              });
+
+              console.log("✅ Dados do cliente salvos no Firestore");
+            } catch (firestoreError) {
+              console.warn("⚠️ Erro ao salvar no Firestore (usuário já criado):", firestoreError);
+              // Não bloquear o cadastro se houver erro no Firestore
+            }
+
+            alert("✅ Cadastro realizado com sucesso!");
+            console.log("✅ Cadastro completo realizado com sucesso");
+            
+            // Redirecionar para página principal
+            window.location.href = "A_02__premium_copy.html";
+            
+          } catch (error) {
+            console.error("❌ Erro ao cadastrar:", error);
+            
+            let errorMessage = "Erro ao realizar cadastro. ";
+            
+            if (error.code === 'auth/email-already-in-use') {
+              errorMessage += "Este email já está cadastrado.";
+            } else if (error.code === 'auth/invalid-email') {
+              errorMessage += "Email inválido.";
+            } else if (error.code === 'auth/weak-password') {
+              errorMessage += "Senha muito fraca. Use pelo menos 6 caracteres.";
+            } else if (error.code === 'auth/network-request-failed') {
+              errorMessage += "Erro de conexão. Verifique sua internet.";
+            } else {
+              errorMessage += error.message || "Tente novamente mais tarde.";
+            }
+            
+            alert("❌ " + errorMessage);
+          }
+        }
+
+        // Validação do formulário
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Validação final antes do envio
+          if (!form.checkValidity()) {
+            e.stopPropagation();
+            return;
+          }
+
+          // Sanitização final dos inputs
+          const formData = {
+            nickname: sanitizeInput(nicknameInput.value),
+            email: emailInput.value,
+            password: passwordInput.value,
+          };
+
+          // Enviar dados para a API
+          submitForm(formData);
+        });
+      });
+
+      // Função para detectar página de origem e redirecionar corretamente
+      function goBackToOrigin() {
+        // Verificar se há referrer
+        if (document.referrer) {
+          const referrer = document.referrer;
+          
+          // Mapear as páginas de origem para suas respectivas páginas de retorno
+          if (referrer.includes('A_02__premium_copy.html')) {
+            window.location.href = 'A_02__premium_copy.html';
+          } else if (referrer.includes('A_02__premium_massagistas_copy.html')) {
+            window.location.href = 'A_02__premium_massagistas_copy.html';
+          } else if (referrer.includes('A_02__premium_trans_copy.html')) {
+            window.location.href = 'A_02__premium_trans_copy.html';
+          } else if (referrer.includes('A_02__premium_homens_copy.html')) {
+            window.location.href = 'A_02__premium_homens_copy.html';
+          } else {
+            // Fallback para página padrão
+            window.location.href = 'A_02__premium_copy.html';
+          }
+        } else {
+          // Se não há referrer, usar página padrão
+          window.location.href = 'A_02__premium_copy.html';
+        }
+      }
+
+      // Salvar página de origem quando a página carrega
+      document.addEventListener('DOMContentLoaded', function() {
+        // Salvar a página atual como origem se vier de uma das páginas específicas
+        if (document.referrer) {
+          const referrer = document.referrer;
+          if (referrer.includes('A_02__premium_copy.html') || 
+              referrer.includes('A_02__premium_massagistas_copy.html') ||
+              referrer.includes('A_02__premium_trans_copy.html') ||
+              referrer.includes('A_02__premium_homens_copy.html')) {
+            sessionStorage.setItem('originPage', referrer);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

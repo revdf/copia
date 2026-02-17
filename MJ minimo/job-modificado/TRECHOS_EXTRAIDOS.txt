@@ -1,0 +1,541 @@
+ Conteúdo de firestore.rules ---
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Regras para a coleção 'anuncios'
+    match /anuncios/{anuncioId} {
+      // Permitir leitura pública (todos podem ler)
+      allow read: if true;
+      ---
+      // Permitir escrita apenas para usuários autenticados
+      allow create: if request.auth != null;
+      allow update: if request.auth != null;
+      allow delete: if request.auth != null;
+    }
+    
+    // Regras para a coleção 'advertisements'
+    match /advertisements/{advertisementId} {
+      // Permitir leitura pública (todos podem ler)
+      allow read: if true;
+      
+      // Permitir escrita apenas para usuários autenticados
+      allow create: if request.auth != null;
+      allow update: if request.auth != null;
+      allow delete: if request.auth != null;
+    }
+    
+    // Regras para outras coleções (users, payments, etc.)
+    match /users/{userId} {
+      // Usuários podem ler apenas seus próprios dados
+      allow read: if request.auth != null && request.auth.uid == userId;
+      // Usuários podem criar/atualizar apenas seus próprios dados
+      allow create, update: if request.auth != null && request.auth.uid == userId;
+      allow delete: if false; // Não permitir exclusão de usuários
+    }
+    
+    match /payments/{paymentId} {
+      // Apenas usuários autenticados podem ler seus próprios pagamentos
+      allow read: if request.auth != null && 
+                     resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null;
+      allow update, delete: if false; // Pagamentos não podem ser modificados
+    }
+    
+    // Regra padrão: negar acesso a todas as outras coleções
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+
+--- Configuração Firebase (frontend/src/firebase-config.js) ---
+// Firebase Configuration
+// Substitua os valores abaixo pelas suas configurações do Firebase
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCCU3l-J-7JrlWXKVlQJAit9VypIi7hn38",
+  authDomain: "mansao-do-job.firebaseapp.com",
+  projectId: "mansao-do-job",
+  storageBucket: "mansao-do-job.firebasestorage.app",
+  messagingSenderId: "606628146135",
+  appId: "1:606628146135:web:b374ed2678d20991577992",
+  measurementId: "G-4EZJTTZNC4",
+};
+
+// Exportar configuração
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = firebaseConfig;
+} else {
+  window.firebaseConfig = firebaseConfig;
+}
+
+--- Modelo de dados Anuncio (frontend/src/modelo-cadastro-anuncios.html) ---
+const anuncioData = {
+  // Dados básicos
+  nome: formData.get('nome'),
+  idade: formData.get('idade'),
+  telefone_celular: formData.get('telefone_celular'),
+  telefone_fixo: formData.get('telefone_fixo'),
+  email: formData.get('email'),
+  descricao: formData.get('descricao'),
+  'frase-efeito': formData.get('frase-efeito'),
+  frase_efeito: formData.get('frase-efeito'), // Também salvar com underscore para compatibilidade
+  
+  // Serviços obrigatórios - CORRIGIDO: pegar apenas se marcado, salvar como "sim" em vez de "on"
+  // IMPORTANTE: Estes campos são SEPARADOS dos checkboxes de serviços
+  // Eles são campos booleanos individuais que também podem ser marcados separadamente
+  'oral-sem': document.querySelector('input[name="oral-sem"]:checked') ? 'sim' : null,
+  oral_sem: document.querySelector('input[name="oral-sem"]:checked') ? 'sim' : null,
+  beija: document.querySelector('input[name="beija"]:checked') ? 'sim' : null,
+  anal: document.querySelector('input[name="anal"]:checked') ? 'sim' : null,
+  'mora-so': document.querySelector('input[name="mora-so"]:checked') ? 'sim' : null,
+  mora_so: document.querySelector('input[name="mora-so"]:checked') ? 'sim' : null,
+  
+  // Atende (array de checkboxes) - usar valores já calculados e validados
+  atende: atendeValues,
+  
+  // Eu Faço (array de checkboxes) - usar função padrão
+  'eu-faco': capturarCheckboxesValidados('eu-faco', true),
+  eu_faco: capturarCheckboxesValidados('eu-faco', true), // Versão com underscore
+  
+  // Pubis (array de checkboxes) - usar função padrão
+  pubis: capturarCheckboxesValidados('pubis', true),
+  
+  // Aceita WhatsApp e Ligação (campos booleanos únicos, não arrays)
+  aceita_whatsapp: document.querySelector('input[name="aceita_whatsapp"]:checked') ? true : false,
+  aceita_ligacao: document.querySelector('input[name="aceita_ligacao"]:checked') ? true : false,
+  
+  // Serviços organizados por categoria - APENAS ESTES SERÃO SALVOS
+  servicos_basicos: servicosBasicos,
+  servicos_especiais: servicosEspeciais,
+  fetichismo_bdsm: fetichismoBdsm,
+  atendimento_grupo: atendimentoGrupo,
+  perfil_estilo: perfilEstilo,
+  servicos_extras: servicosExtras,
+  
+  // CAMPOS REMOVIDOS (não serão mais salvos):
+  // servicos - REMOVIDO
+  // servicos_oferecidos - REMOVIDO
+  // servicos_total - REMOVIDO
+  // servicos_categorias_preenchidas - REMOVIDO
+  
+  // Localização
+  estado: formData.get('estado'),
+  cidade: formData.get('cidade'),
+  bairro: formData.get('bairro'),
+  
+  // Local (Com Local / Sem Local)
+  local: formData.get('local') || document.querySelector('input[name="local"]:checked')?.value || null,
+  
+  // Categoria e gênero
+  genero: gender,
+  categoria: category,
+  // Compatibilidade: também salvar como 'category' e 'gender'
+  category: category, // Para compatibilidade com filtros
+  gender: gender, // Para compatibilidade com filtros
+  
+  // Dados físicos
+  corpo: formData.get('corpo'),
+  estatura: formData.get('estatura'),
+  altura: formData.get('altura'),
+  peso: formData.get('peso'),
+  
+  // Preços
+  preco_30min: formData.get('preco_30min'),
+  preco_1h: formData.get('preco_1h'),
+  preco_2h: formData.get('preco_2h'),
+  
+  // Timestamp
+  createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+  userId: activeUser.uid,
+  userEmail: activeUser.email
+};
+
+--- Persistência e pós-processamento do cadastro (frontend/src/modelo-cadastro-anuncios.html) ---
+const docRef = await db.collection("anuncios").add(anuncioDataParaSalvar);
+console.log("\n✅ Anúncio salvo com ID:", docRef.id);
+console.log("✅ Todos os arrays de serviços foram salvos no Firebase!");
+
+// Verificar após salvar se os campos foram realmente salvos
+await new Promise(resolve => setTimeout(resolve, 1000)); // Aguardar 1 segundo
+const docSalvo = await db.collection("anuncios").doc(docRef.id).get();
+if (docSalvo.exists) {
+  const dadosSalvos = docSalvo.data();
+  console.log("\n🔍 Verificação após salvar - Campos no Firebase:");
+  console.log("  - servicos_basicos:", dadosSalvos.servicos_basicos);
+  console.log("  - servicos_especiais:", dadosSalvos.servicos_especiais);
+  console.log("  - fetichismo_bdsm:", dadosSalvos.fetichismo_bdsm);
+  console.log("  - atendimento_grupo:", dadosSalvos.atendimento_grupo);
+  console.log("  - perfil_estilo:", dadosSalvos.perfil_estilo);
+  console.log("  - servicos_extras:", dadosSalvos.servicos_extras);
+  
+  // Se algum array não foi salvo, forçar atualização
+  const precisaAtualizar = !dadosSalvos.fetichismo_bdsm || !dadosSalvos.atendimento_grupo || !dadosSalvos.perfil_estilo;
+  if (precisaAtualizar) {
+    console.warn("⚠️ Alguns arrays não foram salvos, forçando atualização...");
+    await db.collection("anuncios").doc(docRef.id).update({
+      fetichismo_bdsm: anuncioDataParaSalvar.fetichismo_bdsm,
+      atendimento_grupo: anuncioDataParaSalvar.atendimento_grupo,
+      perfil_estilo: anuncioDataParaSalvar.perfil_estilo
+    });
+    console.log("✅ Arrays faltantes foram atualizados!");
+  }
+}
+
+--- Classe ProtecaoDuplicatas (frontend/src/protecao-duplicatas.js) ---
+if (anuncioExistente) {
+  // Atualizar anúncio existente
+  console.log('🔄 Atualizando anúncio existente...');
+  const resultado = await this.atualizarAnuncio(anuncioExistente.id, dados);
+  
+  return {
+    sucesso: true,
+    acao: 'ATUALIZADO',
+    mensagem: 'Anúncio atualizado com sucesso!',
+    documentoId: anuncioExistente.id
+  };
+} else {
+  // Criar novo anúncio
+  console.log('✨ Criando novo anúncio...');
+  const resultado = await this.criarAnuncio(dados);
+  
+  return {
+    sucesso: true,
+    acao: 'CRIADO',
+    mensagem: 'Anúncio criado com sucesso!',
+    documentoId: resultado.id
+  };
+}
+
+async verificarAnuncioExistente(email, userId) {
+  try {
+    // Buscar por email
+    const emailQuery = await db.collection('anuncios')
+      .where('email', '==', email)
+      .limit(1)
+      .get();
+    
+    if (!emailQuery.empty) {
+      const doc = emailQuery.docs[0];
+      return { id: doc.id, ...doc.data() };
+    }
+    
+    // Buscar por userId
+    const userIdQuery = await db.collection('anuncios')
+      .where('userId', '==', userId)
+      .limit(1)
+      .get();
+    
+    if (!userIdQuery.empty) {
+      const doc = userIdQuery.docs[0];
+      return { id: doc.id, ...doc.data() };
+    }
+    
+    return null;
+    
+  } catch (error) {
+    console.error('❌ Erro ao verificar anúncio existente:', error);
+    return null;
+  }
+}
+
+async atualizarAnuncio(documentoId, dados) {
+  try {
+    const dadosAtualizados = {
+      ...dados,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      versao: firebase.firestore.FieldValue.increment(1)
+    };
+    
+    await db.collection('anuncios').doc(documentoId).update(dadosAtualizados);
+    
+    return { sucesso: true };
+    
+  } catch (error) {
+    console.error('❌ Erro ao atualizar anúncio:', error);
+    throw error;
+  }
+}
+
+async criarAnuncio(dados) {
+  try {
+    const dadosCompletos = {
+      ...dados,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      versao: 1
+    };
+    
+    const docRef = await db.collection('anuncios').add(dadosCompletos);
+    
+    return { id: docRef.id, sucesso: true };
+    
+  } catch (error) {
+    console.error('❌ Erro ao criar anúncio:', error);
+    throw error;
+  }
+}
+
+--- Carregamento de anúncios no frontend (frontend/src/js/anuncios.js) ---
+async loadAnuncios() {
+  try {
+    this.showLoading(true);
+
+    console.log("📡 Carregando anúncios do Firebase...");
+
+    // Buscar anúncios aprovados e publicados
+    const snapshot = await this.db
+      .collection("advertisements")
+      .where("status", "==", "published")
+      .orderBy("publishedAt", "desc")
+      .get();
+
+    this.anuncios = [];
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      this.anuncios.push({
+        id: doc.id,
+        ...data,
+        // Adicionar dados do usuário se disponível
+        userData: data.userId ? { id: data.userId } : null,
+      });
+    });
+
+    console.log(`✅ ${this.anuncios.length} anúncios carregados`);
+
+    // Atualizar estatísticas
+    this.updateStats();
+  } catch (error) {
+    console.error("❌ Erro ao carregar anúncios:", error);
+    this.showError("Erro ao carregar anúncios. Tente novamente.");
+  } finally {
+    this.showLoading(false);
+  }
+}
+
+--- Inicialização Firebase Admin (backend/server.js) ---
+import express from "express";
+import cors from "cors";
+import admin from "firebase-admin";
+import dotenv from "dotenv";
+
+dotenv.config({ path: './config-firebase-only.env' });
+
+const app = express();
+
+// Middleware CORS UNIFICADO
+app.use(cors({
+  origin: [
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
+    "http://localhost:5500",
+    "http://127.0.0.1:5500"
+  ],
+  credentials: true
+}));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Log de inicialização
+console.log("🚀 Iniciando servidor UNIFICADO...");
+console.log(`📊 Projeto: ${process.env.PROJECT_NAME || 'copia-do-job'}`);
+console.log(`🌍 Ambiente: ${process.env.ENVIRONMENT || 'test'}`);
+console.log(`🔗 Porta: ${process.env.PORT || 5001}`);
+console.log(`🔥 Firebase: ${process.env.FIREBASE_PROJECT_ID}`);
+
+// Inicializar Firebase Admin SDK
+const serviceAccount = {
+  type: "service_account",
+  project_id: process.env.FIREBASE_PROJECT_ID,
+  private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID,
+  private_key: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+  client_email: process.env.FIREBASE_CLIENT_EMAIL,
+  client_id: process.env.FIREBASE_CLIENT_ID,
+  auth_uri: "https://accounts.google.com/o/oauth2/auth",
+  token_uri: "https://oauth2.googleapis.com/token",
+  auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+  client_x509_cert_url: `https://www.googleapis.com/robot/v1/metadata/x509/${encodeURIComponent(process.env.FIREBASE_CLIENT_EMAIL)}`
+};
+
+try {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    storageBucket: `${process.env.FIREBASE_PROJECT_ID}.firebasestorage.app`
+  });
+  
+  console.log("✅ Firebase Admin SDK inicializado com sucesso");
+  console.log(`📦 Storage Bucket: ${process.env.FIREBASE_PROJECT_ID}.firebasestorage.app`);
+} catch (error) {
+  console.error("❌ Erro ao inicializar Firebase:", error.message);
+  process.exit(1);
+}
+
+const db = admin.firestore();
+const bucket = admin.storage().bucket();
+
+--- Rotas CRUD conectadas ao Firestore (backend/server.js) ---
+app.get("/api/anuncios", async (req, res) => {
+  try {
+    const { categoria, status, limit } = req.query;
+    let query = db.collection('anuncios');
+    
+    if (categoria) {
+      query = query.where('categoria', '==', categoria);
+    }
+    
+    if (status) {
+      query = query.where('status', '==', status);
+    }
+    
+    if (limit) {
+      query = query.limit(parseInt(limit));
+    }
+    
+    const snapshot = await query.get();
+    const anuncios = [];
+    
+    for (const doc of snapshot.docs) {
+      const data = doc.data();
+      const anuncio = {
+        id: doc.id,
+        ...data,
+        foto_capa: await getImageUrl(data.foto_capa),
+        coverImage: data.coverImage,
+        foto_stories: data.foto_stories,
+        profileImage: data.profileImage,
+        galeria_1: data.galeria_1,
+        galeria_2: data.galeria_2,
+        galeria_3: data.galeria_3,
+        galeria_4: data.galeria_4,
+        galeria_5: data.galeria_5,
+        galeria_6: data.galeria_6,
+        images: data.images || []
+      };
+      anuncios.push(anuncio);
+    }
+    
+    res.json(anuncios);
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.get("/api/anuncios/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const doc = await db.collection('anuncios').doc(id).get();
+    
+    if (!doc.exists) {
+      return res.status(404).json({ success: false, error: "Anúncio não encontrado" });
+    }
+    
+    const data = doc.data();
+    const anuncio = {
+      id: doc.id,
+      ...data,
+      foto_capa: await getImageUrl(data.foto_capa),
+      coverImage: await getImageUrl(data.coverImage),
+      foto_stories: await getImageUrl(data.foto_stories),
+      profileImage: await getImageUrl(data.profileImage),
+      galeria_1: await getImageUrl(data.galeria_1),
+      galeria_2: await getImageUrl(data.galeria_2),
+      galeria_3: await getImageUrl(data.galeria_3),
+      galeria_4: await getImageUrl(data.galeria_4),
+      galeria_5: await getImageUrl(data.galeria_5),
+      galeria_6: await getImageUrl(data.galeria_6),
+      images: data.images || []
+    };
+    
+    res.json({ success: true, data: anuncio });
+  } catch (error) {
+    res.status(500).json({ success: false, error: "Erro interno do servidor" });
+  }
+});
+
+app.post("/api/anuncios", async (req, res) => {
+  try {
+    const anuncioData = {
+      ...req.body,
+      environment: process.env.ENVIRONMENT || "test",
+      project: process.env.PROJECT_NAME || "copia-do-job",
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      updatedAt: admin.firestore.FieldValue.serverTimestamp()
+    };
+    
+    const docRef = await db.collection('anuncios').add(anuncioData);
+    
+    res.status(201).json({
+      success: true,
+      message: "Anúncio criado com sucesso no Firebase",
+      id: docRef.id,
+      data: anuncioData
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+app.put("/api/anuncios/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateData = {
+      ...req.body,
+      updatedAt: admin.firestore.FieldValue.serverTimestamp()
+    };
+    
+    await db.collection('anuncios').doc(id).update(updateData);
+    
+    const updatedDoc = await db.collection('anuncios').doc(id).get();
+    
+    res.json({
+      success: true,
+      data: {
+        id: updatedDoc.id,
+        ...updatedDoc.data()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false,
+      error: "Erro interno do servidor"
+    });
+  }
+});
+
+app.delete("/api/anuncios/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.collection('anuncios').doc(id).delete();
+    
+    res.json({ 
+      success: true,
+      message: "Anúncio deletado com sucesso"
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false,
+      error: "Erro interno do servidor"
+    });
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

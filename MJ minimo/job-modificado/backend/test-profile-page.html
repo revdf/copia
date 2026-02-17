@@ -1,0 +1,706 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste Página de Perfil</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .info-box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .success {
+            border-left: 4px solid #28a745;
+        }
+        
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .profile-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .profile-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px;
+            border: 3px solid #dc3545;
+        }
+        
+        .profile-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .profile-level {
+            background: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        
+        .profile-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        .profile-link {
+            background: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+        
+        .profile-link:hover {
+            background: #c82333;
+        }
+        
+        .test-links {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .test-link {
+            display: block;
+            background: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 10px 0;
+            transition: background 0.3s;
+        }
+        
+        .test-link:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👤 Teste Página de Perfil</h1>
+        
+        <div class="info-box success">
+            <h3>✅ Página de Perfil Criada</h3>
+            <p><strong>Arquivo:</strong> A_02__premium_Anuncio_modelo_01.html</p>
+            <p><strong>Funcionalidades:</strong></p>
+            <ul>
+                <li>✅ Carregamento dinâmico de dados da API</li>
+                <li>✅ Galeria de fotos com modal</li>
+                <li>✅ Informações do perfil</li>
+                <li>✅ Seção de serviços e preços</li>
+                <li>✅ Botões de contato</li>
+                <li>✅ Design responsivo</li>
+            </ul>
+        </div>
+        
+        <div class="info-box">
+            <h3>📊 Anúncios Premium Disponíveis</h3>
+            <p>Total de anúncios premium (N1): <strong>39</strong></p>
+            <p>Total de anúncios: <strong>125</strong></p>
+        </div>
+        
+        <div class="profile-grid">
+            
+                    <div class="profile-card">
+                        <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2826%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758887&Signature=S7kU9KChpFEDoKuXmjx%2Ffxq%2B31XdYsjSmpojeQQT7dUZtVb%2FJ8UMh1ALAA%2B6b%2Fi347V1yehlnSfkBf%2BiEHIBA3RiLofL5D5D6K4aYfNpM3xZ8fUy%2BwumwI5%2BU6iQPeKMhPgscYw8WQllW%2FCNfedlGs8SNMMu3AbbQFYStvfylKZM8LXUZ%2FjA%2FpdNoK1fzAIaMHgQ9Aj3Pc4jpAm10MgtGhF0LrIyvI31mz4ewUaX%2BbABeTP24G3dvX%2FgT8RH0JQQ%2FRaEqLYwT%2Fm0HIEa1tU8GzAj3RjEx4EtaMAVx4oXwWrlFH8LIYGl8bGPG0CLq8Ok5RsjwAXe9lz%2Fw%2B6LEHl9OQ%3D%3D" alt="Ana" class="profile-image" 
+                             onerror="this.src='https://via.placeholder.com/100x100/FFB6C1/FFFFFF?text=Erro'">
+                        <div class="profile-name">Ana</div>
+                        <div class="profile-level">N1 - Premium VIP</div>
+                        <div class="profile-description">Terapeuta especializada Ana no SML, técnicas avançadas de relaxamento.</div>
+                        <a href="A_02__premium_Anuncio_modelo_01.html?id=0UvOqZ66KWsoH9XOMAwb&name=Ana" class="profile-link">Ver Perfil</a>
+                    </div>
+                
+                    <div class="profile-card">
+                        <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2814%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758887&Signature=lnBiWrAV1bR652qHPV63DfNaKrLk9lrvIz9mOy6di%2FaWNDMEqMEYl5v1nWsK0KvQv842VPsZOgz8qrD3t7B%2FhzrtjEd3IJgdJJI6E%2BvTSZhCoM2oqYqTRLy717NJe%2FlTE6hlbB4FVkcbTdHfrxsVF6cXKCW1%2Fl2fLwA8ammnz1uGXnrgmnm7z4cJdkMVLL%2BqHDtaw1igAHdG25U5ml4wFJSItzNdrxNrWBCZeLb%2FidWxmqAFx07HJg6J28SLuGyL%2BA6ugTj7oHu75ofNDKUNKWBFOd8PaUT%2BgMiOwMN7o%2BfmFdumKXt4qSbNuwuOlQ5Hsk8vhICiaq62Aac0kq8fjA%3D%3D" alt="Ruby" class="profile-image" 
+                             onerror="this.src='https://via.placeholder.com/100x100/FFB6C1/FFFFFF?text=Erro'">
+                        <div class="profile-name">Ruby</div>
+                        <div class="profile-level">N1 - Premium VIP</div>
+                        <div class="profile-description">Garota trans elegante Ruby em Asa Sul, momentos únicos de prazer e diversão.</div>
+                        <a href="A_02__premium_Anuncio_modelo_01.html?id=1MDx3IGzVIiSxMoJx8Bz&name=Ruby" class="profile-link">Ver Perfil</a>
+                    </div>
+                
+                    <div class="profile-card">
+                        <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/avatar%20%282%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758887&Signature=DSq9dzIZsS7sR9fNDBuKciRYj9%2B47Row58gRwRv3BDFyVV6zB0w2mXZ%2FzCo2ThN4aBkZiweklitqxVl%2FjOBkKlIY09p1F3kHJWDpnM3%2BXO2KRL458mbNdAIdbBI3BJvgHnHkmhW%2ByGWqHDL%2BxFXf4LHPQmqMh5bOSdxuOHuEKcTMxnDUHsLmRofWoxb8BAz1G8X8tJeOKOrZ679lIBW%2BOi8QC3dgdl10GD0R%2BEejOuWKmrOsf4jNm8VA2RW2wFzkaAXJ88EyXHh8%2B7PxjgMMxUj%2BXw1oUAVtdcvc2o8ahQEwqOXzGl43q%2BKtdBVCcakJLNXREnX5jZojTKvZ9jDPSA%3D%3D" alt="Aria" class="profile-image" 
+                             onerror="this.src='https://via.placeholder.com/100x100/FFB6C1/FFFFFF?text=Erro'">
+                        <div class="profile-name">Aria</div>
+                        <div class="profile-level">N1 - Premium VIP</div>
+                        <div class="profile-description">Transexual linda e sensual Aria no Riacho Fundo II, atendimento especial e carinhoso.</div>
+                        <a href="A_02__premium_Anuncio_modelo_01.html?id=1f6XehOGnB0f0dWHsnlJ&name=Aria" class="profile-link">Ver Perfil</a>
+                    </div>
+                
+                    <div class="profile-card">
+                        <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/Stories.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758887&Signature=lwiKLhhE8xQg%2FWa8Yuc%2Feu8dXZSptLO%2FFoQxfcdXjh6GqF95D%2F8Gg5o8uv2qs2ILt4L8RZEJPiPLSfiBI1ATMy0xIHJrnEJVXV1K5oyugFaVQbijsM77BKEL0BWETT7rmUaK8vDTqDUh9FluMFond8BSjRH1lw%2BwU2o9N1wBLBsIeVtbYNow9PgZcB6s25eOvitWi%2FCVd%2BwPBBpct9kFaJyhy76yqtVnnSPG7kzr%2BX7D6XutX4SACCSP3HK3f9CWUeExiRxDJL3xHfby%2BiKTRIEmUQmAwqcbFffICXvqTcJZbb1mGFptAuNJscPtLqh5eafu16DYD2poP9Ra8k7UFQ%3D%3D" alt="Violet" class="profile-image" 
+                             onerror="this.src='https://via.placeholder.com/100x100/FFB6C1/FFFFFF?text=Erro'">
+                        <div class="profile-name">Violet</div>
+                        <div class="profile-level">N1 - Premium VIP</div>
+                        <div class="profile-description">Acompanhante trans Violet em Riacho Fundo II, beleza e sensualidade em cada encontro.</div>
+                        <a href="A_02__premium_Anuncio_modelo_01.html?id=3ezmpotZ9cSAbGi5YWgl&name=Violet" class="profile-link">Ver Perfil</a>
+                    </div>
+                
+                    <div class="profile-card">
+                        <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%281%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758888&Signature=tfzgb0iDbdX4bbQ%2FtjlRVvsSQ%2BP6Ussm9bqSGA7TlnVKu4daFq6k4kQUNf88IpK5kmmTTR5f1V08GLgIj3ZTmucSd%2BB2MSK46rpalsPJlauOJHdGqume8UFXTo5oQTuBABlt6wRlXLsxtQRX4xfq4RB58S8QOEkHWezgkL2WV6xuyKnkpBKlkd9iITn7O1um2l7CO1ky%2Bwdps6ILxkFTUP8ojYvYZrz70sFQfoFPcQMbOka1U2%2BzgLWsZB0dM21SFG3F4PT0obrqA5y%2Ft8RfikQsNh3o1D3Wt8PntjSnzSA3iMBOtZIakcoQasWMCZUgpxGen4ENZN4ZC51XCfAsTQ%3D%3D" alt="Ivy" class="profile-image" 
+                             onerror="this.src='https://via.placeholder.com/100x100/FFB6C1/FFFFFF?text=Erro'">
+                        <div class="profile-name">Ivy</div>
+                        <div class="profile-level">N1 - Premium VIP</div>
+                        <div class="profile-description">Webcam girl Ivy em SIN, entretenimento adulto de alta qualidade.</div>
+                        <a href="A_02__premium_Anuncio_modelo_01.html?id=4U6JOWDeN1VRhYwDeTaA&name=Ivy" class="profile-link">Ver Perfil</a>
+                    </div>
+                
+                    <div class="profile-card">
+                        <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2816%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758888&Signature=oCNim9uF3CmDRKItlxWrXNAH37t62fVzqPhBEaEVgQ6wf3Xqh%2FxvusycAVO3qDKPsiUv8nPGdyBuLnsD4AydwiicXc2kMUGjETb7u5KXlzQsZdLOI%2FdBRdVTbE%2B6Pf8dwm4GwdpSGCFxIgk3mXw7xaqliK63Tfq1gqQLhr6YfWogPK7hRsoltRlK7EN0CWoTssrvAvuzOMu2saYQoM%2FJ5UAWG6j58coZ1n9yNE%2Bx%2FCHJpJVez6h%2Bp7%2FM4ZCnIeydqDjP1nYfPEjUVLPkRJ9Nt6pQzGzFMXdjOIgx9XqO8PAzKplxjtwVdzj0kUbVm646wqzDmpo8XyrfMMcbggqVtQ%3D%3D" alt="Lily" class="profile-image" 
+                             onerror="this.src='https://via.placeholder.com/100x100/FFB6C1/FFFFFF?text=Erro'">
+                        <div class="profile-name">Lily</div>
+                        <div class="profile-level">N1 - Premium VIP</div>
+                        <div class="profile-description">Modelo cam Lily no Candangolândia, shows exclusivos e momentos de prazer.</div>
+                        <a href="A_02__premium_Anuncio_modelo_01.html?id=5MJ7LiiVJ5STTj07PqzD&name=Lily" class="profile-link">Ver Perfil</a>
+                    </div>
+                
+        </div>
+        
+        <div class="test-links">
+            <h3>🔗 Links de Teste</h3>
+            <p>Teste os links abaixo para verificar se a página de perfil está funcionando:</p>
+            
+            <a href="A_02__premium_Anuncio_modelo_01.html?id=0UvOqZ66KWsoH9XOMAwb&name=Ana" class="test-link">👤 Ver perfil de Ana</a><a href="A_02__premium_Anuncio_modelo_01.html?id=1MDx3IGzVIiSxMoJx8Bz&name=Ruby" class="test-link">👤 Ver perfil de Ruby</a><a href="A_02__premium_Anuncio_modelo_01.html?id=1f6XehOGnB0f0dWHsnlJ&name=Aria" class="test-link">👤 Ver perfil de Aria</a>
+            
+            <a href="A_02__premium.html" class="test-link">🏠 Voltar para página premium</a>
+        </div>
+        
+        <div class="info-box">
+            <h3>🛠️ Como Funciona</h3>
+            <p><strong>1. Parâmetros da URL:</strong></p>
+            <ul>
+                <li><code>?id=ID_DO_ANUNCIO</code> - ID único do anúncio no Firebase</li>
+                <li><code>&name=NOME_DO_ANUNCIO</code> - Nome do anúncio (fallback)</li>
+            </ul>
+            
+            <p><strong>2. Carregamento de Dados:</strong></p>
+            <ul>
+                <li>Busca o anúncio na API usando o ID ou nome</li>
+                <li>Carrega informações do perfil (nome, descrição, nível)</li>
+                <li>Carrega galeria de fotos</li>
+                <li>Exibe serviços e preços</li>
+            </ul>
+            
+            <p><strong>3. Funcionalidades:</strong></p>
+            <ul>
+                <li>Galeria com modal para visualizar fotos</li>
+                <li>Botões de contato (telefone, WhatsApp, e-mail)</li>
+                <li>Design responsivo para mobile</li>
+                <li>Navegação de volta para página premium</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        console.log('👤 Teste de página de perfil carregado');
+        console.log('📊 Anúncios premium:', [
+  {
+    "nome": "Ana",
+    "name": "Ana",
+    "categoria": "massagista",
+    "category": "massagista",
+    "tipo": "massagista",
+    "status": "ativo",
+    "idade": 23,
+    "age": 23,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "SML",
+    "neighborhood": "SML",
+    "telefone": "+5561784956784",
+    "phone": "+5561784956784",
+    "whatsapp": "+5561377519659",
+    "preco": 150,
+    "price": 150,
+    "preco_hora": 150,
+    "price_per_hour": 150,
+    "descricao": "Terapeuta especializada Ana no SML, técnicas avançadas de relaxamento.",
+    "description": "Terapeuta especializada Ana no SML, técnicas avançadas de relaxamento.",
+    "foto_capa": "foto (26).jpg",
+    "coverImage": "foto (26).jpg",
+    "foto_stories": "foto (23).jpg",
+    "profileImage": "foto (23).jpg",
+    "galeria_1": "avatar (8).jpg",
+    "galeria_2": "d4.jpg",
+    "galeria_3": "foto (7).jpg",
+    "galeria_4": "foto (15).jpg",
+    "galeria_5": "foto (26).jpg",
+    "galeria_6": "foto (23).jpg",
+    "images": [
+      "foto (26).jpg",
+      "foto (23).jpg",
+      "avatar (8).jpg",
+      "d4.jpg",
+      "foto (7).jpg",
+      "foto (15).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 750,
+    "likes": 28,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547621,
+      "_nanoseconds": 546000000
+    },
+    "updatedAt": {
+      "_seconds": 1760547621,
+      "_nanoseconds": 546000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1753832101,
+        "_nanoseconds": 850000000
+      },
+      "proximo_exame": {
+        "_seconds": 1761023905,
+        "_nanoseconds": 466000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Nenhuma",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Casada",
+    "contato_emergencia": "+5561527223518",
+    "cep": "20416-853",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música"
+      ],
+      "musica_preferida": "Eletrônica",
+      "comida_preferida": "Brasileira",
+      "bebida_preferida": "Vinho",
+      "fumante": false,
+      "bebe": false,
+      "animais": true,
+      "criancas": false
+    },
+    "tipo_sanguineo": "A-",
+    "cpf": "252653408",
+    "dados_pagamento": {
+      "metodo_pagamento": "Dinheiro",
+      "aceita_pix": true,
+      "aceita_cartao": false,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 1,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Ensino Médio",
+    "nome_real": "Ana",
+    "parentesco_emergencia": "Amigo",
+    "nome_contato_emergencia": "Contato 83",
+    "peso": "61",
+    "profissao": "Acompanhante",
+    "email_pessoal": "ana451@gmail.com",
+    "dados_bancarios": {
+      "banco": "Caixa Econômica Federal",
+      "codigo_banco": "104",
+      "agencia": "8150",
+      "conta": "231536",
+      "tipo_conta": "Corrente",
+      "pix": "136731298"
+    },
+    "verificacao": {
+      "documento_frente": "avatar (4).jpg",
+      "documento_verso": "avatar (5).jpg",
+      "documento_selfie": "a2.jpg",
+      "comprovante_residencia": "a3.jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_76",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 257000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 257000000
+    },
+    "email_comercial": "anacomercial836@gmail.com",
+    "nome_artistico": "Ana",
+    "etnia": "Indígena",
+    "endereco_completo": "Avenida dos Estados, 7880, SML, Brasília - DF",
+    "altura": "171",
+    "rg": "98530117",
+    "versao_dados": "2.0",
+    "nacionalidade": "Chilena",
+    "destaque": true,
+    "nivel": "N1",
+    "id": "0UvOqZ66KWsoH9XOMAwb",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2826%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758887&Signature=S7kU9KChpFEDoKuXmjx%2Ffxq%2B31XdYsjSmpojeQQT7dUZtVb%2FJ8UMh1ALAA%2B6b%2Fi347V1yehlnSfkBf%2BiEHIBA3RiLofL5D5D6K4aYfNpM3xZ8fUy%2BwumwI5%2BU6iQPeKMhPgscYw8WQllW%2FCNfedlGs8SNMMu3AbbQFYStvfylKZM8LXUZ%2FjA%2FpdNoK1fzAIaMHgQ9Aj3Pc4jpAm10MgtGhF0LrIyvI31mz4ewUaX%2BbABeTP24G3dvX%2FgT8RH0JQQ%2FRaEqLYwT%2Fm0HIEa1tU8GzAj3RjEx4EtaMAVx4oXwWrlFH8LIYGl8bGPG0CLq8Ok5RsjwAXe9lz%2Fw%2B6LEHl9OQ%3D%3D"
+  },
+  {
+    "nome": "Ruby",
+    "name": "Ruby",
+    "categoria": "trans",
+    "category": "trans",
+    "tipo": "trans",
+    "status": "ativo",
+    "idade": 36,
+    "age": 36,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Asa Sul",
+    "neighborhood": "Asa Sul",
+    "telefone": "+5561106681124",
+    "phone": "+5561106681124",
+    "whatsapp": "+5561337013884",
+    "descricao": "Garota trans elegante Ruby em Asa Sul, momentos únicos de prazer e diversão.",
+    "description": "Garota trans elegante Ruby em Asa Sul, momentos únicos de prazer e diversão.",
+    "foto_capa": "foto (14).jpg",
+    "coverImage": "foto (14).jpg",
+    "foto_stories": "d4.jpg",
+    "profileImage": "d4.jpg",
+    "galeria_1": "a3.jpg",
+    "galeria_2": "foto (28).jpg",
+    "galeria_3": "foto (3).jpg",
+    "galeria_4": "foto (26).jpg",
+    "galeria_5": "foto (14).jpg",
+    "galeria_6": "d4.jpg",
+    "images": [
+      "foto (14).jpg",
+      "d4.jpg",
+      "a3.jpg",
+      "foto (28).jpg",
+      "foto (3).jpg",
+      "foto (26).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 629,
+    "likes": 81,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547623,
+      "_nanoseconds": 491000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1754624480,
+        "_nanoseconds": 141000000
+      },
+      "proximo_exame": {
+        "_seconds": 1762171331,
+        "_nanoseconds": 581000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Nenhuma",
+      "medicamentos": "Anticoncepcional",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Casada",
+    "contato_emergencia": "+5561185037022",
+    "cep": "59427-118",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema",
+        "Leitura"
+      ],
+      "musica_preferida": "MPB",
+      "comida_preferida": "Brasileira",
+      "bebida_preferida": "Suco",
+      "fumante": false,
+      "bebe": true,
+      "animais": true,
+      "criancas": false
+    },
+    "tipo_sanguineo": "O-",
+    "cpf": "793754800",
+    "dados_pagamento": {
+      "metodo_pagamento": "PIX",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 4,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Não informado",
+    "nome_real": "Ruby",
+    "parentesco_emergencia": "Irmã",
+    "nome_contato_emergencia": "Contato 43",
+    "peso": "63",
+    "profissao": "Acompanhante",
+    "email_pessoal": "ruby452@gmail.com",
+    "dados_bancarios": {
+      "banco": "Inter",
+      "codigo_banco": "077",
+      "agencia": "1825",
+      "conta": "859348",
+      "tipo_conta": "Corrente",
+      "pix": "pboittnlvh8-81d1gc99zuc"
+    },
+    "verificacao": {
+      "documento_frente": "foto (8).jpg",
+      "documento_verso": "avatar (4).jpg",
+      "documento_selfie": "avatar (2).jpg",
+      "comprovante_residencia": "avatar (2).jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_11",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 331000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 331000000
+    },
+    "email_comercial": "rubycomercial734@hotmail.com",
+    "nome_artistico": "Ruby",
+    "etnia": "Parda",
+    "endereco_completo": "Rua das Margaridas, 5880, Asa Sul, Brasília - DF",
+    "altura": "177",
+    "rg": "49727847",
+    "versao_dados": "2.0",
+    "nacionalidade": "Venezuelana",
+    "level": "N1",
+    "nivel_nome": "Premium VIP",
+    "level_name": "Premium VIP",
+    "premium": true,
+    "destaque": true,
+    "nivel": "N1",
+    "updatedAt": "2025-10-17T02:29:58.257Z",
+    "preco": "500",
+    "preco_hora": "500",
+    "price": "500",
+    "price_per_hour": "500",
+    "preco_30min": "300",
+    "preco_45min": "400",
+    "preco_1h": "500",
+    "id": "1MDx3IGzVIiSxMoJx8Bz",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2814%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758887&Signature=lnBiWrAV1bR652qHPV63DfNaKrLk9lrvIz9mOy6di%2FaWNDMEqMEYl5v1nWsK0KvQv842VPsZOgz8qrD3t7B%2FhzrtjEd3IJgdJJI6E%2BvTSZhCoM2oqYqTRLy717NJe%2FlTE6hlbB4FVkcbTdHfrxsVF6cXKCW1%2Fl2fLwA8ammnz1uGXnrgmnm7z4cJdkMVLL%2BqHDtaw1igAHdG25U5ml4wFJSItzNdrxNrWBCZeLb%2FidWxmqAFx07HJg6J28SLuGyL%2BA6ugTj7oHu75ofNDKUNKWBFOd8PaUT%2BgMiOwMN7o%2BfmFdumKXt4qSbNuwuOlQ5Hsk8vhICiaq62Aac0kq8fjA%3D%3D"
+  },
+  {
+    "nome": "Aria",
+    "name": "Aria",
+    "categoria": "trans",
+    "category": "trans",
+    "tipo": "trans",
+    "status": "ativo",
+    "idade": 40,
+    "age": 40,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Riacho Fundo II",
+    "neighborhood": "Riacho Fundo II",
+    "telefone": "+5561137696281",
+    "phone": "+5561137696281",
+    "whatsapp": "+5561184083386",
+    "descricao": "Transexual linda e sensual Aria no Riacho Fundo II, atendimento especial e carinhoso.",
+    "description": "Transexual linda e sensual Aria no Riacho Fundo II, atendimento especial e carinhoso.",
+    "foto_capa": "avatar (2).jpg",
+    "coverImage": "avatar (2).jpg",
+    "foto_stories": "foto (23).jpg",
+    "profileImage": "foto (23).jpg",
+    "galeria_1": "a3.jpg",
+    "galeria_2": "foto (12).jpg",
+    "galeria_3": "foto (3).jpg",
+    "galeria_4": "foto (25).jpg",
+    "galeria_5": "avatar (2).jpg",
+    "galeria_6": "foto (23).jpg",
+    "images": [
+      "avatar (2).jpg",
+      "foto (23).jpg",
+      "a3.jpg",
+      "foto (12).jpg",
+      "foto (3).jpg",
+      "foto (25).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 239,
+    "likes": 48,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547623,
+      "_nanoseconds": 188000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1756978294,
+        "_nanoseconds": 645000000
+      },
+      "proximo_exame": {
+        "_seconds": 1760689985,
+        "_nanoseconds": 159000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Frutos do mar",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "União Estável",
+    "contato_emergencia": "+5561714647502",
+    "cep": "74285-730",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema",
+        "Leitura",
+        "Esportes"
+      ],
+      "musica_preferida": "Sertanejo",
+      "comida_preferida": "Italiana",
+      "bebida_preferida": "Suco",
+      "fumante": false,
+      "bebe": false,
+      "animais": true,
+      "criancas": false
+    },
+    "tipo_sanguineo": "B+",
+    "cpf": "257779018",
+    "dados_pagamento": {
+      "metodo_pagamento": "Cartão de Crédito",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 1,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Ensino Fundamental",
+    "nome_real": "Aria",
+    "parentesco_emergencia": "Irmã",
+    "nome_contato_emergencia": "Contato 71",
+    "peso": "48",
+    "profissao": "Acompanhante",
+    "email_pessoal": "aria122@gmail.com",
+    "dados_bancarios": {
+      "banco": "Nubank",
+      "codigo_banco": "260",
+      "agencia": "2239",
+      "conta": "419680",
+      "tipo_conta": "Poupança",
+      "pix": "437987995"
+    },
+    "verificacao": {
+      "documento_frente": "foto (9).jpg",
+      "documento_verso": "Stories.jpg",
+      "documento_selfie": "foto (5).jpg",
+      "comprovante_residencia": "foto (10).jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_59",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 467000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 467000000
+    },
+    "email_comercial": "ariacomercial516@yahoo.com.br",
+    "nome_artistico": "Aria",
+    "etnia": "Indígena",
+    "endereco_completo": "Rua da Paz, 638, Riacho Fundo II, Brasília - DF",
+    "altura": "178",
+    "rg": "38155783",
+    "versao_dados": "2.0",
+    "nacionalidade": "Peruana",
+    "level": "N1",
+    "price_per_hour": "500",
+    "preco_30min": "300",
+    "preco_1h": "500",
+    "nivel_nome": "Premium VIP",
+    "preco": "500",
+    "level_name": "Premium VIP",
+    "premium": true,
+    "preco_hora": "500",
+    "price": "500",
+    "destaque": true,
+    "preco_45min": "400",
+    "nivel": "N1",
+    "updatedAt": "2025-10-17T02:29:58.257Z",
+    "id": "1f6XehOGnB0f0dWHsnlJ",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/avatar%20%282%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758887&Signature=DSq9dzIZsS7sR9fNDBuKciRYj9%2B47Row58gRwRv3BDFyVV6zB0w2mXZ%2FzCo2ThN4aBkZiweklitqxVl%2FjOBkKlIY09p1F3kHJWDpnM3%2BXO2KRL458mbNdAIdbBI3BJvgHnHkmhW%2ByGWqHDL%2BxFXf4LHPQmqMh5bOSdxuOHuEKcTMxnDUHsLmRofWoxb8BAz1G8X8tJeOKOrZ679lIBW%2BOi8QC3dgdl10GD0R%2BEejOuWKmrOsf4jNm8VA2RW2wFzkaAXJ88EyXHh8%2B7PxjgMMxUj%2BXw1oUAVtdcvc2o8ahQEwqOXzGl43q%2BKtdBVCcakJLNXREnX5jZojTKvZ9jDPSA%3D%3D"
+  }
+]);
+        
+        // Testar se a API está acessível
+        fetch('http://localhost:5001/api/anuncios')
+            .then(response => response.json())
+            .then(data => {
+                console.log('✅ API acessível:', data.length, 'anúncios');
+            })
+            .catch(error => {
+                console.error('❌ Erro na API:', error);
+            });
+    </script>
+</body>
+</html>

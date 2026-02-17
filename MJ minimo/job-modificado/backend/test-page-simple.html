@@ -1,0 +1,679 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste Simples - Página Premium</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .info-box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .success {
+            border-left: 4px solid #28a745;
+        }
+        
+        .error {
+            border-left: 4px solid #dc3545;
+        }
+        
+        .btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            background: #c82333;
+        }
+        
+        .stories-simple {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+        
+        .story-simple {
+            flex: 0 0 80px;
+            text-align: center;
+        }
+        
+        .story-ring {
+            width: 60px;
+            height: 60px;
+            border: 3px solid #dc3545;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        
+        .story-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .story-name {
+            font-size: 12px;
+            margin-top: 5px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Teste Simples - Página Premium</h1>
+        
+        <div class="info-box success">
+            <h3>✅ API Funcionando</h3>
+            <p>Total de anúncios: <strong>125</strong></p>
+            <p>Anúncios com stories: <strong>125</strong></p>
+            <p>Anúncios com níveis: <strong>100</strong></p>
+            <p>Anúncios premium: <strong>109</strong></p>
+        </div>
+        
+        <div class="info-box">
+            <h3>📊 Distribuição por Nível</h3>
+            <p>N1 (Premium VIP): <strong>39</strong></p>
+            <p>N3 (Destaque): <strong>42</strong></p>
+            <p>N7 (Padrão): <strong>19</strong></p>
+        </div>
+        
+        <div class="info-box">
+            <h3>📸 Stories Simples</h3>
+            <div class="stories-simple">
+                
+                    <div class="story-simple">
+                        <div class="story-ring">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/copia-do-job.firebasestorage.app/o/foto%20(23).jpg?alt=media" 
+                                 class="story-thumb" alt="Ana" 
+                                 onerror="this.src='https://via.placeholder.com/60x60/FFB6C1/FFFFFF?text=Erro'">
+                        </div>
+                        <div class="story-name">Ana</div>
+                    </div>
+                
+                    <div class="story-simple">
+                        <div class="story-ring">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/copia-do-job.firebasestorage.app/o/d4.jpg?alt=media" 
+                                 class="story-thumb" alt="Ruby" 
+                                 onerror="this.src='https://via.placeholder.com/60x60/FFB6C1/FFFFFF?text=Erro'">
+                        </div>
+                        <div class="story-name">Ruby</div>
+                    </div>
+                
+                    <div class="story-simple">
+                        <div class="story-ring">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/copia-do-job.firebasestorage.app/o/foto%20(2).jpg?alt=media" 
+                                 class="story-thumb" alt="Samuel" 
+                                 onerror="this.src='https://via.placeholder.com/60x60/FFB6C1/FFFFFF?text=Erro'">
+                        </div>
+                        <div class="story-name">Samuel</div>
+                    </div>
+                
+                    <div class="story-simple">
+                        <div class="story-ring">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/copia-do-job.firebasestorage.app/o/foto%20(23).jpg?alt=media" 
+                                 class="story-thumb" alt="Aria" 
+                                 onerror="this.src='https://via.placeholder.com/60x60/FFB6C1/FFFFFF?text=Erro'">
+                        </div>
+                        <div class="story-name">Aria</div>
+                    </div>
+                
+                    <div class="story-simple">
+                        <div class="story-ring">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/copia-do-job.firebasestorage.app/o/avatar.jpg?alt=media" 
+                                 class="story-thumb" alt="Márcia" 
+                                 onerror="this.src='https://via.placeholder.com/60x60/FFB6C1/FFFFFF?text=Erro'">
+                        </div>
+                        <div class="story-name">Márcia</div>
+                    </div>
+                
+                    <div class="story-simple">
+                        <div class="story-ring">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/copia-do-job.firebasestorage.app/o/foto%20(29).jpg?alt=media" 
+                                 class="story-thumb" alt="Violet" 
+                                 onerror="this.src='https://via.placeholder.com/60x60/FFB6C1/FFFFFF?text=Erro'">
+                        </div>
+                        <div class="story-name">Violet</div>
+                    </div>
+                
+                    <div class="story-simple">
+                        <div class="story-ring">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/copia-do-job.firebasestorage.app/o/foto%20(30).jpg?alt=media" 
+                                 class="story-thumb" alt="Priscila" 
+                                 onerror="this.src='https://via.placeholder.com/60x60/FFB6C1/FFFFFF?text=Erro'">
+                        </div>
+                        <div class="story-name">Priscila</div>
+                    </div>
+                
+                    <div class="story-simple">
+                        <div class="story-ring">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/copia-do-job.firebasestorage.app/o/foto%20(26).jpg?alt=media" 
+                                 class="story-thumb" alt="Ivy" 
+                                 onerror="this.src='https://via.placeholder.com/60x60/FFB6C1/FFFFFF?text=Erro'">
+                        </div>
+                        <div class="story-name">Ivy</div>
+                    </div>
+                
+                    <div class="story-simple">
+                        <div class="story-ring">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/copia-do-job.firebasestorage.app/o/avatar%20(2).jpg?alt=media" 
+                                 class="story-thumb" alt="Cristina" 
+                                 onerror="this.src='https://via.placeholder.com/60x60/FFB6C1/FFFFFF?text=Erro'">
+                        </div>
+                        <div class="story-name">Cristina</div>
+                    </div>
+                
+                    <div class="story-simple">
+                        <div class="story-ring">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/copia-do-job.firebasestorage.app/o/foto%20(10).jpg?alt=media" 
+                                 class="story-thumb" alt="Isabella" 
+                                 onerror="this.src='https://via.placeholder.com/60x60/FFB6C1/FFFFFF?text=Erro'">
+                        </div>
+                        <div class="story-name">Isabella</div>
+                    </div>
+                
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <h3>🔗 Links para Testar</h3>
+            <a href="http://127.0.0.1:8080/A_02__premium.html" class="btn">Página Premium Real</a>
+            <a href="file:///Users/troll/Desktop/copia%20do%20job/backend/test-stories-carousel.html" class="btn">Teste Carrossel</a>
+        </div>
+        
+        <div class="info-box">
+            <h3>🛠️ Instruções de Debug</h3>
+            <p>1. <strong>Se a página está branca:</strong> Abra o Console do navegador (F12) e verifique erros JavaScript</p>
+            <p>2. <strong>Se não carrega:</strong> Verifique se o servidor está rodando na porta 5001</p>
+            <p>3. <strong>Se não aparecem stories:</strong> Verifique se há anúncios com foto_stories</p>
+            <p>4. <strong>Se não aparecem níveis:</strong> Verifique se há anúncios com níveis N1, N3, N7</p>
+        </div>
+    </div>
+    
+    <script>
+        console.log('🔍 Teste simples carregado');
+        console.log('📊 Dados da API:', [
+  {
+    "nome": "Ana",
+    "name": "Ana",
+    "categoria": "massagista",
+    "category": "massagista",
+    "tipo": "massagista",
+    "status": "ativo",
+    "idade": 23,
+    "age": 23,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "SML",
+    "neighborhood": "SML",
+    "telefone": "+5561784956784",
+    "phone": "+5561784956784",
+    "whatsapp": "+5561377519659",
+    "preco": 150,
+    "price": 150,
+    "preco_hora": 150,
+    "price_per_hour": 150,
+    "descricao": "Terapeuta especializada Ana no SML, técnicas avançadas de relaxamento.",
+    "description": "Terapeuta especializada Ana no SML, técnicas avançadas de relaxamento.",
+    "foto_capa": "foto (26).jpg",
+    "coverImage": "foto (26).jpg",
+    "foto_stories": "foto (23).jpg",
+    "profileImage": "foto (23).jpg",
+    "galeria_1": "avatar (8).jpg",
+    "galeria_2": "d4.jpg",
+    "galeria_3": "foto (7).jpg",
+    "galeria_4": "foto (15).jpg",
+    "galeria_5": "foto (26).jpg",
+    "galeria_6": "foto (23).jpg",
+    "images": [
+      "foto (26).jpg",
+      "foto (23).jpg",
+      "avatar (8).jpg",
+      "d4.jpg",
+      "foto (7).jpg",
+      "foto (15).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 750,
+    "likes": 28,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547621,
+      "_nanoseconds": 546000000
+    },
+    "updatedAt": {
+      "_seconds": 1760547621,
+      "_nanoseconds": 546000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1753832101,
+        "_nanoseconds": 850000000
+      },
+      "proximo_exame": {
+        "_seconds": 1761023905,
+        "_nanoseconds": 466000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Nenhuma",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Casada",
+    "contato_emergencia": "+5561527223518",
+    "cep": "20416-853",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música"
+      ],
+      "musica_preferida": "Eletrônica",
+      "comida_preferida": "Brasileira",
+      "bebida_preferida": "Vinho",
+      "fumante": false,
+      "bebe": false,
+      "animais": true,
+      "criancas": false
+    },
+    "tipo_sanguineo": "A-",
+    "cpf": "252653408",
+    "dados_pagamento": {
+      "metodo_pagamento": "Dinheiro",
+      "aceita_pix": true,
+      "aceita_cartao": false,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 1,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Ensino Médio",
+    "nome_real": "Ana",
+    "parentesco_emergencia": "Amigo",
+    "nome_contato_emergencia": "Contato 83",
+    "peso": "61",
+    "profissao": "Acompanhante",
+    "email_pessoal": "ana451@gmail.com",
+    "dados_bancarios": {
+      "banco": "Caixa Econômica Federal",
+      "codigo_banco": "104",
+      "agencia": "8150",
+      "conta": "231536",
+      "tipo_conta": "Corrente",
+      "pix": "136731298"
+    },
+    "verificacao": {
+      "documento_frente": "avatar (4).jpg",
+      "documento_verso": "avatar (5).jpg",
+      "documento_selfie": "a2.jpg",
+      "comprovante_residencia": "a3.jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_76",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 257000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 257000000
+    },
+    "email_comercial": "anacomercial836@gmail.com",
+    "nome_artistico": "Ana",
+    "etnia": "Indígena",
+    "endereco_completo": "Avenida dos Estados, 7880, SML, Brasília - DF",
+    "altura": "171",
+    "rg": "98530117",
+    "versao_dados": "2.0",
+    "nacionalidade": "Chilena",
+    "destaque": true,
+    "nivel": "N1",
+    "id": "0UvOqZ66KWsoH9XOMAwb",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2826%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758140&Signature=fjjTYv5%2Frq9HN5pBlhK1gD6CP3U9ESzzeiIFn%2BMKKmRlxnYn19L%2FF9Eb7vcTtZE8Uiwu7nz5WkOvgwaMjEERatMiUGpqwP07YlJhwBx%2FloAfGxRUpLe1zeox4Ky75K7acQjASVl6fWxk82IVVLoyWyeMW87GB8dBs41qgPJZb9ICcbSx0nWWl7IIkMBXBxoM43FSVC7bJNEOldPftS35cl7hvHcrVJCDXUIrajd4GuH3C1MctjMs25Cu88SE0GaUj1WnDAvuyixSOefogDVGdGTokJsqeU0RzbDAl4cvuK%2FbrRay%2BNvNzCnJUxEmDxvkWAeBtntKdhSne18g7%2FFGBQ%3D%3D"
+  },
+  {
+    "nome": "Ruby",
+    "name": "Ruby",
+    "categoria": "trans",
+    "category": "trans",
+    "tipo": "trans",
+    "status": "ativo",
+    "idade": 36,
+    "age": 36,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Asa Sul",
+    "neighborhood": "Asa Sul",
+    "telefone": "+5561106681124",
+    "phone": "+5561106681124",
+    "whatsapp": "+5561337013884",
+    "descricao": "Garota trans elegante Ruby em Asa Sul, momentos únicos de prazer e diversão.",
+    "description": "Garota trans elegante Ruby em Asa Sul, momentos únicos de prazer e diversão.",
+    "foto_capa": "foto (14).jpg",
+    "coverImage": "foto (14).jpg",
+    "foto_stories": "d4.jpg",
+    "profileImage": "d4.jpg",
+    "galeria_1": "a3.jpg",
+    "galeria_2": "foto (28).jpg",
+    "galeria_3": "foto (3).jpg",
+    "galeria_4": "foto (26).jpg",
+    "galeria_5": "foto (14).jpg",
+    "galeria_6": "d4.jpg",
+    "images": [
+      "foto (14).jpg",
+      "d4.jpg",
+      "a3.jpg",
+      "foto (28).jpg",
+      "foto (3).jpg",
+      "foto (26).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 629,
+    "likes": 81,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547623,
+      "_nanoseconds": 491000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1754624480,
+        "_nanoseconds": 141000000
+      },
+      "proximo_exame": {
+        "_seconds": 1762171331,
+        "_nanoseconds": 581000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Nenhuma",
+      "medicamentos": "Anticoncepcional",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Casada",
+    "contato_emergencia": "+5561185037022",
+    "cep": "59427-118",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema",
+        "Leitura"
+      ],
+      "musica_preferida": "MPB",
+      "comida_preferida": "Brasileira",
+      "bebida_preferida": "Suco",
+      "fumante": false,
+      "bebe": true,
+      "animais": true,
+      "criancas": false
+    },
+    "tipo_sanguineo": "O-",
+    "cpf": "793754800",
+    "dados_pagamento": {
+      "metodo_pagamento": "PIX",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 4,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Não informado",
+    "nome_real": "Ruby",
+    "parentesco_emergencia": "Irmã",
+    "nome_contato_emergencia": "Contato 43",
+    "peso": "63",
+    "profissao": "Acompanhante",
+    "email_pessoal": "ruby452@gmail.com",
+    "dados_bancarios": {
+      "banco": "Inter",
+      "codigo_banco": "077",
+      "agencia": "1825",
+      "conta": "859348",
+      "tipo_conta": "Corrente",
+      "pix": "pboittnlvh8-81d1gc99zuc"
+    },
+    "verificacao": {
+      "documento_frente": "foto (8).jpg",
+      "documento_verso": "avatar (4).jpg",
+      "documento_selfie": "avatar (2).jpg",
+      "comprovante_residencia": "avatar (2).jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_11",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 331000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 331000000
+    },
+    "email_comercial": "rubycomercial734@hotmail.com",
+    "nome_artistico": "Ruby",
+    "etnia": "Parda",
+    "endereco_completo": "Rua das Margaridas, 5880, Asa Sul, Brasília - DF",
+    "altura": "177",
+    "rg": "49727847",
+    "versao_dados": "2.0",
+    "nacionalidade": "Venezuelana",
+    "level": "N1",
+    "nivel_nome": "Premium VIP",
+    "level_name": "Premium VIP",
+    "premium": true,
+    "destaque": true,
+    "nivel": "N1",
+    "updatedAt": "2025-10-17T02:29:58.257Z",
+    "preco": "500",
+    "preco_hora": "500",
+    "price": "500",
+    "price_per_hour": "500",
+    "preco_30min": "300",
+    "preco_45min": "400",
+    "preco_1h": "500",
+    "id": "1MDx3IGzVIiSxMoJx8Bz",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2814%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758140&Signature=UiNC7k%2FXcWmkaqT6BAsrtYVkd0CAf9RAayBLbiR8ynzmAAjuA%2FNQb%2Bd8i9cHuE1jEkwePzSZbh1V1FyqcGcwcsFpVuMgG1XBBUogVnAjHTU305m1fTo3rqznPJvvxIsWvJF6TMd7NXfbuUWiOaj%2FCNVfaJ0d1TtRnbsvTN3lnB%2BCpFR7OPKS5HeDOwIukKDJvNxrBJsgiVd3MhriNcgrK8CWCqsppy7Km6C%2BJ7Knts9ryRe2WACQqk5gSvF3Kq5Bs9JE4Z5PgksYKO63o1E3hAnBhqNfZlKdxsQtDCb0Ud9hkzvA4Z6wJX%2FJuEU0cnmUcGzg48Nk0EiR2wLiEwcX6Q%3D%3D"
+  },
+  {
+    "nome": "Samuel",
+    "name": "Samuel",
+    "categoria": "homem",
+    "category": "homem",
+    "tipo": "homem",
+    "status": "ativo",
+    "idade": 19,
+    "age": 19,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Sol Nascente",
+    "neighborhood": "Sol Nascente",
+    "telefone": "+5561774247178",
+    "phone": "+5561774247178",
+    "whatsapp": "+5561945169130",
+    "preco": 350,
+    "price": 350,
+    "preco_hora": 350,
+    "price_per_hour": 350,
+    "descricao": "Acompanhante VIP masculino Samuel no Sol Nascente, experiência premium personalizada.",
+    "description": "Acompanhante VIP masculino Samuel no Sol Nascente, experiência premium personalizada.",
+    "foto_capa": "foto (4).jpg",
+    "coverImage": "foto (4).jpg",
+    "foto_stories": "foto (2).jpg",
+    "profileImage": "foto (2).jpg",
+    "galeria_1": "foto (18).jpg",
+    "galeria_2": "foto (6).jpg",
+    "galeria_3": "foto (17).jpg",
+    "galeria_4": "foto (14).jpg",
+    "galeria_5": "foto (4).jpg",
+    "galeria_6": "foto (2).jpg",
+    "images": [
+      "foto (4).jpg",
+      "foto (2).jpg",
+      "foto (18).jpg",
+      "foto (6).jpg",
+      "foto (17).jpg",
+      "foto (14).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "destaque": true,
+    "views": 314,
+    "likes": 56,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547625,
+      "_nanoseconds": 441000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1756034699,
+        "_nanoseconds": 964000000
+      },
+      "proximo_exame": {
+        "_seconds": 1761156945,
+        "_nanoseconds": 565000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Nenhuma",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Casada",
+    "contato_emergencia": "+5561364557795",
+    "cep": "31728-575",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema",
+        "Leitura"
+      ],
+      "musica_preferida": "Sertanejo",
+      "comida_preferida": "Brasileira",
+      "bebida_preferida": "Cerveja",
+      "fumante": false,
+      "bebe": true,
+      "animais": false,
+      "criancas": false
+    },
+    "tipo_sanguineo": "A-",
+    "cpf": "471220017",
+    "dados_pagamento": {
+      "metodo_pagamento": "Cartão de Crédito",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 0,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Pós-graduação",
+    "nome_real": "Samuel",
+    "parentesco_emergencia": "Mãe",
+    "nome_contato_emergencia": "Contato 72",
+    "peso": "48",
+    "profissao": "Acompanhante",
+    "email_pessoal": "samuel638@outlook.com",
+    "dados_bancarios": {
+      "banco": "Nubank",
+      "codigo_banco": "260",
+      "agencia": "5246",
+      "conta": "510248",
+      "tipo_conta": "Corrente",
+      "pix": "863103965"
+    },
+    "verificacao": {
+      "documento_frente": "foto (8).jpg",
+      "documento_verso": "foto (5).jpg",
+      "documento_selfie": "avatar.jpg",
+      "comprovante_residencia": "Stories.jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_85",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 400000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 400000000
+    },
+    "email_comercial": "samuelcomercial365@outlook.com",
+    "nome_artistico": "Samuel",
+    "etnia": "Branca",
+    "endereco_completo": "Avenida dos Estados, 9895, Sol Nascente, Brasília - DF",
+    "altura": "172",
+    "rg": "64063994",
+    "versao_dados": "2.0",
+    "nacionalidade": "Chilena",
+    "level_name": "Destaque",
+    "premium": false,
+    "level": "N3",
+    "id": "1e3uqx3WwQXMtSmZktWI",
+    "nivel": "N3",
+    "nivel_nome": "Destaque",
+    "updatedAt": "2025-10-17T03:10:59.246Z",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%284%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758140&Signature=UXM3jcRKhF8npMXm7uFVe%2BrCXdbEJjsFmlGbXs%2Bo9Z4SDE%2B8V%2FO5rjxwCfejbBMqI5rlA9QoIZbFSANe6G0Zb9w2rrAChGzoqyLjqa0i7lUm0HPCGHF%2BDIRlX1PWbTJ3WTW168RolfoNkAcwnIGdR1SxDE6SbcOsy0ImiBUt7gKJrcazxn6Fb3J0MxmV4sOuEgpVkdA9Nz5i8aVH1nxjFjWyhhOONIM1Rr6aScn4MYghysNH%2BE2mxd38jKa%2BsL4c9SJD8uk9wneqJjKwFQUqhKiUzElWuyOUAsqEPXpuw%2F1ZzCfr%2FWaa7M%2FLXOXJwrhxV%2FYKxHWcUL6NYEW88FyCvw%3D%3D"
+  }
+]);
+        
+        // Testar se a API está acessível
+        fetch('http://localhost:5001/api/anuncios')
+            .then(response => response.json())
+            .then(data => {
+                console.log('✅ API acessível:', data.length, 'anúncios');
+            })
+            .catch(error => {
+                console.error('❌ Erro na API:', error);
+            });
+    </script>
+</body>
+</html>

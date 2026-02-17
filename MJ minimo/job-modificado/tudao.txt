@@ -1,0 +1,618 @@
+================================================================================
+                    DOCUMENTAÇÃO COMPLETA - PROJETO MANSÃO DO JOB
+================================================================================
+
+📋 ESTRUTURA GERAL DO PROJETO:
+- Frontend: HTML/CSS/JavaScript (páginas web)
+- Backend: Node.js/Express (API Firebase)
+- Servidor: Firebase Firestore + Firebase Storage
+- Portas: Frontend (8080/5500), Backend (5001)
+
+================================================================================
+                                FRONTEND
+================================================================================
+
+🎯 PÁGINAS PRINCIPAIS (SEQUÊNCIA LÓGICA DE ACESSO):
+
+1. A_01__index.html (PÁGINA INICIAL)
+   ├── Conecta com: http://localhost:5001/api/anuncios
+   ├── Exibe: 6 anúncios em destaque
+   ├── Navega para: Premium, Massagistas, Trans, Homens, Webcam
+   └── Função: Página principal com cards de anúncios
+
+2. A_02__premium.html (ANÚNCIOS PREMIUM)
+   ├── Conecta com: http://localhost:5001/api/anuncios
+   ├── Filtra: categoria === 'premium'
+   ├── Exibe: 25 anúncios premium de Brasília
+   └── Função: Página de anúncios de luxo
+
+3. A_03__massagistas.html (MASSAGISTAS)
+   ├── Conecta com: http://localhost:5001/api/anuncios
+   ├── Filtra: categoria === 'massagista'
+   ├── Exibe: 25 anúncios de massagistas
+   └── Função: Página de serviços de massagem
+
+4. A_04__trans.html (ACOMPANHANTES TRANS)
+   ├── Conecta com: http://localhost:5001/api/anuncios
+   ├── Filtra: categoria === 'trans'
+   ├── Exibe: 25 anúncios trans
+   └── Função: Página de acompanhantes trans
+
+5. A_05__homens.html (ACOMPANHANTES MASCULINOS)
+   ├── Conecta com: http://localhost:5001/api/anuncios
+   ├── Filtra: categoria === 'homem'
+   ├── Exibe: 25 anúncios masculinos
+   └── Função: Página de acompanhantes homens
+
+6. A_06__webcam.html (MODELOS WEBCAM)
+   ├── Conecta com: http://localhost:5001/api/anuncios
+   ├── Filtra: categoria === 'webcam'
+   ├── Exibe: 25 anúncios de webcam
+   └── Função: Página de modelos webcam
+
+🔄 PÁGINAS ALTERNATIVAS/DUPLICATAS:
+
+7. A_06__webcam copy.html
+   ├── Conecta com: http://localhost:5001/api/anuncios
+   ├── Filtra: categoria === 'webcam'
+   └── Função: Cópia da página webcam
+
+8. luxo.html (PÁGINA DE LUXO)
+   ├── Conecta com: http://localhost:5001/api/anuncios
+   ├── Filtra: categoria === 'premium'
+   └── Função: Versão alternativa da página premium
+
+9. premium_2.html (PREMIUM ALTERNATIVO)
+   ├── Conecta com: http://localhost:5001/api/anuncios
+   ├── Filtra: categoria === 'premium'
+   └── Função: Segunda versão da página premium
+
+📝 PÁGINAS DE FUNCIONALIDADE:
+
+10. register.html (CADASTRO)
+    ├── Conecta com: http://localhost:5001/api/anuncios
+    ├── Função: Página de cadastro de usuários
+    └── Integração: Formulário de registro
+
+================================================================================
+                                BACKEND
+================================================================================
+
+🔧 SERVIDORES PRINCIPAIS:
+
+1. server-firebase-simples.js (SERVIDOR PRINCIPAL)
+   ├── Porta: 5001
+   ├── Banco: Firebase Firestore
+   ├── Storage: Firebase Storage
+   ├── Endpoints:
+   │   ├── GET /api/anuncios - Lista todos os anúncios
+   │   ├── GET /api/anuncios/:id - Busca anúncio específico
+   │   ├── POST /api/anuncios - Cria novo anúncio
+   │   ├── PUT /api/anuncios/:id - Atualiza anúncio
+   │   ├── DELETE /api/anuncios/:id - Deleta anúncio
+   │   └── GET /api/image/:filename - Converte imagem para URL
+   └── Função: API principal com Firebase
+
+2. api-firebase-completo.js (SERVIDOR COMPLETO)
+   ├── Porta: 5000 (configurável)
+   ├── Banco: Firebase Firestore
+   ├── Storage: Firebase Storage
+   ├── Endpoints: Mesmos do server-firebase-simples.js
+   └── Função: Versão completa da API
+
+3. api-example.js (SERVIDOR MOCK)
+   ├── Porta: 5000 (configurável)
+   ├── Banco: Dados mock (sem Firebase)
+   ├── Função: Servidor de teste com dados simulados
+   └── Status: Descontinuado (apenas para testes)
+
+📊 SCRIPTS DE POPULAÇÃO:
+
+4. populate-brasilia.js
+   ├── Função: Popula Firebase com 125 anúncios (25 por categoria)
+   ├── Localização: Todos em Brasília/DF
+   ├── Categorias: premium, massagista, trans, homem, webcam
+   └── Dados: Nomes, preços, descrições, fotos aleatórias
+
+5. populate-sensitive-data.js
+   ├── Função: Adiciona dados sensíveis aos anúncios existentes
+   ├── Dados: CPF, RG, endereço, dados bancários, documentos
+   └── Status: Para testes (dados simulados)
+
+6. upload-fotos-firebase.js
+   ├── Função: Upload de todas as fotos locais para Firebase Storage
+   ├── Origem: /fotinha/fotos (82 imagens)
+   ├── Destino: Firebase Storage bucket
+   └── Status: Concluído
+
+7. setup-firebase-storage.js
+   ├── Função: Configura e testa Firebase Storage
+   ├── Testes: Upload, download, listagem de arquivos
+   └── Status: Script de configuração
+
+================================================================================
+                                CONFIGURAÇÕES
+================================================================================
+
+⚙️ ARQUIVOS DE CONFIGURAÇÃO:
+
+1. package.json (Backend)
+   ├── Dependências: express, firebase-admin, cors, dotenv
+   ├── Scripts: start, dev, start-mock
+   ├── Main: api-firebase-completo.js
+   └── Versão: 1.0.0
+
+2. config-firebase-only.env
+   ├── FIREBASE_PROJECT_ID: copia-do-job
+   ├── FIREBASE_PRIVATE_KEY: [chave privada]
+   ├── FIREBASE_CLIENT_EMAIL: [email do serviço]
+   └── Outras configurações Firebase
+
+3. live-server.json
+   ├── Porta: 5500
+   ├── Diretório: frontend
+   └── Configuração: Live Server
+
+================================================================================
+                                CONEXÕES E AFINIDADES
+================================================================================
+
+🔗 MAPA DE CONEXÕES:
+
+FRONTEND → BACKEND:
+├── Todas as páginas HTML → http://localhost:5001/api/anuncios
+├── Filtros por categoria: premium, massagista, trans, homem, webcam
+└── Imagens: Firebase Storage URLs assinadas
+
+BACKEND → FIREBASE:
+├── Firestore: Coleção 'anuncios' (125 documentos)
+├── Storage: 82 imagens + avatar padrão
+└── Autenticação: Service Account
+
+SEQUÊNCIA LÓGICA DE ACESSO:
+1. index.html (entrada) → premium.html (luxo)
+2. index.html → massagistas.html (serviços)
+3. index.html → trans.html (trans)
+4. index.html → homens.html (masculino)
+5. index.html → webcam.html (virtual)
+6. register.html (cadastro) → qualquer página
+
+PÁGINAS COM AFINIDADE:
+├── premium.html ↔ luxo.html ↔ premium_2.html (mesmo conteúdo)
+├── webcam.html ↔ webcam copy.html (duplicatas)
+└── Todas as páginas principais → register.html (cadastro)
+
+================================================================================
+                                DADOS E ESTRUTURA
+================================================================================
+
+📊 ESTRUTURA DOS DADOS:
+
+ANÚNCIO (Firestore):
+├── id: Document ID
+├── nome/name: Nome da pessoa
+├── categoria/category: premium|massagista|trans|homem|webcam
+├── cidade/city: Brasília
+├── estado/state: DF
+├── bairro/neighborhood: [44 bairros de Brasília]
+├── preco/price: R$ 150-1000
+├── idade/age: 18-25
+├── telefone/phone: +5561XXXXXXXXX
+├── whatsapp: +5561XXXXXXXXX
+├── descricao/description: Descrição do serviço
+├── foto_capa/coverImage: Imagem principal
+├── galeria_1 a galeria_6: Imagens da galeria
+├── images: Array de imagens
+├── status: ativo
+├── verificado: true
+├── destaque: true/false
+├── views: número de visualizações
+├── likes: número de curtidas
+└── Dados sensíveis (simulados):
+    ├── cpf, rg, email_pessoal
+    ├── endereco_completo, cep
+    ├── dados_bancarios, pix
+    ├── documento_frente_url, documento_verso_url
+    ├── dados_saude, preferencias
+    └── contato_emergencia
+
+🖼️ IMAGENS (Firebase Storage):
+├── 82 fotos originais: foto (1).jpg a foto (30).jpg, avatar (1).jpg a avatar (15).jpg, etc.
+├── avatar.jpg: Imagem padrão
+├── Stories.jpg: Imagem para stories
+├── a1.jpg, a2.jpg, a3.jpg, d4.jpg: Imagens adicionais
+└── URLs assinadas: Válidas por 24 horas
+
+================================================================================
+                                COMANDOS DE EXECUÇÃO
+================================================================================
+
+🚀 COMO EXECUTAR O PROJETO:
+
+1. INICIAR BACKEND (Firebase):
+   cd "/Users/troll/Desktop/copia do job/backend"
+   node server-firebase-simples.js
+   → Servidor rodando na porta 5001
+
+2. INICIAR FRONTEND (Porta 8080):
+   cd "/Users/troll/Desktop/copia do job/frontend"
+   python3 -m http.server 8080
+   → Frontend rodando na porta 8080
+
+3. INICIAR FRONTEND (Porta 5500):
+   cd "/Users/troll/Desktop/copia do job/frontend"
+   python3 -m http.server 5500
+   → Frontend rodando na porta 5500
+
+4. ACESSAR PÁGINAS:
+   http://localhost:8080/src/A_01__index.html (página inicial)
+   http://localhost:8080/src/A_02__premium.html (premium)
+   http://localhost:8080/src/A_03__massagistas.html (massagistas)
+   http://localhost:8080/src/A_04__trans.html (trans)
+   http://localhost:8080/src/A_05__homens.html (homens)
+   http://localhost:8080/src/A_06__webcam.html (webcam)
+   http://localhost:8080/src/register.html (cadastro)
+
+5. TESTAR API:
+   curl http://localhost:5001/api/anuncios
+   → Retorna JSON com todos os anúncios
+
+================================================================================
+                                STATUS ATUAL
+================================================================================
+
+✅ FUNCIONANDO:
+├── Backend Firebase (porta 5001)
+├── Frontend (portas 8080 e 5500)
+├── Firebase Firestore (125 anúncios)
+├── Firebase Storage (82 imagens)
+├── Todas as páginas HTML
+└── Filtros por categoria
+
+⚠️ PROBLEMAS CONHECIDOS:
+├── Algumas imagens não encontradas no Storage (foto (5).jpg, foto (8).jpg, etc.)
+├── Fallback para avatar padrão quando imagem não existe
+└── Live Server não funcionando (problema com npx)
+
+🔄 OTIMIZAÇÕES IMPLEMENTADAS:
+├── Apenas foto_capa é pré-carregada (performance)
+├── Outras imagens carregadas sob demanda
+├── URLs assinadas do Firebase Storage
+└── Filtros no frontend (não no backend)
+
+================================================================================
+                                RESUMO TÉCNICO
+================================================================================
+
+TECNOLOGIAS:
+├── Frontend: HTML5, CSS3, JavaScript (Vanilla)
+├── Backend: Node.js, Express.js
+├── Banco: Firebase Firestore
+├── Storage: Firebase Storage
+├── Autenticação: Firebase Admin SDK
+└── Servidor Web: Python http.server
+
+ARQUITETURA:
+├── SPA (Single Page Application) com múltiplas páginas
+├── API REST com endpoints CRUD
+├── Armazenamento em nuvem (Firebase)
+├── URLs assinadas para imagens
+└── Dados sensíveis simulados para testes
+
+SEGURANÇA:
+├── CORS configurado para localhost
+├── Service Account para Firebase
+├── URLs assinadas com expiração
+└── Dados sensíveis apenas para testes
+
+================================================================================
+                                ARQUIVOS COMPLETOS DO PROJETO
+================================================================================
+
+📁 ESTRUTURA COMPLETA DE ARQUIVOS:
+
+🔧 BACKEND (/backend/):
+├── SERVIDORES PRINCIPAIS:
+│   ├── server-firebase-simples.js (SERVIDOR PRINCIPAL - porta 5001)
+│   ├── server-firebase-only.js (servidor apenas Firebase)
+│   ├── server-firebase-temp.js (servidor temporário)
+│   ├── server-simple-temp.js (servidor simples temporário)
+│   ├── api-firebase-completo.js (API completa Firebase)
+│   └── api-example.js (servidor mock/exemplo)
+│
+├── SCRIPTS DE POPULAÇÃO E DADOS:
+│   ├── populate-brasilia.js (popula 125 anúncios)
+│   ├── populate-firebase.js (popula Firebase)
+│   ├── populate-sensitive-data.js (adiciona dados sensíveis)
+│   ├── popular-banco-teste.js (popula banco de teste)
+│   ├── generate-complete-ads.js (gera anúncios completos)
+│   └── add-sensitive-data.js (adiciona dados sensíveis)
+│
+├── SCRIPTS DE VERIFICAÇÃO E DIAGNÓSTICO:
+│   ├── check-firebase-ads.js (verifica anúncios Firebase)
+│   ├── check-firebase-ads-direct.js (verificação direta)
+│   ├── check-firebase-categories.js (verifica categorias)
+│   ├── check-firestore-ad-details.js (verifica detalhes)
+│   ├── diagnose-firebase-storage.js (diagnóstico storage)
+│   ├── verificar-firebase.js (verifica Firebase)
+│   └── verificar-projeto-firebase.js (verifica projeto)
+│
+├── SCRIPTS DE LIMPEZA E MANUTENÇÃO:
+│   ├── clear-firebase.js (limpa Firebase)
+│   ├── clear-firebase-complete.js (limpeza completa)
+│   ├── clean-via-api.js (limpeza via API)
+│   └── activate-existing-ad.js (ativa anúncios existentes)
+│
+├── SCRIPTS DE UPLOAD E STORAGE:
+│   ├── upload-fotos-firebase.js (upload de fotos)
+│   ├── upload-media-only.js (upload apenas mídia)
+│   ├── setup-firebase-storage.js (configura storage)
+│   ├── make-files-public.js (torna arquivos públicos)
+│   └── servidor-imagens.js (servidor de imagens)
+│
+├── SCRIPTS DE TESTE:
+│   ├── test-firebase-alternativo.js (teste alternativo)
+│   ├── testar-correcoes.js (testa correções)
+│   ├── testar-galeria.js (testa galeria)
+│   ├── testar-imagens.js (testa imagens)
+│   └── testar-pagina-massagistas.js (testa página massagistas)
+│
+├── SCRIPTS DE USUÁRIOS E AUTENTICAÇÃO:
+│   ├── create-auth-users.js (cria usuários auth)
+│   ├── criar-usuarios-teste.js (cria usuários teste)
+│   └── move-sensitive-to-advertisers.js (move dados sensíveis)
+│
+├── SCRIPTS DE PÁGINAS E CATEGORIAS:
+│   ├── criar-paginas-categoria.js (cria páginas categoria)
+│   └── estatisticas-banco.js (estatísticas do banco)
+│
+├── ARQUIVOS DE CONFIGURAÇÃO:
+│   ├── package.json (dependências e scripts)
+│   ├── package-lock.json (lock das dependências)
+│   ├── config-firebase-only.env (config Firebase)
+│   ├── config-firebase-teste.env (config teste)
+│   ├── config.env.example (exemplo de config)
+│   ├── env-example.txt (exemplo de env)
+│   └── user-credentials.json (credenciais usuário)
+│
+├── ARQUIVOS DE INICIALIZAÇÃO:
+│   ├── iniciar-backend.bat (inicia backend Windows)
+│   ├── iniciar-servidor.bat (inicia servidor Windows)
+│   └── start-server.ps1 (inicia servidor PowerShell)
+│
+├── MIDDLEWARE:
+│   └── middleware/
+│       ├── security.js (middleware de segurança)
+│       └── simpleSecurity.js (segurança simples)
+│
+├── ROUTES:
+│   └── routes/
+│       └── admin.js (rotas administrativas)
+│
+├── SERVICES:
+│   └── services/
+│       ├── authenticatorService.js (serviço autenticação)
+│       └── emailService.js (serviço email)
+│
+├── DOCUMENTAÇÃO BACKEND:
+│   ├── README.md (documentação principal)
+│   ├── README-NOVA-ARQUITETURA.md (nova arquitetura)
+│   ├── DIAGNOSTICO-SSL-MONGODB.md (diagnóstico SSL)
+│   └── mongodb-ssl-solution.md (solução SSL MongoDB)
+│
+└── NODE.JS (node-v20.19.5-darwin-x64/):
+    ├── bin/ (executáveis)
+    ├── include/ (headers)
+    ├── lib/ (bibliotecas)
+    ├── share/ (documentação)
+    ├── CHANGELOG.md
+    ├── LICENSE
+    ├── README.md
+    └── node-v20.19.5-darwin-x64.tar.gz
+
+🌐 FRONTEND (/frontend/):
+├── ARQUIVOS DE CONFIGURAÇÃO:
+│   ├── package.json (dependências frontend)
+│   ├── package-lock.json (lock frontend)
+│   └── js/
+│       ├── firebase-config.js (configuração Firebase)
+│       └── firebase-utils.js (utilitários Firebase)
+│
+└── SRC (/frontend/src/):
+    ├── PÁGINAS PRINCIPAIS HTML:
+    │   ├── A_01__index.html (página inicial)
+    │   ├── A_01__index_firebase.html (index Firebase)
+    │   ├── A_02__premium.html (anúncios premium)
+    │   ├── A_02__premium_firebase.html (premium Firebase)
+    │   ├── A_03__massagistas.html (massagistas)
+    │   ├── A_04__trans.html (acompanhantes trans)
+    │   ├── A_05__homens.html (acompanhantes masculinos)
+    │   ├── A_06__webcam.html (modelos webcam)
+    │   ├── A_06__webcam copy.html (cópia webcam)
+    │   ├── luxo.html (página de luxo)
+    │   ├── premium_2.html (premium alternativo)
+    │   └── register.html (cadastro)
+    │
+    ├── PÁGINAS ADMINISTRATIVAS:
+    │   ├── admin-login.html (login admin)
+    │   ├── admin-panel.html (painel admin)
+    │   └── admin-login.js (script login admin)
+    │
+    ├── PÁGINAS DE CADASTRO E ANÚNCIOS:
+    │   ├── cadastro-simples.html (cadastro simples)
+    │   ├── cadastro-simples-teste.html (cadastro teste)
+    │   ├── anunciar_GP_02_modificado.html (anunciar GP)
+    │   ├── modelo-cadastro-anuncios.html (modelo cadastro)
+    │   └── pagamento.html (página pagamento)
+    │
+    ├── PÁGINAS DE PERFIL:
+    │   ├── perfil-base.html (perfil base)
+    │   ├── perfil-acompanhante-classico.html (perfil clássico)
+    │   ├── perfil-acompanhante-feminina.html (perfil feminina)
+    │   ├── perfil-homem-acompanhante.html (perfil homem)
+    │   ├── perfil-mulher-luxo.html (perfil mulher luxo)
+    │   └── perfil-trans-acompanhante.html (perfil trans)
+    │
+    ├── PÁGINAS DEMO:
+    │   ├── demo-perfil-acompanhante.html (demo perfil)
+    │   ├── demo-perfil-classico.html (demo clássico)
+    │   ├── demo-perfil-luxo.html (demo luxo)
+    │   └── demo-perfil-trans.html (demo trans)
+    │
+    ├── PÁGINAS DE GALERIA (7 COLUNAS):
+    │   ├── galeria-7-colunas-exemplo.html (exemplo galeria)
+    │   ├── homem-7-colunas.html (homem 7 colunas)
+    │   ├── massagista-7-colunas.html (massagista 7 colunas)
+    │   ├── premium-7-colunas.html (premium 7 colunas)
+    │   ├── trans-7-colunas.html (trans 7 colunas)
+    │   └── webcam-7-colunas.html (webcam 7 colunas)
+    │
+    ├── PÁGINAS ESPECIAIS:
+    │   ├── docs-upload.html (documentação upload)
+    │   ├── rEGRAS_DAS_FOTOS.HTML (regras fotos)
+    │   └── app.js (aplicação principal)
+    │
+    ├── ARQUIVOS CSS:
+    │   ├── admin.css (estilos admin)
+    │   ├── admin-login.css (estilos login admin)
+    │   ├── stories.css (estilos stories)
+    │   ├── styles.css (estilos principais)
+    │   └── css/
+    │       ├── admin-panel.css (painel admin)
+    │       ├── anunciar.css (anunciar)
+    │       ├── anuncio-detalhes.css (detalhes anúncio)
+    │       ├── anuncios.css (anúncios)
+    │       ├── galeria-7-colunas.css (galeria 7 colunas)
+    │       ├── image-optimizer.css (otimizador imagem)
+    │       ├── luxo.css (luxo)
+    │       ├── modelo-cadastro.css (modelo cadastro)
+    │       ├── modelo-simplificado.css (modelo simplificado)
+    │       ├── perfil-acompanhante-classico.css (perfil clássico)
+    │       ├── perfil-acompanhante-feminina.css (perfil feminina)
+    │       ├── perfil-base.css (perfil base)
+    │       ├── perfil-homem-acompanhante.css (perfil homem)
+    │       ├── perfil-mulher-luxo.css (perfil mulher luxo)
+    │       ├── perfil-temas.css (temas perfil)
+    │       ├── perfil-trans-acompanhante.css (perfil trans)
+    │       ├── premium.css (premium)
+    │       ├── style.css (estilos)
+    │       └── upload-manager.css (gerenciador upload)
+    │
+    ├── ARQUIVOS JAVASCRIPT:
+    │   ├── firebase-config.js (configuração Firebase)
+    │   ├── firebase-config-teste.js (config Firebase teste)
+    │   ├── modal.js (modal)
+    │   ├── monitor-script.js (script monitor)
+    │   ├── stories.js (stories)
+    │   ├── exemplo-integracao-overlay.js (exemplo overlay)
+    │   └── js/
+    │       ├── admin-panel.js (painel admin)
+    │       ├── anuncio-detalhes.js (detalhes anúncio)
+    │       ├── anuncios.js (anúncios)
+    │       ├── cadastro-anuncios.js (cadastro anúncios)
+    │       ├── cadastro-progress.js (progresso cadastro)
+    │       ├── firebase-config.js (config Firebase)
+    │       ├── galeria-7-colunas.js (galeria 7 colunas)
+    │       ├── image-optimizer.js (otimizador imagem)
+    │       ├── mobile-menu.js (menu mobile)
+    │       ├── modelo-cadastro.js (modelo cadastro)
+    │       ├── modelo-simplificado.js (modelo simplificado)
+    │       ├── perfil-acompanhante-classico.js (perfil clássico)
+    │       ├── perfil-acompanhante-feminina.js (perfil feminina)
+    │       ├── perfil-base.js (perfil base)
+    │       ├── perfil-mulher-luxo.js (perfil mulher luxo)
+    │       ├── perfil-trans-acompanhante.js (perfil trans)
+    │       └── upload-manager.js (gerenciador upload)
+    │
+    ├── PÁGINAS ESPECÍFICAS:
+    │   └── pages/
+    │       ├── luxo/
+    │       │   ├── luxo.html (luxo)
+    │       │   ├── luxo.css (estilos luxo)
+    │       │   └── luxo.js (script luxo)
+    │       └── premium/ (pasta premium)
+    │
+    ├── TEMPLATES:
+    │   └── templates/
+    │       └── header.html (cabeçalho)
+    │
+    ├── IMAGENS:
+    │   ├── one-person-8742116_1280.jpg
+    │   └── outdoors-7213961_1280.jpg
+    │
+    └── DOCUMENTAÇÃO FRONTEND:
+        ├── BROWSER-COMPATIBILITY.md (compatibilidade browser)
+        ├── MELHORIAS_PREMIUM.md (melhorias premium)
+        ├── MODELO-CADASTRO-README.md (README modelo cadastro)
+        ├── MODELO-SIMPLIFICADO-README.md (README modelo simplificado)
+        ├── RESOLVER-DOMINIO-NAO-AUTORIZADO.md (resolver domínio)
+        └── SOLUCAO-DEFINITIVA-DOMINIO.md (solução domínio)
+
+📄 ARQUIVOS DE DOCUMENTAÇÃO (.md):
+├── ARQUITETURA-SEGURANCA.md (arquitetura e segurança)
+├── COMO-USAR-LIVE-SERVER.md (como usar live server)
+├── COMO-USAR.md (como usar)
+├── CONFIGURACAO-EMAIL-GOOGLE.md (configuração email Google)
+├── CORRECOES-UPLOAD-IMPLEMENTADAS.md (correções upload)
+├── FIREBASE-ALTERNATIVO-README.md (Firebase alternativo)
+├── FIREBASE-AUTH-SETUP.md (setup auth Firebase)
+├── FIREBASE-EMAIL-SETUP.md (setup email Firebase)
+├── FIREBASE-EMAIL-TEMPLATE-CONFIG.md (config template email)
+├── FIREBASE-SETUP-COMPLETO.md (setup completo Firebase)
+├── FIREBASE-SETUP-INSTRUCTIONS.md (instruções setup Firebase)
+├── GALERIA-7-COLUNAS-README.md (README galeria 7 colunas)
+├── GUIA-CREDENCIAIS-FIREBASE.md (guia credenciais Firebase)
+├── GUIA-SINCRONIZACAO.md (guia sincronização)
+├── OTIMIZACAO-IMAGENS-IMPLEMENTADA.md (otimização imagens)
+├── README-FIREBASE-ONLY.md (README apenas Firebase)
+├── README-SECURITY.md (README segurança)
+├── README-TESTE.md (README teste)
+├── README.md (README principal)
+└── SENSITIVE-DATA-SECURITY.md (segurança dados sensíveis)
+
+📄 ARQUIVOS JSON:
+├── live-server.json (configuração live server)
+├── package.json (backend - dependências)
+├── package.json (frontend - dependências)
+├── package-lock.json (backend - lock)
+├── package-lock.json (frontend - lock)
+└── user-credentials.json (credenciais usuário)
+
+📄 ARQUIVOS DE CONFIGURAÇÃO (.env):
+├── config-firebase-only.env (config Firebase)
+├── config-firebase-teste.env (config teste)
+├── config.env.example (exemplo config)
+└── env-example.txt (exemplo env)
+
+📄 ARQUIVOS DE SCRIPT (.bat, .ps1, .sh):
+├── iniciar-backend.bat (inicia backend Windows)
+├── iniciar-servidor.bat (inicia servidor Windows)
+├── start-server.ps1 (inicia servidor PowerShell)
+├── start-firebase-only.ps1 (inicia apenas Firebase PowerShell)
+├── start-firebase-only.sh (inicia apenas Firebase Linux/Mac)
+└── check_upload_windows.ps1 (verifica upload Windows)
+
+📄 OUTROS ARQUIVOS:
+├── live-server-proxy.js (proxy live server)
+├── node-installer.pkg (instalador Node.js)
+└── tudao.txt (este arquivo de documentação)
+
+🖼️ PASTA DE IMAGENS (/fotinha/):
+└── fotos/ (82 imagens JPG)
+    ├── foto (1).jpg a foto (30).jpg
+    ├── avatar (1).jpg a avatar (15).jpg
+    └── outras imagens...
+
+================================================================================
+                                FIM DA DOCUMENTAÇÃO
+================================================================================
+
+📅 Data: 15/10/2025
+👤 Projeto: Mansão do Job - Firebase
+🌍 Ambiente: Teste/Desenvolvimento
+📊 Total de arquivos: 200+ (HTML, JS, CSS, JSON, ENV, MD, BAT, PS1, SH)
+🗄️ Banco: Firebase Firestore (125 anúncios)
+🖼️ Imagens: Firebase Storage (82 fotos)
+🔗 Portas: Frontend (8080/5500), Backend (5001)
+
+================================================================================

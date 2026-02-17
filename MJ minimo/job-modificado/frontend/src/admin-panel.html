@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel de Administração - Mansão do Job</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/admin-panel.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="firebase-config.js"></script>
+  </head>
+  <body>
+    <div class="admin-container">
+      <!-- Sidebar -->
+      <nav class="admin-sidebar">
+        <div class="sidebar-header">
+          <h2><i class="fas fa-shield-alt"></i> Admin Panel</h2>
+          <p>Mansão do Job</p>
+        </div>
+
+        <ul class="sidebar-menu">
+          <li class="menu-item active" data-section="dashboard">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+          </li>
+          <li class="menu-item" data-section="anuncios-pendentes">
+            <i class="fas fa-clock"></i>
+            <span>Anúncios Pendentes</span>
+            <span class="badge" id="pending-count">0</span>
+          </li>
+          <li class="menu-item" data-section="anuncios-aprovados">
+            <i class="fas fa-check-circle"></i>
+            <span>Anúncios Aprovados</span>
+            <span class="badge" id="approved-count">0</span>
+          </li>
+          <li class="menu-item" data-section="anuncios-rejeitados">
+            <i class="fas fa-times-circle"></i>
+            <span>Anúncios Rejeitados</span>
+            <span class="badge" id="rejected-count">0</span>
+          </li>
+          <li class="menu-item" data-section="usuarios">
+            <i class="fas fa-users"></i>
+            <span>Usuários</span>
+          </li>
+          <li class="menu-item" data-section="relatorios">
+            <i class="fas fa-chart-bar"></i>
+            <span>Relatórios</span>
+          </li>
+          <li class="menu-item" data-section="configuracoes">
+            <i class="fas fa-cog"></i>
+            <span>Configurações</span>
+          </li>
+        </ul>
+
+        <div class="sidebar-footer">
+          <button id="logout-btn" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Sair</span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="admin-main">
+        <!-- Header -->
+        <header class="admin-header">
+          <div class="header-left">
+            <h1 id="page-title">Dashboard</h1>
+            <p id="page-subtitle">Visão geral do sistema</p>
+          </div>
+          <div class="header-right">
+            <div class="user-info">
+              <i class="fas fa-user-circle"></i>
+              <span id="admin-name">Admin</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="admin-section active">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="stat-content">
+                <h3 id="total-users">0</h3>
+                <p>Total de Usuários</p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-ad"></i>
+              </div>
+              <div class="stat-content">
+                <h3 id="total-anuncios">0</h3>
+                <p>Total de Anúncios</p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="stat-content">
+                <h3 id="pending-anuncios">0</h3>
+                <p>Pendentes</p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <div class="stat-content">
+                <h3 id="approved-anuncios">0</h3>
+                <p>Aprovados</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="dashboard-card">
+              <h3><i class="fas fa-chart-line"></i> Atividade Recente</h3>
+              <div id="recent-activity" class="activity-list">
+                <!-- Atividades serão carregadas aqui -->
+              </div>
+            </div>
+
+            <div class="dashboard-card">
+              <h3><i class="fas fa-exclamation-triangle"></i> Alertas</h3>
+              <div id="alerts-list" class="alerts-list">
+                <!-- Alertas serão carregados aqui -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Anúncios Pendentes Section -->
+        <div id="anuncios-pendentes" class="admin-section">
+          <div class="section-header">
+            <h2>
+              <i class="fas fa-clock"></i> Anúncios Pendentes de Aprovação
+            </h2>
+            <div class="section-actions">
+              <button id="refresh-pending" class="btn btn-secondary">
+                <i class="fas fa-refresh"></i> Atualizar
+              </button>
+            </div>
+          </div>
+
+          <div class="anuncios-list" id="pending-anuncios-list">
+            <!-- Anúncios pendentes serão carregados aqui -->
+          </div>
+        </div>
+
+        <!-- Anúncios Aprovados Section -->
+        <div id="anuncios-aprovados" class="admin-section">
+          <div class="section-header">
+            <h2><i class="fas fa-check-circle"></i> Anúncios Aprovados</h2>
+            <div class="section-actions">
+              <input
+                type="text"
+                id="search-approved"
+                placeholder="Buscar anúncios..."
+                class="search-input"
+              />
+              <button id="refresh-approved" class="btn btn-secondary">
+                <i class="fas fa-refresh"></i> Atualizar
+              </button>
+            </div>
+          </div>
+
+          <div class="anuncios-list" id="approved-anuncios-list">
+            <!-- Anúncios aprovados serão carregados aqui -->
+          </div>
+        </div>
+
+        <!-- Anúncios Rejeitados Section -->
+        <div id="anuncios-rejeitados" class="admin-section">
+          <div class="section-header">
+            <h2><i class="fas fa-times-circle"></i> Anúncios Rejeitados</h2>
+            <div class="section-actions">
+              <input
+                type="text"
+                id="search-rejected"
+                placeholder="Buscar anúncios..."
+                class="search-input"
+              />
+              <button id="refresh-rejected" class="btn btn-secondary">
+                <i class="fas fa-refresh"></i> Atualizar
+              </button>
+            </div>
+          </div>
+
+          <div class="anuncios-list" id="rejected-anuncios-list">
+            <!-- Anúncios rejeitados serão carregados aqui -->
+          </div>
+        </div>
+
+        <!-- Usuários Section -->
+        <div id="usuarios" class="admin-section">
+          <div class="section-header">
+            <h2><i class="fas fa-users"></i> Gerenciar Usuários</h2>
+            <div class="section-actions">
+              <input
+                type="text"
+                id="search-users"
+                placeholder="Buscar usuários..."
+                class="search-input"
+              />
+              <button id="refresh-users" class="btn btn-secondary">
+                <i class="fas fa-refresh"></i> Atualizar
+              </button>
+            </div>
+          </div>
+
+          <div class="users-list" id="users-list">
+            <!-- Usuários serão carregados aqui -->
+          </div>
+        </div>
+
+        <!-- Relatórios Section -->
+        <div id="relatorios" class="admin-section">
+          <div class="section-header">
+            <h2><i class="fas fa-chart-bar"></i> Relatórios</h2>
+          </div>
+
+          <div class="reports-grid">
+            <div class="report-card">
+              <h3>Anúncios por Categoria</h3>
+              <div id="category-chart" class="chart-container">
+                <!-- Gráfico será renderizado aqui -->
+              </div>
+            </div>
+
+            <div class="report-card">
+              <h3>Anúncios por Mês</h3>
+              <div id="monthly-chart" class="chart-container">
+                <!-- Gráfico será renderizado aqui -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Configurações Section -->
+        <div id="configuracoes" class="admin-section">
+          <div class="section-header">
+            <h2><i class="fas fa-cog"></i> Configurações do Sistema</h2>
+          </div>
+
+          <div class="settings-grid">
+            <div class="settings-card">
+              <h3>Configurações de Aprovação</h3>
+              <div class="setting-item">
+                <label>
+                  <input type="checkbox" id="auto-approve" /> Aprovação
+                  automática para usuários verificados
+                </label>
+              </div>
+              <div class="setting-item">
+                <label>
+                  <input type="checkbox" id="require-photos" /> Exigir fotos
+                  para aprovação
+                </label>
+              </div>
+            </div>
+
+            <div class="settings-card">
+              <h3>Notificações</h3>
+              <div class="setting-item">
+                <label>
+                  <input type="checkbox" id="email-notifications" /> Enviar
+                  emails de notificação
+                </label>
+              </div>
+              <div class="setting-item">
+                <label>
+                  <input type="checkbox" id="admin-alerts" /> Alertas para
+                  administradores
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modal de Aprovação/Rejeição -->
+    <div id="approval-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="modal-title">Aprovar Anúncio</h3>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div id="anuncio-preview" class="anuncio-preview">
+            <!-- Preview do anúncio será carregado aqui -->
+          </div>
+
+          <div class="approval-actions">
+            <div class="action-buttons">
+              <button id="approve-btn" class="btn btn-success">
+                <i class="fas fa-check"></i> Aprovar
+              </button>
+              <button id="reject-btn" class="btn btn-danger">
+                <i class="fas fa-times"></i> Rejeitar
+              </button>
+            </div>
+
+            <div class="approval-notes">
+              <label for="approval-notes">Observações:</label>
+              <textarea
+                id="approval-notes"
+                placeholder="Adicione observações sobre a aprovação/rejeição..."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Detalhes do Usuário -->
+    <div id="user-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Detalhes do Usuário</h3>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div id="user-details" class="user-details">
+            <!-- Detalhes do usuário serão carregados aqui -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/admin-panel.js"></script>
+  </body>
+</html>

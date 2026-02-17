@@ -1,0 +1,6 @@
+MONGO_URI=mongodb+srv://SEU_USUARIO:SENHA@SEU_CLUSTER.mongodb.net
+PORT=8080
+
+
+
+

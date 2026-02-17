@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento Aprovado - Mansão do Job</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .success-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: #28a745;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        .success-icon i {
+            font-size: 50px;
+            color: white;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            color: #28a745;
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #dc3545;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .loading {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <h1>Pagamento Aprovado!</h1>
+        <p>Seu anúncio foi ativado com sucesso e já está disponível na plataforma.</p>
+        <p id="status-message">Verificando status do pagamento...</p>
+        
+        <div class="loading" id="loading">
+            <i class="fas fa-spinner fa-spin"></i> Processando...
+        </div>
+
+        <div id="actions" style="display: none;">
+            <a href="A_02__premium_copy.html" class="btn">
+                <i class="fas fa-home"></i> Voltar ao Início
+            </a>
+            <a href="#" id="view-ad-link" class="btn btn-secondary" style="display: none;">
+                <i class="fas fa-eye"></i> Ver Meu Anúncio
+            </a>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+
+    <script>
+        // Verificar status do pagamento
+        async function checkPaymentStatus() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const sessionId = urlParams.get('session_id');
+
+            if (!sessionId) {
+                document.getElementById('status-message').textContent = 'Sessão de pagamento não encontrada.';
+                document.getElementById('actions').style.display = 'block';
+                return;
+            }
+
+            try {
+                // Buscar sessão no Firestore
+                const paymentDoc = await firebase.firestore()
+                    .collection('payments')
+                    .doc(sessionId)
+                    .get();
+
+                if (paymentDoc.exists) {
+                    const paymentData = paymentDoc.data();
+                    const adId = paymentData.adId;
+
+                    if (paymentData.status === 'completed') {
+                        document.getElementById('status-message').textContent = 
+                            '✅ Pagamento confirmado! Seu anúncio está ativo.';
+                        
+                        // Mostrar link para ver anúncio
+                        if (adId) {
+                            const viewAdLink = document.getElementById('view-ad-link');
+                            viewAdLink.href = `A_02__premium_Anuncio_modelo_01.html?id=${adId}`;
+                            viewAdLink.style.display = 'inline-block';
+                        }
+                    } else {
+                        document.getElementById('status-message').textContent = 
+                            '⏳ Aguardando confirmação do pagamento...';
+                        
+                        // Aguardar alguns segundos e verificar novamente
+                        setTimeout(checkPaymentStatus, 3000);
+                        return;
+                    }
+                } else {
+                    document.getElementById('status-message').textContent = 
+                        '⏳ Processando pagamento... Aguarde alguns instantes.';
+                    
+                    // Aguardar alguns segundos e verificar novamente
+                    setTimeout(checkPaymentStatus, 3000);
+                    return;
+                }
+
+            } catch (error) {
+                console.error('Erro ao verificar status:', error);
+                document.getElementById('status-message').textContent = 
+                    'Erro ao verificar status. Se o pagamento foi aprovado, seu anúncio será ativado em breve.';
+            }
+
+            document.getElementById('loading').classList.remove('active');
+            document.getElementById('actions').style.display = 'block';
+        }
+
+        // Verificar quando página carregar
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', checkPaymentStatus);
+        } else {
+            checkPaymentStatus();
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+

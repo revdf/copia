@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Seleção de Categoria - Mansão do Job</title>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Roboto", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 100%;
+            padding: 30px;
+            margin: 20px auto;
+        }
+
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-section h2 i {
+            color: #667eea;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .field-label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 12px;
+            display: block;
+            font-size: 16px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .btn-group.gender-options .btn,
+        .btn-group.category-options .btn {
+            border: none;
+            outline: none;
+            color: #fff;
+            background: #111;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 120px;
+            white-space: nowrap;
+        }
+
+        .btn-group.gender-options .btn:before,
+        .btn-group.category-options .btn:before {
+            content: '';
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(5px);
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            animation: glowing 20s linear infinite;
+            opacity: 0;
+            transition: opacity .3s ease-in-out;
+            border-radius: 50px;
+        }
+
+        .btn-group.gender-options .btn:hover:before,
+        .btn-group.category-options .btn:hover:before {
+            opacity: 1;
+        }
+
+        .btn-group.gender-options .btn:after,
+        .btn-group.category-options .btn:after {
+            z-index: -1;
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #111;
+            left: 0;
+            top: 0;
+            border-radius: 50px;
+        }
+
+        .btn-group.gender-options .btn:active,
+        .btn-group.category-options .btn:active {
+            color: #000;
+        }
+
+        .btn-group.gender-options .btn:active:after,
+        .btn-group.category-options .btn:active:after {
+            background: transparent;
+        }
+
+        .btn-group.gender-options .btn input[type="radio"],
+        .btn-group.category-options .btn input[type="radio"] {
+            display: none;
+        }
+
+        .btn-group.gender-options .btn.active:after,
+        .btn-group.gender-options .btn:has(input:checked):after,
+        .btn-group.category-options .btn.active:after,
+        .btn-group.category-options .btn:has(input:checked):after {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+
+        .btn-group.gender-options .btn.active,
+        .btn-group.gender-options .btn:has(input:checked),
+        .btn-group.category-options .btn.active,
+        .btn-group.category-options .btn:has(input:checked) {
+            color: #fff;
+        }
+
+        @keyframes glowing {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+
+        small {
+            display: block;
+            color: #666;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .submit-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .submit-btn {
+            width: 220px;
+            height: 50px;
+            border: none;
+            outline: none;
+            color: #fff;
+            background: #111;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .submit-btn:before {
+            content: '';
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(5px);
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            animation: glowing 20s linear infinite;
+            opacity: 0;
+            transition: opacity .3s ease-in-out;
+            border-radius: 50px;
+        }
+
+        .submit-btn:hover:before {
+            opacity: 1;
+        }
+
+        .submit-btn:after {
+            z-index: -1;
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #111;
+            left: 0;
+            top: 0;
+            border-radius: 50px;
+        }
+
+        .submit-btn:active {
+            color: #000;
+        }
+
+        .submit-btn:active:after {
+            background: transparent;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .submit-btn:disabled:before {
+            opacity: 0;
+        }
+
+        .header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .home-btn {
+            background: #e25352;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .home-btn:hover {
+            background: #c94443;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            html {
+                height: 100%;
+                height: 100dvh; /* Dynamic viewport height para mobile */
+            }
+
+            body {
+                padding: 0;
+                align-items: stretch;
+                height: 100%;
+                height: 100dvh; /* Dynamic viewport height para mobile */
+                overflow: hidden;
+            }
+
+            .container {
+                padding: 15px;
+                padding-top: max(15px, env(safe-area-inset-top, 15px));
+                padding-bottom: max(15px, env(safe-area-inset-bottom, 15px));
+                padding-left: max(15px, env(safe-area-inset-left, 15px));
+                padding-right: max(15px, env(safe-area-inset-right, 15px));
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+                height: 100%;
+                height: 100dvh; /* Dynamic viewport height para mobile */
+                max-width: 100%;
+                display: flex;
+                flex-direction: column;
+                overflow-y: auto;
+                overflow-x: hidden;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .form-section {
+                margin-bottom: 20px;
+            }
+
+            .form-section h2 {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+            .btn-group.gender-options .btn,
+            .btn-group.category-options .btn {
+                min-width: calc(50% - 5px);
+                padding: 12px 10px;
+                font-size: 13px;
+                flex: 1 1 calc(50% - 5px);
+            }
+
+            .submit-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .header-actions {
+                margin-bottom: 15px;
+            }
+
+            .submit-container {
+                margin-top: auto;
+                padding-top: 20px;
+                padding-bottom: env(safe-area-inset-bottom, 20px);
+            }
+
+            .submit-btn {
+                width: 100%;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 12px;
+            }
+
+            .form-section h2 {
+                font-size: 18px;
+            }
+
+            .btn-group.gender-options .btn,
+            .btn-group.category-options .btn {
+                min-width: 100%;
+                flex: 1 1 100%;
+            }
+
+            .submit-btn {
+                width: 100%;
+            }
+        }
+
+        /* Estilos para opções desabilitadas (Em Breve) */
+        .btn.coming-soon {
+            background: #808080 !important;
+            opacity: 0.6;
+            cursor: not-allowed !important;
+            position: relative;
+            overflow: visible;
+        }
+
+        .btn.coming-soon:hover {
+            transform: none !important;
+        }
+
+        .btn.coming-soon:hover:before {
+            opacity: 0 !important;
+        }
+
+        .btn.coming-soon:active {
+            color: #fff !important;
+        }
+
+        .btn.coming-soon:active:after {
+            background: #808080 !important;
+        }
+
+        .btn.coming-soon input[type="radio"] {
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+
+        /* Faixa diagonal vermelha com "Em Breve!" */
+        .coming-soon-badge {
+            position: absolute;
+            top: 25px;
+            left: 15px;
+            width: 150px;
+            height: 30px;
+            background: linear-gradient(135deg, rgba(220, 53, 69, 0.7) 0%, rgba(200, 35, 51, 0.7) 100%);
+            color: white;
+            font-weight: bold;
+            font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(-25deg);
+            transform-origin: center;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            letter-spacing: 1px;
+            pointer-events: none;
+            backdrop-filter: blur(2px);
+        }
+
+        /* Faixa específica para "Mulher de Luxo" - mais baixa */
+        .mulher-luxo-label .coming-soon-badge {
+            top: 35px;
+        }
+
+        @media (max-width: 768px) {
+            .coming-soon-badge {
+                top: 20px;
+                left: 12px;
+                width: 120px;
+                height: 25px;
+                font-size: 0.65rem;
+                background: linear-gradient(135deg, rgba(220, 53, 69, 0.7) 0%, rgba(200, 35, 51, 0.7) 100%);
+            }
+
+            /* Faixa específica para "Mulher de Luxo" em tablets - mais baixa */
+            .mulher-luxo-label .coming-soon-badge {
+                top: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .coming-soon-badge {
+                top: 18px;
+                left: 10px;
+                width: 110px;
+                height: 22px;
+                font-size: 0.6rem;
+                background: linear-gradient(135deg, rgba(220, 53, 69, 0.7) 0%, rgba(200, 35, 51, 0.7) 100%);
+            }
+
+            /* Faixa específica para "Mulher de Luxo" em mobile - mais baixa */
+            .mulher-luxo-label .coming-soon-badge {
+                top: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-actions">
+            <a href="A_01__index.html" class="home-btn">
+                <i class="fas fa-home"></i> Início
+            </a>
+        </div>
+
+        <form id="categoriaForm" style="display: flex; flex-direction: column; height: 100%;">
+            <div class="form-section" id="step-2" style="flex: 1;">
+                <h2><i class="fas fa-tags"></i> Categoria e Tipo</h2>
+
+                <div class="form-group">
+                    <label class="field-label">* Você é</label>
+                    <div class="btn-group btn-group-toggle flex-wrap d-flex gender-options">
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="category" value="mulher" required autocomplete="off">
+                            Mulher
+                        </label>
+                        <label class="btn btn-secondary coming-soon">
+                            <input type="radio" name="category" value="trans" autocomplete="off" disabled>
+                            Trans
+                            <span class="coming-soon-badge">Em Breve!</span>
+                        </label>
+                        <label class="btn btn-secondary coming-soon">
+                            <input type="radio" name="category" value="homem" autocomplete="off" disabled>
+                            Homem
+                            <span class="coming-soon-badge">Em Breve!</span>
+                        </label>
+                        <label class="btn btn-secondary mulher-luxo-label coming-soon">
+                            <input type="radio" name="category" value="mulher-luxo" autocomplete="off" disabled>
+                            Mulher de Luxo
+                            <span class="coming-soon-badge">Em Breve!</span>
+                        </label>
+                    </div>
+                    <small>Selecione uma opção obrigatória.</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="field-label">* Minha categoria</label>
+                    <div class="btn-group btn-group-toggle flex-wrap d-flex category-options">
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="categoria" value="acompanhantes" required autocomplete="off">
+                            Acompanhantes
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="categoria" value="massagistas" required autocomplete="off">
+                            Massagistas
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="categoria" value="sexo-virtual" autocomplete="off">
+                            Sexo Virtual
+                        </label>
+                    </div>
+                    <small>Selecione uma categoria obrigatória.</small>
+                </div>
+            </div>
+
+            <div class="submit-container">
+                <button type="submit" class="submit-btn" id="submitBtn" disabled>
+                    <i class="fas fa-arrow-right"></i> Continuar
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Função para atualizar o estado visual dos botões
+        function updateButtonState(buttons) {
+            buttons.forEach(button => {
+                const input = button.querySelector('input[type="radio"]');
+                if (input.checked) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+
+        // Adicionar event listeners aos botões de categoria
+        const genderButtons = document.querySelectorAll('.gender-options .btn');
+        genderButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Prevenir seleção de opções "Em Breve" (mantido para outras opções bloqueadas)
+                // if (this.classList.contains('coming-soon')) {
+                //     return false;
+                // }
+                
+                const input = this.querySelector('input[type="radio"]');
+                input.checked = true;
+                
+                // Remover active de todos os botões do mesmo grupo
+                genderButtons.forEach(btn => btn.classList.remove('active'));
+                // Adicionar active ao botão clicado
+                this.classList.add('active');
+                
+                checkFormValidity();
+            });
+        });
+
+        // Adicionar event listeners aos botões de categoria
+        const categoryButtons = document.querySelectorAll('.category-options .btn');
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Prevenir seleção de opções "Em Breve" (mantido para outras opções bloqueadas)
+                // if (this.classList.contains('coming-soon')) {
+                //     return false;
+                // }
+                
+                const input = this.querySelector('input[type="radio"]');
+                input.checked = true;
+                
+                // Remover active de todos os botões do mesmo grupo
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                // Adicionar active ao botão clicado
+                this.classList.add('active');
+                
+                checkFormValidity();
+            });
+        });
+
+        // Função para verificar se o formulário está válido
+        function checkFormValidity() {
+            const categorySelected = document.querySelector('input[name="category"]:checked:not([disabled])');
+            const categoriaSelected = document.querySelector('input[name="categoria"]:checked:not([disabled])');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            if (categorySelected && categoriaSelected) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        }
+
+        // Verificar estado inicial
+        checkFormValidity();
+
+        function getReturnPage(category, categoria) {
+            if (categoria === 'sexo-virtual') {
+                return 'A_02__premium_copy.html'; // Página de retorno padrão para sexo virtual
+            }
+            if (category === 'mulher' && categoria === 'massagistas') {
+                return 'A_02__premium_massagistas_copy.html';
+            }
+            return 'A_02__premium_copy.html';
+        }
+
+        // Função para mapear os valores para os nomes dos arquivos
+        function getRedirectUrl(category, categoria) {
+            // Salvar categoria e tipo no localStorage para uso na página de cadastro
+            localStorage.setItem('selectedCategory', category);
+            localStorage.setItem('selectedCategoria', categoria);
+            localStorage.setItem('returnPage', getReturnPage(category, categoria));
+            
+            // Verificar se é Sexo Virtual (qualquer gênero, exceto mulher-luxo) -> redirecionar para página específica de sexo virtual
+            if (categoria === 'sexo-virtual') {
+                return 'A_02__premium_Anuncio-Sexo_Virtual.html';
+            }
+            
+            // Verificar se é Mulher + Massagistas -> redirecionar para página específica de massagistas
+            if (category === 'mulher' && categoria === 'massagistas') {
+                return 'A_02__premium_Anuncio_modelo_01_COPY_Massagista.html';
+            }
+            
+            // Para todos os outros casos, redirecionar para a página padrão
+            return 'A_02__premium_Anuncio_modelo_01_COPY.html';
+        }
+
+        // Submissão do formulário
+        document.getElementById('categoriaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const categoryInput = document.querySelector('input[name="category"]:checked:not([disabled])');
+            const categoriaInput = document.querySelector('input[name="categoria"]:checked:not([disabled])');
+            
+            // Prevenir submissão se opções desabilitadas estiverem selecionadas
+            if (!categoryInput || !categoriaInput) {
+                return false;
+            }
+            
+            const category = categoryInput.value;
+            const categoria = categoriaInput.value;
+            
+            // Prevenir submissão de opções "Em Breve"
+            if (category === 'trans' || category === 'homem' || category === 'mulher-luxo') {
+                return false;
+            }
+            
+            // Salvar no localStorage (opcional)
+            localStorage.setItem('userCategory', category);
+            localStorage.setItem('userCategoria', categoria);
+            
+            // Redirecionar para a página correta baseado nas seleções
+            const redirectUrl = getRedirectUrl(category, categoria);
+            window.location.href = redirectUrl;
+        });
+    </script>
+</body>
+</html>
+

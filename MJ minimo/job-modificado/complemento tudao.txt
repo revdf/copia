@@ -1,0 +1,1478 @@
+================================================================================
+                    CÓDIGO-FONTE COMPLETO - PROJETO MANSÃO DO JOB
+================================================================================
+
+📋 ESTE ARQUIVO CONTÉM O CÓDIGO-FONTE INTERNO DOS ARQUIVOS PRINCIPAIS
+⚠️  Aqui estão os comandos que podem estar causando:
+   - Falhas na conexão com o Firebase
+   - Erros de CORS
+   - Problemas de exibição de imagens
+
+================================================================================
+                                BACKEND - CÓDIGO-FONTE
+================================================================================
+
+--- server-firebase-simples.js ---
+// Servidor Firebase SIMPLES - Projeto copia-do-job
+// Este servidor usa Firebase com configuração mínima para teste
+
+const express = require("express");
+const cors = require("cors");
+const admin = require("firebase-admin");
+require('dotenv').config({ path: './config-firebase-only.env' });
+
+const app = express();
+
+// Middleware
+app.use(cors({
+  origin: [
+    "http://localhost:5001",
+    "http://127.0.0.1:5001", 
+    "http://localhost:5502",
+    "http://127.0.0.1:5502",
+    "http://localhost:5500",
+    "http://127.0.0.1:5500"
+  ],
+  credentials: true
+}));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Log de inicialização
+console.log("🚀 Iniciando servidor Firebase SIMPLES...");
+console.log(`📊 Projeto: ${process.env.PROJECT_NAME || 'copia-do-job'}`);
+console.log(`🌍 Ambiente: ${process.env.ENVIRONMENT || 'test'}`);
+console.log(`🔗 Porta: ${process.env.PORT || 5001}`);
+console.log(`🔥 Firebase: ${process.env.FIREBASE_PROJECT_ID}`);
+
+// Inicializar Firebase Admin SDK
+const serviceAccount = {
+  type: "service_account",
+  project_id: process.env.FIREBASE_PROJECT_ID,
+  private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID,
+  private_key: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+  client_email: process.env.FIREBASE_CLIENT_EMAIL,
+  client_id: process.env.FIREBASE_CLIENT_ID,
+  auth_uri: "https://accounts.google.com/o/oauth2/auth",
+  token_uri: "https://oauth2.googleapis.com/token",
+  auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+  client_x509_cert_url: `https://www.googleapis.com/robot/v1/metadata/x509/${encodeURIComponent(process.env.FIREBASE_CLIENT_EMAIL)}`
+};
+
+try {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    storageBucket: `${process.env.FIREBASE_PROJECT_ID}.firebasestorage.app`
+  });
+  
+  console.log("✅ Firebase Admin SDK inicializado com sucesso");
+  console.log(`📦 Storage Bucket: ${process.env.FIREBASE_PROJECT_ID}.firebasestorage.app`);
+} catch (error) {
+  console.error("❌ Erro ao inicializar Firebase:", error.message);
+  process.exit(1);
+}
+
+// Obter referência do Firestore
+const db = admin.firestore();
+
+// Rotas principais
+app.get("/", (req, res) => {
+  res.json({
+    message: "Servidor Firebase SIMPLES - copia-do-job",
+    environment: process.env.ENVIRONMENT || "test",
+    project: process.env.PROJECT_NAME || "copia-do-job",
+    port: process.env.PORT || 5001,
+    database: "Firebase Firestore",
+    firebase: process.env.FIREBASE_PROJECT_ID,
+    timestamp: new Date().toISOString(),
+    status: "Funcionando"
+  });
+});
+
+// Rota para testar conexão básica
+app.get("/api/test", async (req, res) => {
+  try {
+    // Teste simples de conexão
+    const testRef = db.collection('test').doc('connection');
+    await testRef.set({
+      message: 'Teste de conexão',
+      timestamp: admin.firestore.FieldValue.serverTimestamp(),
+      environment: process.env.ENVIRONMENT || 'test'
+    });
+    
+    const doc = await testRef.get();
+    
+    res.json({
+      success: true,
+      message: "Conexão com Firebase funcionando!",
+      environment: process.env.ENVIRONMENT || "test",
+      data: doc.data()
+    });
+  } catch (error) {
+    console.error("Erro no teste:", error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      code: error.code,
+      environment: process.env.ENVIRONMENT || "test"
+    });
+  }
+});
+
+// Função para converter nome de arquivo em URL (Firebase Storage ou local)
+async function getImageUrl(filename) {
+  try {
+    if (!filename) return null;
+    
+    // Se já é uma URL completa, retorna como está
+    if (filename.startsWith('http')) {
+      return filename;
+    }
+    
+    // Usar Firebase Storage (agora que as fotos foram enviadas)
+    try {
+      const bucket = admin.storage().bucket(`${process.env.FIREBASE_PROJECT_ID}.firebasestorage.app`);
+      const file = bucket.file(filename);
+      
+      const [exists] = await file.exists();
+      if (exists) {
+        const [url] = await file.getSignedUrl({
+          action: 'read',
+          expires: Date.now() + 24 * 60 * 60 * 1000, // 24 horas
+        });
+        console.log(`🔥 Usando Firebase Storage: ${filename}`);
+        return url;
+      } else {
+        console.log(`⚠️ Arquivo não encontrado no Firebase Storage: ${filename}`);
+      }
+    } catch (storageError) {
+      console.log(`❌ Erro no Firebase Storage para ${filename}:`, storageError.message);
+    }
+    
+    // Fallback: usar imagem padrão do Firebase Storage
+    try {
+      const bucket = admin.storage().bucket(`${process.env.FIREBASE_PROJECT_ID}.firebasestorage.app`);
+      const defaultFile = bucket.file('avatar.jpg');
+      const [exists] = await defaultFile.exists();
+      if (exists) {
+        const [url] = await defaultFile.getSignedUrl({
+          action: 'read',
+          expires: Date.now() + 24 * 60 * 60 * 1000, // 24 horas
+        });
+        console.log(`🔄 Usando avatar padrão do Firebase Storage para: ${filename}`);
+        return url;
+      }
+    } catch (error) {
+      console.log(`❌ Erro ao buscar avatar padrão:`, error.message);
+    }
+    
+    // Último fallback: placeholder
+    console.log(`⚠️ Usando placeholder para: ${filename}`);
+    return 'https://via.placeholder.com/300x400/FFB6C1/FFFFFF?text=Sem+Imagem';
+    
+  } catch (error) {
+    console.error(`❌ Erro ao gerar URL para ${filename}:`, error.message);
+    return 'https://via.placeholder.com/300x400/FFB6C1/FFFFFF?text=Erro+Carregamento'; // Fallback
+  }
+}
+
+// Rota para listar anúncios (OTIMIZADA)
+app.get("/api/anuncios", async (req, res) => {
+  try {
+    const anunciosRef = db.collection('anuncios');
+    const snapshot = await anunciosRef.get();
+    
+    const anuncios = [];
+    
+    for (const doc of snapshot.docs) {
+      const data = doc.data();
+      
+      // OTIMIZAÇÃO: Converter apenas a imagem principal (foto_capa) para performance
+      const anuncio = {
+        id: doc.id,
+        ...data,
+        foto_capa: await getImageUrl(data.foto_capa), // Apenas a foto principal
+        // Deixar as outras como nomes de arquivo para carregar sob demanda
+        coverImage: data.coverImage,
+        foto_stories: data.foto_stories,
+        profileImage: data.profileImage,
+        galeria_1: data.galeria_1,
+        galeria_2: data.galeria_2,
+        galeria_3: data.galeria_3,
+        galeria_4: data.galeria_4,
+        galeria_5: data.galeria_5,
+        galeria_6: data.galeria_6,
+        images: data.images || [] // Manter como array de nomes
+      };
+      
+      anuncios.push(anuncio);
+    }
+    
+    console.log(`✅ ${anuncios.length} anúncios encontrados (otimizado - apenas foto_capa)`);
+    
+    res.json(anuncios); // Retorna array direto para compatibilidade com frontend
+  } catch (error) {
+    console.error("Erro ao buscar anúncios:", error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      code: error.code,
+      environment: process.env.ENVIRONMENT || "test"
+    });
+  }
+});
+
+// Rota para converter imagem específica (para carregamento sob demanda)
+app.get("/api/image/:filename", async (req, res) => {
+  try {
+    const { filename } = req.params;
+    const url = await getImageUrl(filename);
+    res.json({ url });
+  } catch (error) {
+    console.error(`Erro ao converter imagem ${req.params.filename}:`, error);
+    res.status(500).json({ error: 'Erro ao processar imagem' });
+  }
+});
+
+// Rota para criar anúncio
+app.post("/api/anuncios", async (req, res) => {
+  try {
+    const anuncioData = {
+      ...req.body,
+      environment: process.env.ENVIRONMENT || "test",
+      project: process.env.PROJECT_NAME || "copia-do-job",
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      updatedAt: admin.firestore.FieldValue.serverTimestamp()
+    };
+    
+    const docRef = await db.collection('anuncios').add(anuncioData);
+    
+    res.status(201).json({
+      success: true,
+      message: "Anúncio criado com sucesso no Firebase",
+      environment: process.env.ENVIRONMENT || "test",
+      database: "Firebase Firestore",
+      id: docRef.id,
+      data: anuncioData
+    });
+  } catch (error) {
+    console.error("Erro ao criar anúncio:", error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      code: error.code,
+      environment: process.env.ENVIRONMENT || "test"
+    });
+  }
+});
+
+// Rota para limpar dados de teste
+app.delete("/api/test", async (req, res) => {
+  try {
+    const testRef = db.collection('test');
+    const snapshot = await testRef.get();
+    
+    const batch = db.batch();
+    snapshot.forEach(doc => {
+      batch.delete(doc.ref);
+    });
+    
+    await batch.commit();
+    
+    res.json({
+      success: true,
+      message: `Removidos ${snapshot.size} documentos de teste`,
+      environment: process.env.ENVIRONMENT || "test"
+    });
+  } catch (error) {
+    console.error("Erro ao limpar dados de teste:", error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      code: error.code,
+      environment: process.env.ENVIRONMENT || "test"
+    });
+  }
+});
+
+// Middleware de erro
+app.use((error, req, res, next) => {
+  console.error("❌ Erro no servidor Firebase:", error);
+  res.status(500).json({
+    success: false,
+    error: error.message,
+    code: error.code,
+    environment: process.env.ENVIRONMENT || "test"
+  });
+});
+
+// Iniciar servidor
+app.listen(process.env.PORT || 5001, () => {
+  console.log(`🎯 Servidor Firebase SIMPLES rodando na porta ${process.env.PORT || 5001}`);
+  console.log(`🔗 Acesse: http://localhost:${process.env.PORT || 5001}`);
+  console.log(`📊 Ambiente: ${process.env.ENVIRONMENT || 'test'}`);
+  console.log(`🔥 Firebase: ${process.env.FIREBASE_PROJECT_ID}`);
+  console.log(`🗄️  Banco: Firebase Firestore`);
+  console.log("⚠️  ATENÇÃO: Este é um ambiente de TESTE isolado!");
+  console.log("✅ SEM dependência do MongoDB - Apenas Firebase!");
+  console.log("🧪 Modo SIMPLES para testes básicos");
+});
+
+================================================================================
+
+--- api-firebase-completo.js ---
+// API Firebase COMPLETA - Projeto copia-do-job
+// Este servidor usa Firebase Firestore + Firebase Storage como banco de dados principal
+
+const express = require("express");
+const cors = require("cors");
+const admin = require("firebase-admin");
+require('dotenv').config({ path: './config-firebase-only.env' });
+
+const app = express();
+
+// Middleware
+app.use(cors({
+  origin: [
+    "http://localhost:5000",
+    "http://127.0.0.1:5000", 
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
+    "http://localhost:5500",
+    "http://127.0.0.1:5500"
+  ],
+  credentials: true
+}));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Log de inicialização
+console.log("🚀 Iniciando API Firebase COMPLETA...");
+console.log(`📊 Projeto: ${process.env.PROJECT_NAME || 'copia-do-job'}`);
+console.log(`🌍 Ambiente: ${process.env.ENVIRONMENT || 'test'}`);
+console.log(`🔗 Porta: ${process.env.PORT || 5000}`);
+console.log(`🔥 Firebase: ${process.env.FIREBASE_PROJECT_ID}`);
+
+// Inicializar Firebase Admin SDK
+const serviceAccount = {
+  type: "service_account",
+  project_id: process.env.FIREBASE_PROJECT_ID,
+  private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID,
+  private_key: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+  client_email: process.env.FIREBASE_CLIENT_EMAIL,
+  client_id: process.env.FIREBASE_CLIENT_ID,
+  auth_uri: "https://accounts.google.com/o/oauth2/auth",
+  token_uri: "https://oauth2.googleapis.com/token",
+  auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+  client_x509_cert_url: `https://www.googleapis.com/robot/v1/metadata/x509/${encodeURIComponent(process.env.FIREBASE_CLIENT_EMAIL)}`
+};
+
+try {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    storageBucket: `${process.env.FIREBASE_PROJECT_ID}.appspot.com`
+  });
+  
+  console.log("✅ Firebase Admin SDK inicializado com sucesso");
+} catch (error) {
+  console.error("❌ Erro ao inicializar Firebase:", error.message);
+  process.exit(1);
+}
+
+// Obter referências do Firebase
+const db = admin.firestore();
+const bucket = admin.storage().bucket();
+
+// Dados iniciais para popular o Firebase (se necessário)
+const initialAdvertisements = [
+  {
+    id: "1",
+    firebaseId: "firebase_1",
+    nome: "Maria Silva",
+    name: "Maria Silva",
+    category: "massagem",
+    categoria: "massagem",
+    status: "active",
+    foto_capa: "http://localhost:8080/../fotinha/fotos/avatar.jpg",
+    coverImage: "http://localhost:8080/../fotinha/fotos/avatar.jpg",
+    foto_stories: "http://localhost:8080/../fotinha/fotos/avatar.jpg",
+    profileImage: "http://localhost:8080/../fotinha/fotos/avatar.jpg",
+    galeria_1: "http://localhost:8080/../fotinha/fotos/foto (1).jpg",
+    galeria_2: "http://localhost:8080/../fotinha/fotos/foto (2).jpg",
+    galeria_3: "http://localhost:8080/../fotinha/fotos/foto (3).jpg",
+    images: [
+      "http://localhost:8080/../fotinha/fotos/foto (1).jpg",
+      "http://localhost:8080/../fotinha/fotos/foto (2).jpg",
+      "http://localhost:8080/../fotinha/fotos/foto (3).jpg"
+    ],
+    cidade: "São Paulo",
+    estado: "SP",
+    preco_30min: "R$ 100",
+    preco_45min: "R$ 150",
+    preco_1h: "R$ 200",
+    audioUrl: "",
+    descricao: "Massagem relaxante profissional",
+    idade: "25",
+    peso: "60kg",
+    altura: "1.65m",
+    aparencia: "Morena",
+    etnia: "Brasileira",
+    idiomas: "Português",
+    aceita: "Cartão, PIX",
+    verificacao: "Verificada",
+    servicos: "Massagem, Relaxamento",
+    advertiserId: "adv_1",
+    tipo: "massagem",
+    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    updatedAt: admin.firestore.FieldValue.serverTimestamp()
+  },
+  {
+    id: "2",
+    firebaseId: "firebase_2",
+    nome: "Ana Costa",
+    name: "Ana Costa",
+    category: "massagem",
+    categoria: "massagem",
+    status: "active",
+    foto_capa: "http://localhost:8080/../fotinha/fotos/avatar (2).jpg",
+    coverImage: "http://localhost:8080/../fotinha/fotos/avatar (2).jpg",
+    foto_stories: "http://localhost:8080/../fotinha/fotos/avatar (2).jpg",
+    profileImage: "http://localhost:8080/../fotinha/fotos/avatar (2).jpg",
+    galeria_1: "http://localhost:8080/../fotinha/fotos/foto (4).jpg",
+    galeria_2: "http://localhost:8080/../fotinha/fotos/foto (5).jpg",
+    images: [
+      "http://localhost:8080/../fotinha/fotos/foto (4).jpg",
+      "http://localhost:8080/../fotinha/fotos/foto (5).jpg"
+    ],
+    cidade: "Rio de Janeiro",
+    estado: "RJ",
+    preco_30min: "R$ 120",
+    preco_45min: "R$ 170",
+    preco_1h: "R$ 220",
+    audioUrl: "",
+    descricao: "Massagem terapêutica especializada",
+    idade: "28",
+    peso: "55kg",
+    altura: "1.60m",
+    aparencia: "Loira",
+    etnia: "Brasileira",
+    idiomas: "Português, Inglês",
+    aceita: "Cartão, PIX, Dinheiro",
+    verificacao: "Verificada",
+    servicos: "Massagem, Terapia",
+    advertiserId: "adv_2",
+    tipo: "massagem",
+    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    updatedAt: admin.firestore.FieldValue.serverTimestamp()
+  }
+];
+
+// Função para inicializar dados no Firebase
+async function initializeFirebaseData() {
+  try {
+    const adsRef = db.collection('advertisements');
+    const snapshot = await adsRef.get();
+    
+    if (snapshot.empty) {
+      console.log("📝 Inicializando dados no Firebase...");
+      const batch = db.batch();
+      
+      initialAdvertisements.forEach(ad => {
+        const docRef = adsRef.doc(ad.id);
+        batch.set(docRef, ad);
+      });
+      
+      await batch.commit();
+      console.log("✅ Dados iniciais adicionados ao Firebase");
+    } else {
+      console.log(`📊 Firebase já possui ${snapshot.size} anúncios`);
+    }
+  } catch (error) {
+    console.error("❌ Erro ao inicializar dados:", error);
+  }
+}
+
+// Inicializar dados
+initializeFirebaseData();
+
+// Endpoint para buscar anúncios em destaque
+app.get("/api/advertisements/featured", async (req, res) => {
+  try {
+    const { limit = 6 } = req.query;
+    const adsRef = db.collection('advertisements');
+    const snapshot = await adsRef
+      .where('status', '==', 'active')
+      .limit(parseInt(limit))
+      .get();
+    
+    const advertisements = [];
+    snapshot.forEach(doc => {
+      advertisements.push({
+        id: doc.id,
+        ...doc.data()
+      });
+    });
+    
+    console.log(`✅ ${advertisements.length} anúncios em destaque encontrados`);
+    res.json({
+      success: true,
+      data: advertisements,
+      total: advertisements.length,
+      database: "Firebase Firestore"
+    });
+  } catch (error) {
+    console.error("❌ Erro ao buscar anúncios em destaque:", error);
+    res.status(500).json({ 
+      success: false,
+      error: "Erro interno do servidor",
+      details: error.message 
+    });
+  }
+});
+
+// Endpoint para buscar anúncios com filtros
+app.get("/api/advertisements", async (req, res) => {
+  try {
+    const { category, categoria, status, tipo } = req.query;
+    let query = db.collection('advertisements');
+    
+    if (category || categoria) {
+      const categoryValue = category || categoria;
+      query = query.where('category', '==', categoryValue);
+    }
+    
+    if (status) {
+      query = query.where('status', '==', status);
+    }
+    
+    if (tipo) {
+      query = query.where('tipo', '==', tipo);
+    }
+    
+    const snapshot = await query.get();
+    const advertisements = [];
+    
+    snapshot.forEach(doc => {
+      advertisements.push({
+        id: doc.id,
+        ...doc.data()
+      });
+    });
+    
+    console.log(`✅ ${advertisements.length} anúncios encontrados`);
+    res.json({
+      success: true,
+      data: advertisements,
+      total: advertisements.length,
+      database: "Firebase Firestore"
+    });
+  } catch (error) {
+    console.error("❌ Erro ao buscar anúncios:", error);
+    res.status(500).json({ 
+      success: false,
+      error: "Erro interno do servidor",
+      details: error.message 
+    });
+  }
+});
+
+// Endpoint para buscar um anúncio específico
+app.get("/api/advertisements/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const doc = await db.collection('advertisements').doc(id).get();
+    
+    if (!doc.exists) {
+      return res.status(404).json({ 
+        success: false,
+        error: "Anúncio não encontrado" 
+      });
+    }
+    
+    res.json({
+      success: true,
+      data: {
+        id: doc.id,
+        ...doc.data()
+      },
+      database: "Firebase Firestore"
+    });
+  } catch (error) {
+    console.error("❌ Erro ao buscar anúncio:", error);
+    res.status(500).json({ 
+      success: false,
+      error: "Erro interno do servidor",
+      details: error.message 
+    });
+  }
+});
+
+// Endpoint para criar um novo anúncio
+app.post("/api/advertisements", async (req, res) => {
+  try {
+    const newAd = {
+      ...req.body,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      updatedAt: admin.firestore.FieldValue.serverTimestamp()
+    };
+    
+    const docRef = await db.collection('advertisements').add(newAd);
+    
+    console.log("✅ Anúncio criado:", docRef.id);
+    res.status(201).json({
+      success: true,
+      data: {
+        id: docRef.id,
+        ...newAd
+      },
+      database: "Firebase Firestore"
+    });
+  } catch (error) {
+    console.error("❌ Erro ao criar anúncio:", error);
+    res.status(500).json({ 
+      success: false,
+      error: "Erro interno do servidor",
+      details: error.message 
+    });
+  }
+});
+
+// Endpoint para atualizar um anúncio
+app.put("/api/advertisements/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateData = {
+      ...req.body,
+      updatedAt: admin.firestore.FieldValue.serverTimestamp()
+    };
+    
+    await db.collection('advertisements').doc(id).update(updateData);
+    
+    const updatedDoc = await db.collection('advertisements').doc(id).get();
+    
+    console.log("✅ Anúncio atualizado:", id);
+    res.json({
+      success: true,
+      data: {
+        id: updatedDoc.id,
+        ...updatedDoc.data()
+      },
+      database: "Firebase Firestore"
+    });
+  } catch (error) {
+    console.error("❌ Erro ao atualizar anúncio:", error);
+    res.status(500).json({ 
+      success: false,
+      error: "Erro interno do servidor",
+      details: error.message 
+    });
+  }
+});
+
+// Endpoint para deletar um anúncio
+app.delete("/api/advertisements/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.collection('advertisements').doc(id).delete();
+    
+    console.log("✅ Anúncio deletado:", id);
+    res.json({ 
+      success: true,
+      message: "Anúncio deletado com sucesso",
+      database: "Firebase Firestore"
+    });
+  } catch (error) {
+    console.error("❌ Erro ao deletar anúncio:", error);
+    res.status(500).json({ 
+      success: false,
+      error: "Erro interno do servidor",
+      details: error.message 
+    });
+  }
+});
+
+// Endpoint para sincronização com Firebase (Webhook)
+app.post("/api/sync-from-firebase", async (req, res) => {
+  try {
+    const { firebaseData, action } = req.body;
+    console.log(`🔄 Recebendo dados do Firebase - Ação: ${action}`);
+    console.log("📊 Dados recebidos:", firebaseData);
+    
+    // Aqui você pode processar os dados recebidos do Firebase
+    // Por exemplo, salvar em uma coleção de logs ou sincronizar com outras coleções
+    
+    res.json({
+      success: true,
+      action: action,
+      message: "Dados recebidos do Firebase com sucesso",
+      timestamp: new Date().toISOString(),
+      database: "Firebase Firestore"
+    });
+  } catch (error) {
+    console.error("❌ Erro na sincronização Firebase:", error);
+    res.status(500).json({ 
+      success: false,
+      error: "Erro interno do servidor",
+      details: error.message 
+    });
+  }
+});
+
+// Endpoint para sincronização manual (teste)
+app.post("/api/sync-all-from-firebase", async (req, res) => {
+  try {
+    console.log("🔄 Iniciando sincronização manual de todos os dados...");
+    
+    // Aqui você pode implementar lógica de sincronização
+    // Por exemplo, sincronizar dados entre diferentes coleções
+    
+    res.json({
+      success: true,
+      message: "Sincronização com Firebase realizada com sucesso",
+      timestamp: new Date().toISOString(),
+      database: "Firebase Firestore"
+    });
+  } catch (error) {
+    console.error("❌ Erro na sincronização manual:", error);
+    res.status(500).json({ 
+      success: false,
+      error: "Erro interno do servidor",
+      details: error.message 
+    });
+  }
+});
+
+// Rota para servir arquivos via Firebase Storage
+app.get('/api/files/:fileId', async (req, res) => {
+  try {
+    const { fileId } = req.params;
+    console.log(`📁 Servindo arquivo: ${fileId}`);
+    
+    // Gerar URL assinada para download do Firebase Storage
+    const file = bucket.file(fileId);
+    const [url] = await file.getSignedUrl({
+      action: 'read',
+      expires: Date.now() + 15 * 60 * 1000, // 15 minutos
+    });
+    
+    res.json({
+      success: true,
+      message: "Arquivo servido via Firebase Storage",
+      fileId: fileId,
+      url: url,
+      database: "Firebase Storage"
+    });
+  } catch (error) {
+    console.error(`❌ Erro no endpoint /api/files/${req.params.fileId}:`, error);
+    res.status(500).json({ 
+      success: false,
+      error: 'Erro interno do servidor',
+      details: error.message 
+    });
+  }
+});
+
+// Rota para upload de imagens para Firebase Storage
+app.post('/api/upload', async (req, res) => {
+  try {
+    const { fileName, fileData, contentType } = req.body;
+    
+    if (!fileName || !fileData) {
+      return res.status(400).json({
+        success: false,
+        error: 'fileName e fileData são obrigatórios'
+      });
+    }
+    
+    // Converter base64 para buffer
+    const buffer = Buffer.from(fileData, 'base64');
+    
+    // Upload para Firebase Storage
+    const file = bucket.file(`images/${fileName}`);
+    await file.save(buffer, {
+      metadata: {
+        contentType: contentType || 'image/jpeg',
+      },
+    });
+    
+    // Tornar o arquivo público
+    await file.makePublic();
+    
+    // Obter URL pública
+    const publicUrl = `https://storage.googleapis.com/${bucket.name}/${file.name}`;
+    
+    console.log(`✅ Imagem enviada: ${fileName}`);
+    
+    res.json({
+      success: true,
+      message: "Imagem enviada com sucesso",
+      fileName: fileName,
+      url: publicUrl,
+      database: "Firebase Storage"
+    });
+  } catch (error) {
+    console.error('❌ Erro no upload:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Erro no upload da imagem',
+      details: error.message
+    });
+  }
+});
+
+// Endpoint de teste
+app.get("/api/test", async (req, res) => {
+  try {
+    // Teste de conexão com Firebase
+    const testRef = db.collection('test').doc('connection');
+    await testRef.set({
+      message: 'Teste de conexão Firebase',
+      timestamp: admin.firestore.FieldValue.serverTimestamp(),
+      environment: process.env.ENVIRONMENT || 'test'
+    });
+    
+    const doc = await testRef.get();
+    
+    res.json({
+      success: true,
+      message: "API funcionando!",
+      timestamp: new Date().toISOString(),
+      database: "Firebase Firestore",
+      firebase: process.env.FIREBASE_PROJECT_ID,
+      environment: process.env.ENVIRONMENT || "test",
+      testData: doc.data(),
+      webhook: "Configurado para receber dados do Firebase"
+    });
+  } catch (error) {
+    console.error("❌ Erro no teste:", error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      database: "Firebase Firestore"
+    });
+  }
+});
+
+// Rota temporária para dados pessoais (simplificada)
+app.get("/api/sensitive/personal-info/:uid", async (req, res) => {
+  try {
+    const { uid } = req.params;
+    const doc = await db.collection('users').doc(uid).get();
+    
+    if (!doc.exists) {
+      return res.json({
+        success: true,
+        data: {
+          personalInfo: {
+            nome: "",
+            telefone: "",
+            whatsapp: "",
+            email: ""
+          },
+          email: "",
+          status: "active",
+          created_at: new Date().toISOString()
+        },
+        database: "Firebase Firestore"
+      });
+    }
+    
+    res.json({
+      success: true,
+      data: doc.data(),
+      database: "Firebase Firestore"
+    });
+  } catch (error) {
+    console.error("❌ Erro ao buscar dados pessoais:", error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      database: "Firebase Firestore"
+    });
+  }
+});
+
+// Rota temporária para atualizar dados pessoais (simplificada)
+app.put("/api/sensitive/personal-info/:uid", async (req, res) => {
+  try {
+    const { uid } = req.params;
+    const updateData = {
+      ...req.body,
+      updatedAt: admin.firestore.FieldValue.serverTimestamp()
+    };
+    
+    await db.collection('users').doc(uid).set(updateData, { merge: true });
+    
+    console.log("Dados recebidos (PUT):", req.body);
+    res.json({
+      success: true,
+      message: "Dados salvos com sucesso!",
+      data: req.body,
+      database: "Firebase Firestore"
+    });
+  } catch (error) {
+    console.error("❌ Erro ao atualizar dados pessoais:", error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      database: "Firebase Firestore"
+    });
+  }
+});
+
+// Rota temporária para criar dados pessoais (POST)
+app.post("/api/sensitive/personal-info/:uid", async (req, res) => {
+  try {
+    const { uid } = req.params;
+    const userData = {
+      ...req.body,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      updatedAt: admin.firestore.FieldValue.serverTimestamp()
+    };
+    
+    await db.collection('users').doc(uid).set(userData);
+    
+    console.log("Dados recebidos (POST):", req.body);
+    res.json({
+      success: true,
+      message: "Dados salvos com sucesso!",
+      data: req.body,
+      database: "Firebase Firestore"
+    });
+  } catch (error) {
+    console.error("❌ Erro ao criar dados pessoais:", error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      database: "Firebase Firestore"
+    });
+  }
+});
+
+// Middleware de erro
+app.use((error, req, res, next) => {
+  console.error("❌ Erro no servidor Firebase:", error);
+  res.status(500).json({
+    success: false,
+    error: error.message,
+    code: error.code,
+    database: "Firebase Firestore"
+  });
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor rodando na porta ${PORT}`);
+  console.log(`📊 Conectado ao Firebase Firestore`);
+  console.log(`🗄️  Projeto: ${process.env.FIREBASE_PROJECT_ID}`);
+  console.log(`🔗 Endpoints disponíveis:`);
+  console.log(`   GET /api/advertisements - Listar anúncios`);
+  console.log(`   GET /api/advertisements/featured - Anúncios em destaque`);
+  console.log(`   GET /api/advertisements/:id - Buscar anúncio específico`);
+  console.log(`   POST /api/advertisements - Criar anúncio`);
+  console.log(`   PUT /api/advertisements/:id - Atualizar anúncio`);
+  console.log(`   DELETE /api/advertisements/:id - Deletar anúncio`);
+  console.log(`   GET /api/test - Testar API`);
+  console.log(`🔥 Firebase Storage: Configurado`);
+  console.log(`✅ 100% Firebase - SEM MongoDB!`);
+});
+
+module.exports = app;
+
+================================================================================
+
+--- package.json (backend) ---
+{
+  "name": "mansao-do-job-backend",
+  "version": "1.0.0",
+  "description": "Backend API para Mansão do Job - Firebase",
+  "main": "api-firebase-completo.js",
+  "scripts": {
+    "start": "node api-firebase-completo.js",
+    "dev": "nodemon api-firebase-completo.js",
+    "start-mock": "node api-example.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "api",
+    "firebase",
+    "express",
+    "anuncios"
+  ],
+  "author": "Mansão do Job",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^8.1.0",
+    "firebase-admin": "^13.5.0",
+    "google-auth-library": "^10.4.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.2",
+    "nodemailer": "^7.0.6",
+    "validator": "^13.15.15"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
+
+================================================================================
+                                FRONTEND - CÓDIGO-FONTE
+================================================================================
+
+--- A_01__index.html (PRIMEIRAS 100 LINHAS) ---
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mansão do Job</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="monitor-script.js"></script>
+    <style>
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+      }
+
+      .modal.show {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-dialog {
+        position: relative;
+        width: auto;
+        margin: 0;
+        max-width: 400px;
+        width: 90%;
+      }
+
+      .modal-content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .input-prepend {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        padding-left: 12px;
+        color: #666;
+        z-index: 1;
+      }
+
+      .form-control {
+        position: relative;
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: #fff;
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: #4caf50;
+        box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+      }
+
+      .btn-primary {
+        background-color: #4caf50;
+        border-color: #4caf50;
+        color: white;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background-color: #3d8b40;
+        border-color: #3d8b40;
+      }
+
+      .btn-outline {
+        border: 1px solid #ddd;
+        background-color: transparent;
+        color: #666;
+        transition: all 0.3s ease;
+      }
+
+      .btn-outline:hover {
+        background-color: #f5f5f5;
+        border-color: #ccc;
+      }
+
+      /* Estilos para a seção de anúncios em destaque */
+      .featured-section {
+        padding: 2rem 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .featured-section h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+        font-weight: 700;
+      }
+
+      .featured-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      .featured-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        color: #333;
+      }
+
+      .featured-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      }
+
+      .featured-card img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+      }
+
+      .featured-card-content {
+        padding: 1.5rem;
+      }
+
+      .featured-card h3 {
+        margin: 0 0 0.5rem 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #2c3e50;
+      }
+
+      .featured-card p {
+        margin: 0 0 1rem 0;
+        color: #666;
+        line-height: 1.5;
+      }
+
+      .featured-card .price {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #e74c3c;
+        margin-bottom: 1rem;
+      }
+
+      .featured-card .btn {
+        width: 100%;
+        padding: 0.75rem;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .featured-card .btn-primary {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+      }
+
+      .featured-card .btn-primary:hover {
+        background: linear-gradient(45deg, #5a6fd8, #6a4190);
+        transform: translateY(-2px);
+      }
+
+      /* Responsividade */
+      @media (max-width: 768px) {
+        .featured-section h2 {
+          font-size: 2rem;
+        }
+
+        .featured-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .featured-card img {
+          height: 200px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="main-header">
+      <div class="header-container">
+        <div class="header-left">
+          <h1 class="logo-text">Mansão do Job</h1>
+        </div>
+        <div class="header-right">
+          <nav class="main-nav">
+            <a href="A_02__premium.html" class="nav-link">Premium</a>
+            <a href="A_03__massagistas.html" class="nav-link">Massagistas</a>
+            <a href="A_04__trans.html" class="nav-link">Trans</a>
+            <a href="A_05__homens.html" class="nav-link">Homens</a>
+            <a href="A_06__webcam.html" class="nav-link">Webcam</a>
+            <a href="register.html" class="nav-link">Cadastrar</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Seção de Anúncios em Destaque -->
+    <section class="featured-section">
+      <h2>Anúncios em Destaque</h2>
+      <div class="featured-grid" id="featuredGrid">
+        <!-- Os anúncios serão carregados aqui via JavaScript -->
+        <div class="loading-message">
+          <i class="fas fa-spinner fa-spin"></i>
+          Carregando anúncios...
+        </div>
+      </div>
+    </section>
+
+    <!-- JavaScript para carregar anúncios -->
+    <script>
+      // URL da API (ajustar conforme necessário)
+      const API_URL = 'http://localhost:5001/api/anuncios';
+
+      // Função para carregar anúncios em destaque
+      async function loadFeaturedAds() {
+        try {
+          console.log('🔄 Carregando anúncios da API:', API_URL);
+          
+          const response = await fetch(API_URL);
+          
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          
+          const anuncios = await response.json();
+          console.log('✅ Anúncios carregados:', anuncios.length);
+          
+          // Filtrar apenas os primeiros 6 anúncios para destaque
+          const featuredAds = anuncios.slice(0, 6);
+          
+          displayFeaturedAds(featuredAds);
+          
+        } catch (error) {
+          console.error('❌ Erro ao carregar anúncios:', error);
+          displayError('Erro ao carregar anúncios. Verifique se o servidor está rodando.');
+        }
+      }
+
+      // Função para exibir anúncios em destaque
+      function displayFeaturedAds(anuncios) {
+        const grid = document.getElementById('featuredGrid');
+        
+        if (!anuncios || anuncios.length === 0) {
+          grid.innerHTML = '<div class="no-ads-message">Nenhum anúncio encontrado.</div>';
+          return;
+        }
+
+        grid.innerHTML = anuncios.map(anuncio => `
+          <div class="featured-card">
+            <img src="${anuncio.foto_capa || 'https://via.placeholder.com/300x400/FFB6C1/FFFFFF?text=Sem+Imagem'}" 
+                 alt="${anuncio.nome || 'Anúncio'}" 
+                 onerror="this.src='https://via.placeholder.com/300x400/FFB6C1/FFFFFF?text=Erro+Carregamento'">
+            <div class="featured-card-content">
+              <h3>${anuncio.nome || 'Nome não informado'}</h3>
+              <p>${anuncio.descricao || 'Descrição não disponível'}</p>
+              <div class="price">${anuncio.preco_1h || 'Preço sob consulta'}</div>
+              <button class="btn btn-primary" onclick="viewAd('${anuncio.id}')">
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Função para exibir erro
+      function displayError(message) {
+        const grid = document.getElementById('featuredGrid');
+        grid.innerHTML = `
+          <div class="error-message" style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: white;">
+            <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+            <p>${message}</p>
+            <button onclick="loadFeaturedAds()" class="btn btn-primary" style="margin-top: 1rem;">
+              Tentar Novamente
+            </button>
+          </div>
+        `;
+      }
+
+      // Função para visualizar anúncio
+      function viewAd(adId) {
+        console.log('👁️ Visualizando anúncio:', adId);
+        // Aqui você pode implementar a navegação para a página de detalhes
+        alert(`Visualizando anúncio: ${adId}`);
+      }
+
+      // Carregar anúncios quando a página carregar
+      document.addEventListener('DOMContentLoaded', loadFeaturedAds);
+    </script>
+  </body>
+</html>
+
+================================================================================
+
+--- firebase-config.js ---
+// firebase-config.js
+// Configuração Firebase para conexão direta (sem Node.js)
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getStorage } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
+// 🔧 Configuração Firebase - Projeto copia-do-job
+const firebaseConfig = {
+  apiKey: "AIzaSyBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", // Precisa ser obtida do Firebase Console
+  authDomain: "copia-do-job.firebaseapp.com",
+  projectId: "copia-do-job",
+  storageBucket: "copia-do-job.firebasestorage.app",
+  messagingSenderId: "110520433912010356634",
+  appId: "1:110520433912010356634:web:firebase-web-app"
+};
+
+// Inicializar Firebase
+const app = initializeApp(firebaseConfig);
+
+// Exportar serviços
+export const db = getFirestore(app);
+export const storage = getStorage(app);
+
+console.log("🔥 Firebase configurado com sucesso!");
+console.log("📊 Projeto:", firebaseConfig.projectId);
+console.log("📦 Storage:", firebaseConfig.storageBucket);
+
+================================================================================
+
+--- live-server.json ---
+{
+  "port": 8080,
+  "host": "localhost",
+  "root": "frontend/src",
+  "open": true,
+  "file": "index.html",
+  "wait": 1000,
+  "logLevel": 2,
+  "proxy": [
+    {
+      "path": "/api",
+      "target": "http://localhost:5000"
+    }
+  ],
+  "cors": true,
+  "corsOptions": {
+    "origin": "*",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204
+  }
+}
+
+================================================================================
+                                ANÁLISE DOS PROBLEMAS POTENCIAIS
+================================================================================
+
+🔍 PROBLEMAS IDENTIFICADOS NO CÓDIGO:
+
+1. **CONFLITO DE PORTAS**:
+   - server-firebase-simples.js: porta 5001
+   - api-firebase-completo.js: porta 5000
+   - live-server.json: proxy para porta 5000
+   - Frontend espera: porta 5001
+
+2. **CONFLITO DE ENDPOINTS**:
+   - server-firebase-simples.js: /api/anuncios
+   - api-firebase-completo.js: /api/advertisements
+   - Frontend chama: /api/anuncios
+
+3. **CONFLITO DE STORAGE BUCKET**:
+   - server-firebase-simples.js: .firebasestorage.app
+   - api-firebase-completo.js: .appspot.com
+
+4. **CORS INCONSISTENTE**:
+   - server-firebase-simples.js: localhost:5001, 5500, 5502
+   - api-firebase-completo.js: localhost:5000, 8080, 5500
+   - live-server.json: proxy para 5000
+
+5. **FIREBASE CONFIG INCOMPLETA**:
+   - firebase-config.js: apiKey com XXXX (não configurada)
+
+6. **COLEÇÕES DIFERENTES**:
+   - server-firebase-simples.js: coleção 'anuncios'
+   - api-firebase-completo.js: coleção 'advertisements'
+
+================================================================================
+                                SOLUÇÕES RECOMENDADAS
+================================================================================
+
+✅ CORREÇÕES NECESSÁRIAS:
+
+1. **PADRONIZAR PORTAS**:
+   - Usar apenas porta 5001 para backend
+   - Atualizar live-server.json para proxy 5001
+
+2. **PADRONIZAR ENDPOINTS**:
+   - Usar /api/anuncios em ambos os servidores
+   - Ou atualizar frontend para /api/advertisements
+
+3. **PADRONIZAR STORAGE**:
+   - Usar .firebasestorage.app em ambos
+
+4. **CONFIGURAR FIREBASE**:
+   - Obter apiKey real do Firebase Console
+   - Configurar firebase-config.js corretamente
+
+5. **PADRONIZAR COLEÇÕES**:
+   - Usar 'anuncios' em ambos os servidores
+
+================================================================================
+                                FIM DO CÓDIGO-FONTE
+================================================================================
+
+📅 Data: 15/10/2025
+👤 Projeto: Mansão do Job - Firebase
+🌍 Ambiente: Teste/Desenvolvimento
+📊 Arquivos analisados: 6 principais
+🔍 Problemas identificados: 6 críticos
+✅ Soluções propostas: 5 correções
+
+================================================================================
+

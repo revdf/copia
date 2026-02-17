@@ -1,0 +1,49 @@
+===========================================
+  ACESSO PELO CELULAR
+===========================================
+
+📱 ENDEREÇO PARA ACESSAR NO CELULAR:
+
+http://192.168.15.8:5500/S-COPIA-S/job-modificado/frontend/src/Perfil-Cadastro-LUXO.html
+
+===========================================
+  INSTRUÇÕES:
+===========================================
+
+1. ✅ Certifique-se de que o servidor Live Server está rodando
+   (porta 5500)
+
+2. ✅ Conecte seu celular na MESMA rede Wi-Fi do computador
+
+3. ✅ Abra o navegador do celular e digite o endereço acima
+
+4. ✅ Se não funcionar, verifique:
+   - Firewall do Windows pode estar bloqueando
+   - O Live Server precisa aceitar conexões externas
+   - Ambos (PC e celular) na mesma rede Wi-Fi
+
+===========================================
+  IP DA SUA MÁQUINA:
+===========================================
+
+IPv4: 192.168.15.8
+Rede: 192.168.15.0/24
+
+===========================================
+  ALTERNATIVAS:
+===========================================
+
+Se o Live Server não aceitar conexões externas,
+você pode usar um servidor HTTP simples:
+
+1. Abra o PowerShell na pasta do projeto
+2. Execute: python -m http.server 8000
+3. Acesse: http://192.168.15.8:8000/S-COPIA-S/job-modificado/frontend/src/Perfil-Cadastro-LUXO.html
+
+Ou use o Node.js:
+1. Instale: npm install -g http-server
+2. Execute: http-server -p 8000 -a 0.0.0.0
+3. Acesse: http://192.168.15.8:8000/S-COPIA-S/job-modificado/frontend/src/Perfil-Cadastro-LUXO.html
+
+===========================================
+

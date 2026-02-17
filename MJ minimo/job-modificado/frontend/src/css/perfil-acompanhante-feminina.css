@@ -1,0 +1,909 @@
+/* ===== PERFIL ACOMPANHANTE FEMININA - ESTILOS ESPECÍFICOS ===== */
+
+/* ===== HEADER SENSUAL ===== */
+.acompanhante-feminina .sensual-header {
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 30%, #FF1493 70%, #FF69B4 100%);
+    position: relative;
+    overflow: hidden;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+}
+
+.acompanhante-feminina .header-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hearts" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23hearts)"/></svg>');
+    opacity: 0.3;
+}
+
+.acompanhante-feminina .header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255,20,147,0.1) 0%, rgba(255,105,180,0.1) 100%);
+}
+
+.acompanhante-feminina .perfil-info {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    width: 100%;
+}
+
+.acompanhante-feminina .perfil-nome {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+    background: linear-gradient(45deg, #fff, #FFB6C1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.acompanhante-feminina .perfil-subtitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    opacity: 0.95;
+}
+
+.acompanhante-feminina .idade {
+    background: rgba(255,255,255,0.2);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+}
+
+.acompanhante-feminina .separator {
+    font-size: 1.5rem;
+    opacity: 0.7;
+}
+
+.acompanhante-feminina .localizacao {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.acompanhante-feminina .categoria-badge {
+    background: rgba(255,255,255,0.25);
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255,255,255,0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.acompanhante-feminina .perfil-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.acompanhante-feminina .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.2);
+    padding: 10px 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    font-weight: 500;
+}
+
+.acompanhante-feminina .stat-item i {
+    color: #FFD700;
+}
+
+/* ===== GALERIA SENSUAL ===== */
+.acompanhante-feminina .sensual-galeria {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d1b69 100%);
+    position: relative;
+}
+
+.acompanhante-feminina .foto-principal {
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+}
+
+.acompanhante-feminina .foto-principal img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.acompanhante-feminina .foto-principal:hover img {
+    transform: scale(1.05);
+}
+
+.acompanhante-feminina .foto-overlay {
+    background: linear-gradient(45deg, rgba(220,20,60,0.3) 0%, rgba(255,20,147,0.3) 100%);
+}
+
+.acompanhante-feminina .overlay-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.acompanhante-feminina .btn-play {
+    background: linear-gradient(45deg, #FF1493, #FF69B4);
+    border: none;
+    padding: 20px 40px;
+    border-radius: 40px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(255,20,147,0.4);
+}
+
+.acompanhante-feminina .btn-play:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 35px rgba(255,20,147,0.6);
+}
+
+.acompanhante-feminina .foto-info {
+    background: rgba(0,0,0,0.7);
+    padding: 10px 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.acompanhante-feminina .foto-count {
+    color: white;
+    font-weight: 500;
+}
+
+.acompanhante-feminina .foto-badges {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 3;
+}
+
+.acompanhante-feminina .badge-verificado {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(40,167,69,0.3);
+}
+
+.acompanhante-feminina .fotos-miniaturas {
+    background: linear-gradient(135deg, #2d1b69 0%, #1a1a1a 100%);
+    padding: 25px;
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+}
+
+.acompanhante-feminina .miniatura {
+    width: 100px;
+    height: 100px;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.acompanhante-feminina .miniatura:hover,
+.acompanhante-feminina .miniatura.ativa {
+    border-color: #FF1493;
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(255,20,147,0.4);
+}
+
+.acompanhante-feminina .miniatura img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.acompanhante-feminina .miniatura:hover img {
+    transform: scale(1.1);
+}
+
+.acompanhante-feminina .miniatura-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,20,147,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.acompanhante-feminina .miniatura:hover .miniatura-overlay {
+    opacity: 1;
+}
+
+.acompanhante-feminina .miniatura-overlay i {
+    color: white;
+    font-size: 1.5rem;
+}
+
+/* ===== CONTATOS DESTAQUE ===== */
+.acompanhante-feminina .contatos-destaque {
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    padding: 40px 30px;
+    text-align: center;
+}
+
+.acompanhante-feminina .contato-buttons {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 25px;
+    justify-content: center;
+}
+
+.acompanhante-feminina .btn-contato {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 35px;
+    border-radius: 35px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    min-width: 180px;
+    justify-content: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.acompanhante-feminina .btn-ligar {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255,255,255,0.3);
+}
+
+.acompanhante-feminina .btn-ligar:hover {
+    background: rgba(255,255,255,0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+}
+
+.acompanhante-feminina .btn-whatsapp {
+    background: #25d366;
+    color: white;
+    border: 2px solid #25d366;
+}
+
+.acompanhante-feminina .btn-whatsapp:hover {
+    background: #128c7e;
+    border-color: #128c7e;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(37,211,102,0.4);
+}
+
+.acompanhante-feminina .contato-note {
+    background: rgba(255,255,255,0.1);
+    padding: 15px 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+/* ===== INFORMAÇÕES SENSUAIS ===== */
+.acompanhante-feminina .info-sensual {
+    background: linear-gradient(135deg, #2d1b69 0%, #1a1a1a 100%);
+    color: white;
+    padding: 40px 30px;
+}
+
+.acompanhante-feminina .info-sensual h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #FFB6C1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.acompanhante-feminina .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.acompanhante-feminina .info-item {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(15px);
+    padding: 25px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.acompanhante-feminina .info-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,20,147,0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.acompanhante-feminina .info-item:hover::before {
+    left: 100%;
+}
+
+.acompanhante-feminina .info-item:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: #FF1493;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(255,20,147,0.2);
+}
+
+.acompanhante-feminina .info-item i {
+    color: #FF1493;
+    font-size: 1.8rem;
+    width: 40px;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(255,20,147,0.5);
+}
+
+.acompanhante-feminina .info-label {
+    color: #FFB6C1;
+    font-weight: 500;
+    flex: 1;
+}
+
+.acompanhante-feminina .info-value {
+    color: white;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+/* ===== PREÇOS SENSUAIS ===== */
+.acompanhante-feminina .precos-sensual {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d1b69 100%);
+    color: white;
+    padding: 40px 30px;
+}
+
+.acompanhante-feminina .precos-sensual h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #FFB6C1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.acompanhante-feminina .precos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.acompanhante-feminina .preco-item {
+    background: linear-gradient(135deg, #DC143C 0%, #FF1493 100%);
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(220,20,60,0.3);
+}
+
+.acompanhante-feminina .preco-item.destaque {
+    background: linear-gradient(135deg, #FF1493 0%, #FF69B4 100%);
+    transform: scale(1.05);
+    box-shadow: 0 12px 35px rgba(255,20,147,0.4);
+}
+
+.acompanhante-feminina .preco-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.acompanhante-feminina .preco-item:hover::before {
+    left: 100%;
+}
+
+.acompanhante-feminina .preco-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(220,20,60,0.4);
+}
+
+.acompanhante-feminina .preco-tempo {
+    display: block;
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.acompanhante-feminina .preco-valor {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.acompanhante-feminina .preco-descricao {
+    display: block;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    font-style: italic;
+}
+
+.acompanhante-feminina .precos-info {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    text-align: center;
+}
+
+.acompanhante-feminina .precos-info p {
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.acompanhante-feminina .precos-info i {
+    color: #FFD700;
+}
+
+/* ===== DESCRIÇÃO SENSUAL ===== */
+.acompanhante-feminina .descricao-sensual {
+    background: linear-gradient(135deg, #2d1b69 0%, #1a1a1a 100%);
+    color: white;
+    padding: 40px 30px;
+}
+
+.acompanhante-feminina .descricao-sensual h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #FFB6C1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.acompanhante-feminina .descricao-content p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #FFB6C1;
+}
+
+.acompanhante-feminina .descricao-highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.acompanhante-feminina .highlight-item {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+}
+
+.acompanhante-feminina .highlight-item:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: #FF1493;
+    transform: translateY(-3px);
+}
+
+.acompanhante-feminina .highlight-item i {
+    color: #FFD700;
+    font-size: 1.5rem;
+}
+
+/* ===== SERVIÇOS SENSUAIS ===== */
+.acompanhante-feminina .servicos-sensual {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d1b69 100%);
+    color: white;
+    padding: 40px 30px;
+}
+
+.acompanhante-feminina .servicos-sensual h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #FFB6C1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.acompanhante-feminina .servicos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.acompanhante-feminina .servico-item {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.acompanhante-feminina .servico-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,20,147,0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.acompanhante-feminina .servico-item:hover::before {
+    left: 100%;
+}
+
+.acompanhante-feminina .servico-item:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: #FF1493;
+    transform: translateX(8px);
+    box-shadow: 0 8px 25px rgba(255,20,147,0.2);
+}
+
+.acompanhante-feminina .servico-item i {
+    color: #28a745;
+    font-size: 1.3rem;
+    text-shadow: 0 0 10px rgba(40,167,69,0.5);
+}
+
+.acompanhante-feminina .servicos-note {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.acompanhante-feminina .servicos-note p {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #FFB6C1;
+}
+
+.acompanhante-feminina .servicos-note i {
+    color: #FFD700;
+}
+
+/* ===== LOCALIZAÇÃO ===== */
+.acompanhante-feminina .perfil-localizacao {
+    background: linear-gradient(135deg, #2d1b69 0%, #1a1a1a 100%);
+    color: white;
+    padding: 40px 30px;
+}
+
+.acompanhante-feminina .perfil-localizacao h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #FFB6C1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.acompanhante-feminina .localizacao-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.acompanhante-feminina .localizacao-item {
+    background: rgba(255,255,255,0.1);
+    padding: 25px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+}
+
+.acompanhante-feminina .localizacao-item:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: #FF1493;
+    transform: translateY(-3px);
+}
+
+.acompanhante-feminina .localizacao-item i {
+    color: #FF1493;
+    font-size: 1.5rem;
+}
+
+.acompanhante-feminina .localizacao-label {
+    color: #FFB6C1;
+    font-weight: 500;
+    flex: 1;
+}
+
+.acompanhante-feminina .localizacao-value {
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* ===== ÁUDIO E VÍDEO ===== */
+.acompanhante-feminina .perfil-audio,
+.acompanhante-feminina .perfil-video {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d1b69 100%);
+    color: white;
+    padding: 40px 30px;
+}
+
+.acompanhante-feminina .perfil-audio h3,
+.acompanhante-feminina .perfil-video h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #FFB6C1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.acompanhante-feminina .audio-player,
+.acompanhante-feminina .video-container {
+    background: rgba(255,255,255,0.1);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.acompanhante-feminina .audio-note,
+.acompanhante-feminina .video-note {
+    margin-top: 15px;
+    color: #FFB6C1;
+    font-style: italic;
+}
+
+/* ===== INFORMAÇÕES ADICIONAIS ===== */
+.acompanhante-feminina .perfil-adicional {
+    background: linear-gradient(135deg, #2d1b69 0%, #1a1a1a 100%);
+    color: white;
+    padding: 40px 30px;
+}
+
+.acompanhante-feminina .adicional-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.acompanhante-feminina .adicional-item {
+    background: rgba(255,255,255,0.1);
+    padding: 25px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+}
+
+.acompanhante-feminina .adicional-item:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: #FF1493;
+    transform: translateY(-3px);
+}
+
+.acompanhante-feminina .adicional-label {
+    display: block;
+    color: #FFB6C1;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.acompanhante-feminina .adicional-value {
+    display: block;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.acompanhante-feminina .status-online {
+    color: #28a745 !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.acompanhante-feminina .status-online i {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* ===== FOOTER ===== */
+.acompanhante-feminina .perfil-footer {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d1b69 100%);
+    color: white;
+    padding: 40px 30px;
+}
+
+.acompanhante-feminina .footer-content {
+    text-align: center;
+}
+
+.acompanhante-feminina .footer-links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.acompanhante-feminina .footer-links a {
+    color: #FFB6C1;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-weight: 500;
+}
+
+.acompanhante-feminina .footer-links a:hover {
+    color: #FF1493;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+    .acompanhante-feminina .perfil-nome {
+        font-size: 2.5rem;
+    }
+    
+    .acompanhante-feminina .perfil-subtitle {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .acompanhante-feminina .perfil-stats {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .acompanhante-feminina .foto-principal {
+        height: 400px;
+    }
+    
+    .acompanhante-feminina .contato-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .acompanhante-feminina .info-grid,
+    .acompanhante-feminina .precos-grid,
+    .acompanhante-feminina .servicos-grid,
+    .acompanhante-feminina .localizacao-info,
+    .acompanhante-feminina .adicional-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .acompanhante-feminina .footer-links {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .acompanhante-feminina .perfil-nome {
+        font-size: 2rem;
+    }
+    
+    .acompanhante-feminina .foto-principal {
+        height: 300px;
+    }
+    
+    .acompanhante-feminina .sensual-header,
+    .acompanhante-feminina .contatos-destaque,
+    .acompanhante-feminina .info-sensual,
+    .acompanhante-feminina .precos-sensual,
+    .acompanhante-feminina .descricao-sensual,
+    .acompanhante-feminina .servicos-sensual,
+    .acompanhante-feminina .perfil-localizacao,
+    .acompanhante-feminina .perfil-audio,
+    .acompanhante-feminina .perfil-video,
+    .acompanhante-feminina .perfil-adicional,
+    .acompanhante-feminina .perfil-footer {
+        padding: 25px 20px;
+    }
+}

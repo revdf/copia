@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navegação - Links das Páginas</title>
+    <!-- Font Awesome para os ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #f093fb;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #f093fb;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .link-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 5px solid #f093fb;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-left-color: #f5576c;
+        }
+
+        .link-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .link-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .link-url {
+            font-size: 0.8rem;
+            color: #999;
+            font-family: monospace;
+            background: #e9ecef;
+            padding: 5px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-left: 10px;
+        }
+
+        .status-new {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-updated {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-stable {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e9ecef;
+        }
+
+        @media (max-width: 768px) {
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Navegação das Páginas</h1>
+            <p>Links para todas as páginas HTML do projeto</p>
+        </div>
+
+        <div class="content">
+            <!-- Páginas Principais -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-home"></i>
+                    Páginas Principais
+                </h2>
+                <div class="links-grid">
+                    <a href="A_01__index.html" class="link-card" target="_blank">
+                        <div class="link-title">🏠 Página Inicial</div>
+                        <div class="link-description">Página principal do site</div>
+                        <div class="link-url">A_01__index.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="luxo.html" class="link-card" target="_blank">
+                        <div class="link-title">💎 Página Luxo</div>
+                        <div class="link-description">Galeria de cards com carrossel e foguinhos</div>
+                        <div class="link-url">luxo.html</div>
+                        <span class="status-badge status-new">Novo</span>
+                    </a>
+                    
+                    <a href="debug-anuncio.html" class="link-card" target="_blank">
+                        <div class="link-title">🔍 Debug Anúncios</div>
+                        <div class="link-description">Verificar status e dados dos anúncios no Firebase</div>
+                        <div class="link-url">debug-anuncio.html</div>
+                        <span class="status-badge status-new">Ferramenta</span>
+                    </a>
+                    
+                    <a href="PAGINAS_NAO_USADAS/pg_teste/cadastro-teste-completo.html" class="link-card" target="_blank">
+                        <div class="link-title">🧪 Cadastro Teste Completo</div>
+                        <div class="link-description">Página de teste combinando cadastro-simples e modelo-cadastro-anuncios - Todos os campos desbloqueados, salva em JSON e TXT</div>
+                        <div class="link-url">PAGINAS_NAO_USADAS/pg_teste/cadastro-teste-completo.html</div>
+                        <span class="status-badge status-new">Teste</span>
+                    </a>
+                    
+                    <a href="selecao-categoria.html" class="link-card" target="_blank">
+                        <div class="link-title">🏷️ Seleção de Categoria</div>
+                        <div class="link-description">Página para seleção de categoria e tipo de perfil (Mulher, Trans, Homem, etc.) e categoria (Acompanhantes, Massagistas, Sexo Virtual)</div>
+                        <div class="link-url">selecao-categoria.html</div>
+                        <span class="status-badge status-new">Frequente</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Perfis -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-user"></i>
+                    Páginas de Perfil
+                </h2>
+                <div class="links-grid">
+                    <a href="perfil-sophia.html" class="link-card" target="_blank">
+                        <div class="link-title">👩 Perfil Sophia</div>
+                        <div class="link-description">Perfil individual com galeria, vídeos e áudios</div>
+                        <div class="link-url">perfil-sophia.html</div>
+                        <span class="status-badge status-new">Novo</span>
+                    </a>
+                    
+                    <a href="perfil-homem-acompanhante.html" class="link-card" target="_blank">
+                        <div class="link-title">👨 Perfil Homem Acompanhante</div>
+                        <div class="link-description">Perfil para acompanhantes masculinos</div>
+                        <div class="link-url">perfil-homem-acompanhante.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="perfil-trans-acompanhante.html" class="link-card" target="_blank">
+                        <div class="link-title">🏳️‍⚧️ Perfil Trans Acompanhante</div>
+                        <div class="link-description">Perfil para acompanhantes trans</div>
+                        <div class="link-url">perfil-trans-acompanhante.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="perfil-acompanhante-classico.html" class="link-card" target="_blank">
+                        <div class="link-title">👤 Perfil Acompanhante Clássico</div>
+                        <div class="link-description">Perfil clássico para acompanhantes</div>
+                        <div class="link-url">perfil-acompanhante-classico.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="perfil-acompanhante-feminina.html" class="link-card" target="_blank">
+                        <div class="link-title">👩 Perfil Acompanhante Feminina</div>
+                        <div class="link-description">Perfil específico para acompanhantes femininas</div>
+                        <div class="link-url">perfil-acompanhante-feminina.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="perfil-mulher-luxo.html" class="link-card" target="_blank">
+                        <div class="link-title">💎 Perfil Mulher Luxo</div>
+                        <div class="link-description">Perfil luxo para mulheres</div>
+                        <div class="link-url">perfil-mulher-luxo.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="perfil-base.html" class="link-card" target="_blank">
+                        <div class="link-title">🏗️ Perfil Base</div>
+                        <div class="link-description">Modelo base para perfis</div>
+                        <div class="link-url">perfil-base.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="perfil-homens-trans.html" class="link-card" target="_blank">
+                        <div class="link-title">🏳️‍⚧️ Perfil Homens Trans</div>
+                        <div class="link-description">Perfil para homens trans</div>
+                        <div class="link-url">perfil-homens-trans.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Páginas Premium -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-crown"></i>
+                    Páginas Premium
+                </h2>
+                <div class="links-grid">
+                    <a href="A_02__premium.html" class="link-card" target="_blank">
+                        <div class="link-title">👑 Premium Principal</div>
+                        <div class="link-description">Página premium principal</div>
+                        <div class="link-url">A_02__premium.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="A_02__premium_Anuncio_modelo_01.html" class="link-card" target="_blank">
+                        <div class="link-title">📢 Anúncio Modelo 01</div>
+                        <div class="link-description">Página de anúncio premium modelo 01</div>
+                        <div class="link-url">A_02__premium_Anuncio_modelo_01.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="A_02__premium_Anuncio_modelo_02.html" class="link-card" target="_blank">
+                        <div class="link-title">📢 Anúncio Modelo 02</div>
+                        <div class="link-description">Página de anúncio premium modelo 02</div>
+                        <div class="link-url">A_02__premium_Anuncio_modelo_02.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Categorias Específicas -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-tags"></i>
+                    Categorias Específicas
+                </h2>
+                <div class="links-grid">
+                    <a href="A_03__massagistas.html" class="link-card" target="_blank">
+                        <div class="link-title">💆 Massagistas</div>
+                        <div class="link-description">Página dedicada aos massagistas</div>
+                        <div class="link-url">A_03__massagistas.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="A_04__trans.html" class="link-card" target="_blank">
+                        <div class="link-title">🏳️‍⚧️ Trans</div>
+                        <div class="link-description">Página dedicada aos acompanhantes trans</div>
+                        <div class="link-url">A_04__trans.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="A_05__homens.html" class="link-card" target="_blank">
+                        <div class="link-title">👨 Homens</div>
+                        <div class="link-description">Página dedicada aos acompanhantes masculinos</div>
+                        <div class="link-url">A_05__homens.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                </div>
+            </div>
+
+            <!-- Páginas de Cadastro -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-user-plus"></i>
+                    Cadastro e Anúncios
+                </h2>
+                <div class="links-grid">
+                    <a href="modelo-cadastro-anuncios.html" class="link-card" target="_blank">
+                        <div class="link-title">📝 Cadastro de Anúncios</div>
+                        <div class="link-description">Formulário para cadastro de anúncios</div>
+                        <div class="link-url">modelo-cadastro-anuncios.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="cadastro-simples.html" class="link-card" target="_blank">
+                        <div class="link-title">✏️ Cadastro Simples</div>
+                        <div class="link-description">Formulário de cadastro simplificado</div>
+                        <div class="link-url">cadastro-simples.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="cadastro-simples-teste.html" class="link-card" target="_blank">
+                        <div class="link-title">🧪 Cadastro Simples Teste</div>
+                        <div class="link-description">Versão de teste do cadastro simples</div>
+                        <div class="link-url">cadastro-simples-teste.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="modelo-cadastro-anuncios-simples.html" class="link-card" target="_blank">
+                        <div class="link-title">📋 Cadastro Anúncios Simples</div>
+                        <div class="link-description">Versão simplificada do cadastro de anúncios</div>
+                        <div class="link-url">modelo-cadastro-anuncios-simples.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="anunciar_GP_02_modificado.html" class="link-card" target="_blank">
+                        <div class="link-title">📢 Anunciar GP Modificado</div>
+                        <div class="link-description">Página de anúncio GP modificada</div>
+                        <div class="link-url">anunciar_GP_02_modificado.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="cadastro-anuncio-BASE.html" class="link-card" target="_blank">
+                        <div class="link-title">📝 Cadastro Anúncio BASE</div>
+                        <div class="link-description">Página base para cadastro de anúncios</div>
+                        <div class="link-url">cadastro-anuncio-BASE.html</div>
+                        <span class="status-badge status-new">Novo</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Páginas de Galeria -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-images"></i>
+                    Galerias
+                </h2>
+                <div class="links-grid">
+                    <a href="galeria-7-colunas-exemplo.html" class="link-card" target="_blank">
+                        <div class="link-title">🖼️ Galeria 7 Colunas</div>
+                        <div class="link-description">Exemplo de galeria com 7 colunas</div>
+                        <div class="link-url">galeria-7-colunas-exemplo.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="homem-7-colunas.html" class="link-card" target="_blank">
+                        <div class="link-title">👨 Galeria Homens</div>
+                        <div class="link-description">Galeria específica para homens</div>
+                        <div class="link-url">homem-7-colunas.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="trans-7-colunas.html" class="link-card" target="_blank">
+                        <div class="link-title">🏳️‍⚧️ Galeria Trans</div>
+                        <div class="link-description">Galeria específica para trans</div>
+                        <div class="link-url">trans-7-colunas.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="massagista-7-colunas.html" class="link-card" target="_blank">
+                        <div class="link-title">💆 Galeria Massagistas</div>
+                        <div class="link-description">Galeria específica para massagistas</div>
+                        <div class="link-url">massagista-7-colunas.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                </div>
+            </div>
+
+            <!-- Páginas Demo -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-theater-masks"></i>
+                    Páginas Demo
+                </h2>
+                <div class="links-grid">
+                    <a href="demo-perfil-trans.html" class="link-card" target="_blank">
+                        <div class="link-title">🎭 Demo Perfil Trans</div>
+                        <div class="link-description">Demonstração do perfil trans</div>
+                        <div class="link-url">demo-perfil-trans.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="demo-perfil-acompanhante.html" class="link-card" target="_blank">
+                        <div class="link-title">🎭 Demo Perfil Acompanhante</div>
+                        <div class="link-description">Demonstração do perfil acompanhante</div>
+                        <div class="link-url">demo-perfil-acompanhante.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="demo-perfil-luxo.html" class="link-card" target="_blank">
+                        <div class="link-title">💎 Demo Perfil Luxo</div>
+                        <div class="link-description">Demonstração do perfil luxo</div>
+                        <div class="link-url">demo-perfil-luxo.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="demo-perfil-classico.html" class="link-card" target="_blank">
+                        <div class="link-title">👤 Demo Perfil Clássico</div>
+                        <div class="link-description">Demonstração do perfil clássico</div>
+                        <div class="link-url">demo-perfil-classico.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Páginas de Backup -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-copy"></i>
+                    Páginas de Backup
+                </h2>
+                <div class="links-grid">
+                    <a href="A_02__premium_copy.html" class="link-card" target="_blank">
+                        <div class="link-title">👑 Premium Copy</div>
+                        <div class="link-description">Backup da página premium</div>
+                        <div class="link-url">A_02__premium_copy.html</div>
+                        <span class="status-badge status-stable">Backup</span>
+                    </a>
+                    
+                    <a href="A_02__premium_homens_copy.html" class="link-card" target="_blank">
+                        <div class="link-title">👨 Premium Homens Copy</div>
+                        <div class="link-description">Backup da página premium homens</div>
+                        <div class="link-url">A_02__premium_homens_copy.html</div>
+                        <span class="status-badge status-stable">Backup</span>
+                    </a>
+                    
+                    <a href="A_02__premium_massagistas_copy.html" class="link-card" target="_blank">
+                        <div class="link-title">💆 Premium Massagistas Copy</div>
+                        <div class="link-description">Backup da página premium massagistas</div>
+                        <div class="link-url">A_02__premium_massagistas_copy.html</div>
+                        <span class="status-badge status-stable">Backup</span>
+                    </a>
+                    
+                    <a href="A_02__premium_trans_copy.html" class="link-card" target="_blank">
+                        <div class="link-title">🏳️‍⚧️ Premium Trans Copy</div>
+                        <div class="link-description">Backup da página premium trans</div>
+                        <div class="link-url">A_02__premium_trans_copy.html</div>
+                        <span class="status-badge status-stable">Backup</span>
+                    </a>
+                    
+                    <a href="A_04__trans_copy.html" class="link-card" target="_blank">
+                        <div class="link-title">🏳️‍⚧️ Trans Copy</div>
+                        <div class="link-description">Backup da página trans</div>
+                        <div class="link-url">A_04__trans_copy.html</div>
+                        <span class="status-badge status-stable">Backup</span>
+                    </a>
+                    
+                    
+                    <a href="modelo-cadastro-anuncios_copy.html" class="link-card" target="_blank">
+                        <div class="link-title">📝 Cadastro Anúncios Copy</div>
+                        <div class="link-description">Backup do cadastro de anúncios</div>
+                        <div class="link-url">modelo-cadastro-anuncios_copy.html</div>
+                        <span class="status-badge status-stable">Backup</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Páginas Administrativas -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-cog"></i>
+                    Administração
+                </h2>
+                <div class="links-grid">
+                    <a href="admin-login.html" class="link-card" target="_blank">
+                        <div class="link-title">🔐 Admin Login</div>
+                        <div class="link-description">Página de login administrativo</div>
+                        <div class="link-url">admin-login.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="admin-panel.html" class="link-card" target="_blank">
+                        <div class="link-title">⚙️ Admin Panel</div>
+                        <div class="link-description">Painel administrativo</div>
+                        <div class="link-url">admin-panel.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Páginas de Teste -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-flask"></i>
+                    Páginas de Teste
+                </h2>
+                <div class="links-grid">
+                    <a href="ABRIR_COM_TESTE.html" class="link-card" target="_blank">
+                        <div class="link-title">🧪 Teste de Carregamento</div>
+                        <div class="link-description">Abrir página de anúncio com dados de teste pré-carregados</div>
+                        <div class="link-url">ABRIR_COM_TESTE.html</div>
+                        <span class="status-badge status-new">Ferramenta</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Páginas Especiais -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-star"></i>
+                    Páginas Especiais
+                </h2>
+                <div class="links-grid">
+                    <a href="pagamento.html" class="link-card" target="_blank">
+                        <div class="link-title">💳 Pagamento</div>
+                        <div class="link-description">Página de processamento de pagamento</div>
+                        <div class="link-url">pagamento.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="register.html" class="link-card" target="_blank">
+                        <div class="link-title">📝 Registro</div>
+                        <div class="link-description">Página de registro de usuário</div>
+                        <div class="link-url">register.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="premium_2.html" class="link-card" target="_blank">
+                        <div class="link-title">👑 Premium 2</div>
+                        <div class="link-description">Segunda versão da página premium</div>
+                        <div class="link-url">premium_2.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="premium-7-colunas.html" class="link-card" target="_blank">
+                        <div class="link-title">👑 Premium 7 Colunas</div>
+                        <div class="link-description">Página premium com layout de 7 colunas</div>
+                        <div class="link-url">premium-7-colunas.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="modelo-premium-generico.html" class="link-card" target="_blank">
+                        <div class="link-title">🎨 Modelo Premium Genérico</div>
+                        <div class="link-description">Modelo genérico para páginas premium</div>
+                        <div class="link-url">modelo-premium-generico.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="docs-upload.html" class="link-card" target="_blank">
+                        <div class="link-title">📄 Docs Upload</div>
+                        <div class="link-description">Documentação de upload</div>
+                        <div class="link-url">docs-upload.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="rEGRAS_DAS_FOTOS.HTML" class="link-card" target="_blank">
+                        <div class="link-title">📋 Regras das Fotos</div>
+                        <div class="link-description">Regras e diretrizes para fotos</div>
+                        <div class="link-url">rEGRAS_DAS_FOTOS.HTML</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                    
+                    <a href="templates/header.html" class="link-card" target="_blank">
+                        <div class="link-title">📄 Header Template</div>
+                        <div class="link-description">Template de cabeçalho</div>
+                        <div class="link-url">templates/header.html</div>
+                        <span class="status-badge status-stable">Template</span>
+                    </a>
+                    
+                    <a href="pages/luxo/luxo.html" class="link-card" target="_blank">
+                        <div class="link-title">💎 Luxo Pages</div>
+                        <div class="link-description">Página luxo na pasta pages</div>
+                        <div class="link-url">pages/luxo/luxo.html</div>
+                        <span class="status-badge status-stable">Estável</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Páginas de Teste Backend -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-flask"></i>
+                    Páginas de Teste (Backend)
+                </h2>
+                <div class="links-grid">
+                    <a href="../backend/test-gallery-expanded.html" class="link-card" target="_blank">
+                        <div class="link-title">🖼️ Test Gallery Expanded</div>
+                        <div class="link-description">Teste de galeria expandida</div>
+                        <div class="link-url">../backend/test-gallery-expanded.html</div>
+                        <span class="status-badge status-stable">Teste</span>
+                    </a>
+                    
+                    <a href="../backend/test-profile-page.html" class="link-card" target="_blank">
+                        <div class="link-title">👤 Test Profile Page</div>
+                        <div class="link-description">Teste de página de perfil</div>
+                        <div class="link-url">../backend/test-profile-page.html</div>
+                        <span class="status-badge status-stable">Teste</span>
+                    </a>
+                    
+                    <a href="../backend/test-stories-speed.html" class="link-card" target="_blank">
+                        <div class="link-title">⚡ Test Stories Speed</div>
+                        <div class="link-description">Teste de velocidade das stories</div>
+                        <div class="link-url">../backend/test-stories-speed.html</div>
+                        <span class="status-badge status-stable">Teste</span>
+                    </a>
+                    
+                    <a href="../backend/test-page-simple.html" class="link-card" target="_blank">
+                        <div class="link-title">📄 Test Page Simple</div>
+                        <div class="link-description">Teste de página simples</div>
+                        <div class="link-url">../backend/test-page-simple.html</div>
+                        <span class="status-badge status-stable">Teste</span>
+                    </a>
+                    
+                    <a href="../backend/test-stories-carousel.html" class="link-card" target="_blank">
+                        <div class="link-title">🎠 Test Stories Carousel</div>
+                        <div class="link-description">Teste de carrossel de stories</div>
+                        <div class="link-url">../backend/test-stories-carousel.html</div>
+                        <span class="status-badge status-stable">Teste</span>
+                    </a>
+                    
+                    <a href="../backend/debug-premium-stories.html" class="link-card" target="_blank">
+                        <div class="link-title">🐛 Debug Premium Stories</div>
+                        <div class="link-description">Debug das stories premium</div>
+                        <div class="link-url">../backend/debug-premium-stories.html</div>
+                        <span class="status-badge status-stable">Debug</span>
+                    </a>
+                    
+                    <a href="../backend/test-stories.html" class="link-card" target="_blank">
+                        <div class="link-title">📖 Test Stories</div>
+                        <div class="link-description">Teste geral de stories</div>
+                        <div class="link-url">../backend/test-stories.html</div>
+                        <span class="status-badge status-stable">Teste</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📅 Última atualização: <span id="currentDate"></span></p>
+            <p>📊 Total de páginas: <strong>58 páginas HTML</strong> (51 frontend + 7 backend)</p>
+            <p>💡 Dica: Clique nos links para abrir as páginas em nova aba</p>
+        </div>
+    </div>
+
+
+    <script>
+        // Atualizar data atual
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('pt-BR');
+        
+        // Adicionar efeito de hover nos cards
+        document.querySelectorAll('.link-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+    </script>
+</body>
+</html>

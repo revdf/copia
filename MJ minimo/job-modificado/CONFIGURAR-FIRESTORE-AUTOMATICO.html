@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurar Firestore - Automático</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .step {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .step-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .step-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 15px 0;
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: #5568d3;
+        }
+        .copy-btn.copied {
+            background: #28a745;
+        }
+        .action-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        .action-btn:hover {
+            background: #5568d3;
+        }
+        .action-btn.secondary {
+            background: #6c757d;
+        }
+        .action-btn.secondary:hover {
+            background: #5a6268;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: none;
+        }
+        .success.show {
+            display: block;
+        }
+        .instructions {
+            color: #666;
+            line-height: 1.8;
+            margin-top: 10px;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Configuração Automática do Firestore</h1>
+        <p class="subtitle">Configure as regras de segurança do Firebase em poucos cliques</p>
+
+        <div class="warning">
+            <strong>⚠️ Importante:</strong> Você precisa estar logado no Firebase Console para aplicar as regras.
+        </div>
+
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">1</span>
+                Copiar as Regras
+            </div>
+            <div class="instructions">
+                Clique no botão abaixo para copiar automaticamente as regras do Firestore:
+            </div>
+            <div class="code-block" id="rulesCode">
+                <button class="copy-btn" onclick="copyRules()">📋 Copiar</button>
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /anuncios/{anuncioId} {
+      allow read: if true;
+      allow create, update, delete: if request.auth != null;
+    }
+    match /advertisements/{advertisementId} {
+      allow read: if true;
+      allow create, update, delete: if request.auth != null;
+    }
+    match /users/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow create, update: if request.auth != null && request.auth.uid == userId;
+      allow delete: if false;
+    }
+    match /payments/{paymentId} {
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null;
+      allow update, delete: if false;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">2</span>
+                Abrir Console Firebase
+            </div>
+            <div class="instructions">
+                Clique no botão abaixo para abrir diretamente a página de regras do Firestore:
+            </div>
+            <button class="action-btn" onclick="openFirebaseConsole()">
+                🚀 Abrir Console Firebase → Regras
+            </button>
+        </div>
+
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">3</span>
+                Colar e Publicar
+            </div>
+            <div class="instructions">
+                <ol style="margin-left: 20px; margin-top: 10px;">
+                    <li>No console do Firebase, você verá um editor de código</li>
+                    <li>Selecione todo o conteúdo atual (Ctrl+A ou Cmd+A)</li>
+                    <li>Cole as regras que você copiou (Ctrl+V ou Cmd+V)</li>
+                    <li>Clique no botão <span class="highlight">Publicar</span> (geralmente no topo direito)</li>
+                    <li>Aguarde a confirmação de sucesso</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">4</span>
+                Verificar
+            </div>
+            <div class="instructions">
+                Após publicar, volte para a página <span class="highlight">A_02__premium_copy.html</span> e recarregue. Os dados do Firebase devem aparecer automaticamente!
+            </div>
+            <button class="action-btn secondary" onclick="testConnection()">
+                ✅ Testar Conexão (após publicar)
+            </button>
+        </div>
+
+        <div class="success" id="successMessage">
+            <strong>✅ Sucesso!</strong> As regras foram aplicadas. Agora recarregue a página principal para ver os dados.
+        </div>
+    </div>
+
+    <script>
+        function copyRules() {
+            const code = document.getElementById('rulesCode').textContent.replace('📋 Copiar', '').trim();
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copiado!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                alert('Erro ao copiar. Selecione o texto manualmente e copie.');
+            });
+        }
+
+        function openFirebaseConsole() {
+            window.open('https://console.firebase.google.com/project/mansao-do-job/firestore/rules', '_blank');
+        }
+
+        function testConnection() {
+            alert('Após publicar as regras no Firebase Console, recarregue a página A_02__premium_copy.html para verificar se os dados aparecem.');
+        }
+
+        // Auto-copiar ao carregar (opcional)
+        window.addEventListener('load', () => {
+            console.log('✅ Página de configuração carregada');
+            console.log('📋 Pronto para copiar as regras do Firestore');
+        });
+    </script>
+</body>
+</html>
+
+

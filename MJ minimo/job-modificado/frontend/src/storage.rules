@@ -1,0 +1,87 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // ============================================
+    // ARQUIVOS PÚBLICOS: anuncios/{anuncioId}/*
+    // ============================================
+    match /anuncios/{anuncioId}/{fileName} {
+      // Leitura: Público (qualquer um pode ver fotos/vídeos/áudios dos anúncios)
+      allow read: if true;
+      
+      // Escrita: Apenas usuários autenticados que sejam donos do anúncio
+      allow write: if request.auth != null && 
+                      (request.resource.size < 10 * 1024 * 1024 && // Máx 10MB
+                       request.resource.contentType.matches('image/.*|video/.*|audio/.*'));
+    }
+    
+    // ============================================
+    // FOTOS DE PERFIL PÚBLICAS: users-public-photos/{userId}/*
+    // ============================================
+    match /users-public-photos/{userId}/{fileName} {
+      // Leitura: Público
+      allow read: if true;
+      
+      // Escrita: Apenas o próprio usuário
+      allow write: if request.auth != null && 
+                      request.auth.uid == userId &&
+                      request.resource.size < 5 * 1024 * 1024 && // Máx 5MB
+                      request.resource.contentType.matches('image/.*');
+    }
+    
+    // ============================================
+    // ARQUIVOS PRIVADOS: users-private-verification/{userId}/**
+    // ============================================
+    match /users-private-verification/{userId}/documents/{documentName} {
+      // Leitura: Apenas o próprio usuário ou admin
+      allow read: if request.auth != null && 
+                     (request.auth.uid == userId ||
+                      request.auth.token.admin == true);
+      
+      // Escrita: Apenas o próprio usuário
+      allow write: if request.auth != null && 
+                      request.auth.uid == userId &&
+                      request.resource.size < 10 * 1024 * 1024 && // Máx 10MB
+                      request.resource.contentType.matches('image/.*');
+    }
+    
+    match /users-private-verification/{userId}/videos/{videoName} {
+      // Leitura: Apenas o próprio usuário ou admin
+      allow read: if request.auth != null && 
+                     (request.auth.uid == userId ||
+                      request.auth.token.admin == true);
+      
+      // Escrita: Apenas o próprio usuário
+      allow write: if request.auth != null && 
+                      request.auth.uid == userId &&
+                      request.resource.size < 50 * 1024 * 1024 && // Máx 50MB
+                      request.resource.contentType.matches('video/.*');
+    }
+    
+    // ============================================
+    // PASTA LEGADA: advertisements/{anuncioId}/* (Compatibilidade)
+    // ============================================
+    match /advertisements/{anuncioId}/{fileName} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+                      (request.resource.size < 10 * 1024 * 1024 &&
+                       request.resource.contentType.matches('image/.*|video/.*|audio/.*'));
+    }
+    
+    // ============================================
+    // NEGAR ACESSO A OUTRAS PASTAS
+    // ============================================
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+

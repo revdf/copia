@@ -1,0 +1,16 @@
+{
+  "port": 8080,
+  "host": "localhost",
+  "root": "frontend/src",
+  "open": true,
+  "file": "A_01__index.html",
+  "wait": 1000,
+  "logLevel": 2,
+  "proxy": [
+    {
+      "path": "/api",
+      "target": "http://localhost:5001"
+    }
+  ],
+  "cors": true
+}

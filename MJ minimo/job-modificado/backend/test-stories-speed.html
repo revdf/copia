@@ -1,0 +1,3290 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste Stories - Velocidade Otimizada</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .info-box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .success {
+            border-left: 4px solid #28a745;
+        }
+        
+        .stories-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stories-carousel-container {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            cursor: grab;
+            user-select: none;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        
+        .stories-track {
+            display: flex;
+            transition: transform 0.8s ease-in-out;
+            will-change: transform;
+        }
+        
+        .story-item {
+            flex: 0 0 80px;
+            margin: 0 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            text-align: center;
+        }
+        
+        .story-item:hover {
+            transform: scale(1.1);
+        }
+        
+        .story-ring {
+            width: 60px;
+            height: 60px;
+            border: 3px solid #dc3545;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        
+        .story-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .story-name {
+            font-size: 12px;
+            margin-top: 5px;
+            color: #333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            background: #c82333;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .status {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎠 Teste Stories - Velocidade Otimizada</h1>
+        
+        <div class="info-box success">
+            <h3>✅ Configurações Otimizadas</h3>
+            <p><strong>Velocidade:</strong> 3 segundos por item (mais lenta)</p>
+            <p><strong>Transição:</strong> 0.8s ease-in-out (mais suave)</p>
+            <p><strong>Movimento:</strong> Item por item (não em blocos)</p>
+            <p><strong>Pausa no hover:</strong> Ativada</p>
+            <p><strong>Arraste:</strong> Funcional</p>
+        </div>
+        
+        <div class="stories-container">
+            <h3>📸 Carrossel de Stories Otimizado</h3>
+            <div class="stories-carousel-container" id="stories-wrapper">
+                <!-- Stories serão carregados aqui -->
+            </div>
+            
+            <div class="controls">
+                <button class="btn" onclick="pauseCarousel()">⏸️ Pausar</button>
+                <button class="btn btn-secondary" onclick="resumeCarousel()">▶️ Retomar</button>
+                <button class="btn btn-secondary" onclick="resetCarousel()">🔄 Resetar</button>
+            </div>
+            
+            <div class="status" id="status">
+                Status: Carregando...
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <h3>🔧 Instruções de Teste</h3>
+            <p>1. <strong>Velocidade:</strong> Observe se o carrossel move um item por vez a cada 3 segundos</p>
+            <p>2. <strong>Suavidade:</strong> Verifique se a transição é suave (0.8s)</p>
+            <p>3. <strong>Pausa:</strong> Passe o mouse sobre o carrossel para pausar</p>
+            <p>4. <strong>Arraste:</strong> Clique e arraste para navegar manualmente</p>
+            <p>5. <strong>Loop:</strong> Verifique se volta ao início após o último item</p>
+        </div>
+    </div>
+    
+    <script>
+        let storiesCarousel = null;
+        let currentIndex = 0;
+        const itemWidth = 96; // 80px + 16px margin
+        let animationId = null;
+        let isPaused = false;
+        let isDragging = false;
+        let startX = 0;
+        let scrollLeft = 0;
+        
+        // Dados dos anúncios
+        const anuncios = [
+  {
+    "nome": "Ana",
+    "name": "Ana",
+    "categoria": "massagista",
+    "category": "massagista",
+    "tipo": "massagista",
+    "status": "ativo",
+    "idade": 23,
+    "age": 23,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "SML",
+    "neighborhood": "SML",
+    "telefone": "+5561784956784",
+    "phone": "+5561784956784",
+    "whatsapp": "+5561377519659",
+    "preco": 150,
+    "price": 150,
+    "preco_hora": 150,
+    "price_per_hour": 150,
+    "descricao": "Terapeuta especializada Ana no SML, técnicas avançadas de relaxamento.",
+    "description": "Terapeuta especializada Ana no SML, técnicas avançadas de relaxamento.",
+    "foto_capa": "foto (26).jpg",
+    "coverImage": "foto (26).jpg",
+    "foto_stories": "foto (23).jpg",
+    "profileImage": "foto (23).jpg",
+    "galeria_1": "avatar (8).jpg",
+    "galeria_2": "d4.jpg",
+    "galeria_3": "foto (7).jpg",
+    "galeria_4": "foto (15).jpg",
+    "galeria_5": "foto (26).jpg",
+    "galeria_6": "foto (23).jpg",
+    "images": [
+      "foto (26).jpg",
+      "foto (23).jpg",
+      "avatar (8).jpg",
+      "d4.jpg",
+      "foto (7).jpg",
+      "foto (15).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 750,
+    "likes": 28,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547621,
+      "_nanoseconds": 546000000
+    },
+    "updatedAt": {
+      "_seconds": 1760547621,
+      "_nanoseconds": 546000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1753832101,
+        "_nanoseconds": 850000000
+      },
+      "proximo_exame": {
+        "_seconds": 1761023905,
+        "_nanoseconds": 466000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Nenhuma",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Casada",
+    "contato_emergencia": "+5561527223518",
+    "cep": "20416-853",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música"
+      ],
+      "musica_preferida": "Eletrônica",
+      "comida_preferida": "Brasileira",
+      "bebida_preferida": "Vinho",
+      "fumante": false,
+      "bebe": false,
+      "animais": true,
+      "criancas": false
+    },
+    "tipo_sanguineo": "A-",
+    "cpf": "252653408",
+    "dados_pagamento": {
+      "metodo_pagamento": "Dinheiro",
+      "aceita_pix": true,
+      "aceita_cartao": false,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 1,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Ensino Médio",
+    "nome_real": "Ana",
+    "parentesco_emergencia": "Amigo",
+    "nome_contato_emergencia": "Contato 83",
+    "peso": "61",
+    "profissao": "Acompanhante",
+    "email_pessoal": "ana451@gmail.com",
+    "dados_bancarios": {
+      "banco": "Caixa Econômica Federal",
+      "codigo_banco": "104",
+      "agencia": "8150",
+      "conta": "231536",
+      "tipo_conta": "Corrente",
+      "pix": "136731298"
+    },
+    "verificacao": {
+      "documento_frente": "avatar (4).jpg",
+      "documento_verso": "avatar (5).jpg",
+      "documento_selfie": "a2.jpg",
+      "comprovante_residencia": "a3.jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_76",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 257000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 257000000
+    },
+    "email_comercial": "anacomercial836@gmail.com",
+    "nome_artistico": "Ana",
+    "etnia": "Indígena",
+    "endereco_completo": "Avenida dos Estados, 7880, SML, Brasília - DF",
+    "altura": "171",
+    "rg": "98530117",
+    "versao_dados": "2.0",
+    "nacionalidade": "Chilena",
+    "destaque": true,
+    "nivel": "N1",
+    "id": "0UvOqZ66KWsoH9XOMAwb",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2826%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=g9xZqRsfNELZnEkYkjQ7RoCTFLN1Nqjx%2BqSQ71VZSkz%2FyALV9%2BB1PYgsyTmuM2W8qpRIWx0jBfxGwWDUS2o5TQcivh%2BBcY%2FqNORz8I%2Fo47V03NPJCqsIIO70q4I286bYNVyjAtSn94CrchN1lY%2BbEd%2BeKYVo4pzqANUrm5wpUz4hCClWNuqEAUwmEPX3IEbHmd98fBWAnwnwGRQ2bwzw1oM%2F3ElyGxnztN5cvusjzx5%2BTDFSpES9lBKMa9GAvtOukIGBmzkf2iB1VdyFM1ftxjW7CVKaDSU20ZQgBZgjG7ZvDrZYHJK7lCgLdUvmyEHuIWVXXxoXzFnikcZNImEFtA%3D%3D"
+  },
+  {
+    "nome": "Ruby",
+    "name": "Ruby",
+    "categoria": "trans",
+    "category": "trans",
+    "tipo": "trans",
+    "status": "ativo",
+    "idade": 36,
+    "age": 36,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Asa Sul",
+    "neighborhood": "Asa Sul",
+    "telefone": "+5561106681124",
+    "phone": "+5561106681124",
+    "whatsapp": "+5561337013884",
+    "descricao": "Garota trans elegante Ruby em Asa Sul, momentos únicos de prazer e diversão.",
+    "description": "Garota trans elegante Ruby em Asa Sul, momentos únicos de prazer e diversão.",
+    "foto_capa": "foto (14).jpg",
+    "coverImage": "foto (14).jpg",
+    "foto_stories": "d4.jpg",
+    "profileImage": "d4.jpg",
+    "galeria_1": "a3.jpg",
+    "galeria_2": "foto (28).jpg",
+    "galeria_3": "foto (3).jpg",
+    "galeria_4": "foto (26).jpg",
+    "galeria_5": "foto (14).jpg",
+    "galeria_6": "d4.jpg",
+    "images": [
+      "foto (14).jpg",
+      "d4.jpg",
+      "a3.jpg",
+      "foto (28).jpg",
+      "foto (3).jpg",
+      "foto (26).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 629,
+    "likes": 81,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547623,
+      "_nanoseconds": 491000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1754624480,
+        "_nanoseconds": 141000000
+      },
+      "proximo_exame": {
+        "_seconds": 1762171331,
+        "_nanoseconds": 581000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Nenhuma",
+      "medicamentos": "Anticoncepcional",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Casada",
+    "contato_emergencia": "+5561185037022",
+    "cep": "59427-118",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema",
+        "Leitura"
+      ],
+      "musica_preferida": "MPB",
+      "comida_preferida": "Brasileira",
+      "bebida_preferida": "Suco",
+      "fumante": false,
+      "bebe": true,
+      "animais": true,
+      "criancas": false
+    },
+    "tipo_sanguineo": "O-",
+    "cpf": "793754800",
+    "dados_pagamento": {
+      "metodo_pagamento": "PIX",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 4,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Não informado",
+    "nome_real": "Ruby",
+    "parentesco_emergencia": "Irmã",
+    "nome_contato_emergencia": "Contato 43",
+    "peso": "63",
+    "profissao": "Acompanhante",
+    "email_pessoal": "ruby452@gmail.com",
+    "dados_bancarios": {
+      "banco": "Inter",
+      "codigo_banco": "077",
+      "agencia": "1825",
+      "conta": "859348",
+      "tipo_conta": "Corrente",
+      "pix": "pboittnlvh8-81d1gc99zuc"
+    },
+    "verificacao": {
+      "documento_frente": "foto (8).jpg",
+      "documento_verso": "avatar (4).jpg",
+      "documento_selfie": "avatar (2).jpg",
+      "comprovante_residencia": "avatar (2).jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_11",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 331000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 331000000
+    },
+    "email_comercial": "rubycomercial734@hotmail.com",
+    "nome_artistico": "Ruby",
+    "etnia": "Parda",
+    "endereco_completo": "Rua das Margaridas, 5880, Asa Sul, Brasília - DF",
+    "altura": "177",
+    "rg": "49727847",
+    "versao_dados": "2.0",
+    "nacionalidade": "Venezuelana",
+    "level": "N1",
+    "nivel_nome": "Premium VIP",
+    "level_name": "Premium VIP",
+    "premium": true,
+    "destaque": true,
+    "nivel": "N1",
+    "updatedAt": "2025-10-17T02:29:58.257Z",
+    "preco": "500",
+    "preco_hora": "500",
+    "price": "500",
+    "price_per_hour": "500",
+    "preco_30min": "300",
+    "preco_45min": "400",
+    "preco_1h": "500",
+    "id": "1MDx3IGzVIiSxMoJx8Bz",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2814%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=IZ7qPX3jpz%2Bt1IwDaCIZaQ1JYj33Sk0YAf6oCz0w56meYFUAgL7KLexHDsG48wsGSItOTj0WON%2BSDfz0xanHM%2FNUxEbLQQh6vdB8y%2BK7QWZ9GbEpTDxe%2BkndNwVGgWxPqBFOzwS68ftZE6kMqkpq5dbjUs%2FwObSncOKrEJOkgzJmHdxPOpOaEPKOX7jLV3%2BJnL2Yd%2FlJF8seEMbc0GrU5XTUEG5YaQxxspSIGdDJlxCdQGY7n5%2Bo78G9jN69DH1strGKDO0tyxjldVBzvIp4RhQTxNce%2FnLuxSKUB%2B2Gs2CJ8RvUVsxkdn7PSBt6Z8ms5xiqMNaIEVRzNE3Bd4aO%2FA%3D%3D"
+  },
+  {
+    "nome": "Samuel",
+    "name": "Samuel",
+    "categoria": "homem",
+    "category": "homem",
+    "tipo": "homem",
+    "status": "ativo",
+    "idade": 19,
+    "age": 19,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Sol Nascente",
+    "neighborhood": "Sol Nascente",
+    "telefone": "+5561774247178",
+    "phone": "+5561774247178",
+    "whatsapp": "+5561945169130",
+    "preco": 350,
+    "price": 350,
+    "preco_hora": 350,
+    "price_per_hour": 350,
+    "descricao": "Acompanhante VIP masculino Samuel no Sol Nascente, experiência premium personalizada.",
+    "description": "Acompanhante VIP masculino Samuel no Sol Nascente, experiência premium personalizada.",
+    "foto_capa": "foto (4).jpg",
+    "coverImage": "foto (4).jpg",
+    "foto_stories": "foto (2).jpg",
+    "profileImage": "foto (2).jpg",
+    "galeria_1": "foto (18).jpg",
+    "galeria_2": "foto (6).jpg",
+    "galeria_3": "foto (17).jpg",
+    "galeria_4": "foto (14).jpg",
+    "galeria_5": "foto (4).jpg",
+    "galeria_6": "foto (2).jpg",
+    "images": [
+      "foto (4).jpg",
+      "foto (2).jpg",
+      "foto (18).jpg",
+      "foto (6).jpg",
+      "foto (17).jpg",
+      "foto (14).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "destaque": true,
+    "views": 314,
+    "likes": 56,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547625,
+      "_nanoseconds": 441000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1756034699,
+        "_nanoseconds": 964000000
+      },
+      "proximo_exame": {
+        "_seconds": 1761156945,
+        "_nanoseconds": 565000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Nenhuma",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Casada",
+    "contato_emergencia": "+5561364557795",
+    "cep": "31728-575",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema",
+        "Leitura"
+      ],
+      "musica_preferida": "Sertanejo",
+      "comida_preferida": "Brasileira",
+      "bebida_preferida": "Cerveja",
+      "fumante": false,
+      "bebe": true,
+      "animais": false,
+      "criancas": false
+    },
+    "tipo_sanguineo": "A-",
+    "cpf": "471220017",
+    "dados_pagamento": {
+      "metodo_pagamento": "Cartão de Crédito",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 0,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Pós-graduação",
+    "nome_real": "Samuel",
+    "parentesco_emergencia": "Mãe",
+    "nome_contato_emergencia": "Contato 72",
+    "peso": "48",
+    "profissao": "Acompanhante",
+    "email_pessoal": "samuel638@outlook.com",
+    "dados_bancarios": {
+      "banco": "Nubank",
+      "codigo_banco": "260",
+      "agencia": "5246",
+      "conta": "510248",
+      "tipo_conta": "Corrente",
+      "pix": "863103965"
+    },
+    "verificacao": {
+      "documento_frente": "foto (8).jpg",
+      "documento_verso": "foto (5).jpg",
+      "documento_selfie": "avatar.jpg",
+      "comprovante_residencia": "Stories.jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_85",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 400000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 400000000
+    },
+    "email_comercial": "samuelcomercial365@outlook.com",
+    "nome_artistico": "Samuel",
+    "etnia": "Branca",
+    "endereco_completo": "Avenida dos Estados, 9895, Sol Nascente, Brasília - DF",
+    "altura": "172",
+    "rg": "64063994",
+    "versao_dados": "2.0",
+    "nacionalidade": "Chilena",
+    "level_name": "Destaque",
+    "premium": false,
+    "level": "N3",
+    "id": "1e3uqx3WwQXMtSmZktWI",
+    "nivel": "N3",
+    "nivel_nome": "Destaque",
+    "updatedAt": "2025-10-17T03:10:59.246Z",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%284%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=Z7fpCMvKIdm4pKEFb%2FDQFjVQuFds2IEgPVCxW1FLZp55i87oh0yl%2FO0f8dEzvw%2B8pJU4w0kskqxRVe%2F0J2DY%2BVGWPmHnSl9yeFimPqCTZo0hWLyU0wOfVpwXOs%2FlDJh%2FZEskTDlOHIz7PMB05NV0Sa161ncLY%2B6YWGwWmQV9VaRLxIv%2BoNXkqEDvXaFbB2%2Fj2NvSNWvDygyzKslyKwxoKgubzMsaK9ojUdNHus6RTk27Qu3ObCqxx7UGlE2g3x3yx%2FPJc6THpfhY6T8UZzN8BVGUdSkZJTAzvtiQvsePIl8wV7aDyQro19Vy2qC4Wc1woSqRn1pKU%2FUKLY%2Fwt2%2FKIA%3D%3D"
+  },
+  {
+    "nome": "Aria",
+    "name": "Aria",
+    "categoria": "trans",
+    "category": "trans",
+    "tipo": "trans",
+    "status": "ativo",
+    "idade": 40,
+    "age": 40,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Riacho Fundo II",
+    "neighborhood": "Riacho Fundo II",
+    "telefone": "+5561137696281",
+    "phone": "+5561137696281",
+    "whatsapp": "+5561184083386",
+    "descricao": "Transexual linda e sensual Aria no Riacho Fundo II, atendimento especial e carinhoso.",
+    "description": "Transexual linda e sensual Aria no Riacho Fundo II, atendimento especial e carinhoso.",
+    "foto_capa": "avatar (2).jpg",
+    "coverImage": "avatar (2).jpg",
+    "foto_stories": "foto (23).jpg",
+    "profileImage": "foto (23).jpg",
+    "galeria_1": "a3.jpg",
+    "galeria_2": "foto (12).jpg",
+    "galeria_3": "foto (3).jpg",
+    "galeria_4": "foto (25).jpg",
+    "galeria_5": "avatar (2).jpg",
+    "galeria_6": "foto (23).jpg",
+    "images": [
+      "avatar (2).jpg",
+      "foto (23).jpg",
+      "a3.jpg",
+      "foto (12).jpg",
+      "foto (3).jpg",
+      "foto (25).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 239,
+    "likes": 48,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547623,
+      "_nanoseconds": 188000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1756978294,
+        "_nanoseconds": 645000000
+      },
+      "proximo_exame": {
+        "_seconds": 1760689985,
+        "_nanoseconds": 159000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Frutos do mar",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "União Estável",
+    "contato_emergencia": "+5561714647502",
+    "cep": "74285-730",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema",
+        "Leitura",
+        "Esportes"
+      ],
+      "musica_preferida": "Sertanejo",
+      "comida_preferida": "Italiana",
+      "bebida_preferida": "Suco",
+      "fumante": false,
+      "bebe": false,
+      "animais": true,
+      "criancas": false
+    },
+    "tipo_sanguineo": "B+",
+    "cpf": "257779018",
+    "dados_pagamento": {
+      "metodo_pagamento": "Cartão de Crédito",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 1,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Ensino Fundamental",
+    "nome_real": "Aria",
+    "parentesco_emergencia": "Irmã",
+    "nome_contato_emergencia": "Contato 71",
+    "peso": "48",
+    "profissao": "Acompanhante",
+    "email_pessoal": "aria122@gmail.com",
+    "dados_bancarios": {
+      "banco": "Nubank",
+      "codigo_banco": "260",
+      "agencia": "2239",
+      "conta": "419680",
+      "tipo_conta": "Poupança",
+      "pix": "437987995"
+    },
+    "verificacao": {
+      "documento_frente": "foto (9).jpg",
+      "documento_verso": "Stories.jpg",
+      "documento_selfie": "foto (5).jpg",
+      "comprovante_residencia": "foto (10).jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_59",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 467000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 467000000
+    },
+    "email_comercial": "ariacomercial516@yahoo.com.br",
+    "nome_artistico": "Aria",
+    "etnia": "Indígena",
+    "endereco_completo": "Rua da Paz, 638, Riacho Fundo II, Brasília - DF",
+    "altura": "178",
+    "rg": "38155783",
+    "versao_dados": "2.0",
+    "nacionalidade": "Peruana",
+    "level": "N1",
+    "price_per_hour": "500",
+    "preco_30min": "300",
+    "preco_1h": "500",
+    "nivel_nome": "Premium VIP",
+    "preco": "500",
+    "level_name": "Premium VIP",
+    "premium": true,
+    "preco_hora": "500",
+    "price": "500",
+    "destaque": true,
+    "preco_45min": "400",
+    "nivel": "N1",
+    "updatedAt": "2025-10-17T02:29:58.257Z",
+    "id": "1f6XehOGnB0f0dWHsnlJ",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/avatar%20%282%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=Em3ILb4dqeCzBp9MwcIFG3Zw3Y9%2FdkaacV3FjavA9Jf1Fp9xmvmVG8Hi0%2BhaVBbQ1tQHKBgLNJfUtQL%2BXaHcwUPz%2FnOkVQcW8aczyYE%2B%2BxK7oAF6vt1BIoNXVSPsI70voSiUcA7rMYNjQtCuaJxO2mnrilSKXiTjEY6qKz8SwHtHshURWrXydqCCncZ95cZD3qWSW3IzRvVaqytSl5SMIKftKxaSnCdSes5OsMAS%2Ftc%2BogL7FbD9FX%2FyLOMzuFTDRAyq%2BroTFFWaqaINAjuCqj05wTP4YGc5fa6s8W2qci54jzX58fz9tfAt2kyTX9yJQt3dgPotqAdUGLiBFO98fg%3D%3D"
+  },
+  {
+    "nome": "Márcia",
+    "name": "Márcia",
+    "categoria": "massagista",
+    "category": "massagista",
+    "tipo": "massagista",
+    "status": "ativo",
+    "idade": 27,
+    "age": 27,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Planaltina",
+    "neighborhood": "Planaltina",
+    "telefone": "+5561367856831",
+    "phone": "+5561367856831",
+    "whatsapp": "+5561836876413",
+    "preco": 300,
+    "price": 300,
+    "preco_hora": 300,
+    "price_per_hour": 300,
+    "descricao": "Profissional em massagens Márcia no Planaltina, alívio do stress e tensões do dia a dia.",
+    "description": "Profissional em massagens Márcia no Planaltina, alívio do stress e tensões do dia a dia.",
+    "foto_capa": "Stories.jpg",
+    "coverImage": "Stories.jpg",
+    "foto_stories": "avatar.jpg",
+    "profileImage": "avatar.jpg",
+    "galeria_1": "foto (19).jpg",
+    "galeria_2": "foto (13).jpg",
+    "galeria_3": "avatar (11).jpg",
+    "galeria_4": "avatar (4).jpg",
+    "galeria_5": "Stories.jpg",
+    "galeria_6": "avatar.jpg",
+    "images": [
+      "Stories.jpg",
+      "avatar.jpg",
+      "foto (19).jpg",
+      "foto (13).jpg",
+      "avatar (11).jpg",
+      "avatar (4).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 1018,
+    "likes": 85,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547622,
+      "_nanoseconds": 82000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1759264445,
+        "_nanoseconds": 739000000
+      },
+      "proximo_exame": {
+        "_seconds": 1762201245,
+        "_nanoseconds": 322000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Nenhuma",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Solteira",
+    "contato_emergencia": "+5561433606160",
+    "cep": "94943-284",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês",
+        "Espanhol"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema"
+      ],
+      "musica_preferida": "Eletrônica",
+      "comida_preferida": "Brasileira",
+      "bebida_preferida": "Refrigerante",
+      "fumante": false,
+      "bebe": true,
+      "animais": true,
+      "criancas": false
+    },
+    "tipo_sanguineo": "AB+",
+    "cpf": "744408384",
+    "dados_pagamento": {
+      "metodo_pagamento": "PIX",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 5,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Ensino Fundamental",
+    "nome_real": "Márcia",
+    "parentesco_emergencia": "Pai",
+    "nome_contato_emergencia": "Contato 82",
+    "peso": "49",
+    "profissao": "Acompanhante",
+    "email_pessoal": "márcia943@uol.com.br",
+    "dados_bancarios": {
+      "banco": "Caixa Econômica Federal",
+      "codigo_banco": "104",
+      "agencia": "5456",
+      "conta": "266791",
+      "tipo_conta": "Poupança",
+      "pix": "pix169@gmail.com"
+    },
+    "verificacao": {
+      "documento_frente": "foto (9).jpg",
+      "documento_verso": "a3.jpg",
+      "documento_selfie": "foto (8).jpg",
+      "comprovante_residencia": "a1.jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_45",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 547000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 547000000
+    },
+    "email_comercial": "márciacomercial793@gmail.com",
+    "nome_artistico": "Márcia",
+    "etnia": "Negra",
+    "endereco_completo": "Avenida Central, 4491, Apto 532, Planaltina, Brasília - DF",
+    "altura": "166",
+    "rg": "81601517",
+    "versao_dados": "2.0",
+    "nacionalidade": "Colombiana",
+    "level_name": "Destaque",
+    "premium": false,
+    "level": "N3",
+    "destaque": true,
+    "id": "2WHSZdB7oRWeNxNGdq0I",
+    "nivel": "N3",
+    "nivel_nome": "Destaque",
+    "updatedAt": "2025-10-17T03:10:59.245Z",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/Stories.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=cxd7mdNRhILAEB5L5sXAlXI%2F5d1jonVI5%2FztzUK1x59FIRy3JVfjuFZk6ISz3GiYk4%2FiNKzFPAO14irk%2Fp4yXDjJdsIlP74xmU8ddW1MvDz5H4fy1iIGqRr2MMuzF2Y9a1fOhLyEB6kntKugUxGs8wAsJS0WW1cmBu5IM2IXt6%2BpFvbhQooZ6R%2BQfSqEm8FpjXNodb1%2BvrqXVZYQyC77R%2BfefEL%2FMdMK4WaNm6q0oa1ilo27Y1G8q5mjZNVqBJ4hL1idld2aBqYK7Rjz1z4Enfy7AglNhydXgR5fkyL8NLOoMXH1WgMkuQWjrW0qSVNPNPzFXfZYgOHz%2FfPuvA8Niw%3D%3D"
+  },
+  {
+    "nome": "Violet",
+    "name": "Violet",
+    "categoria": "trans",
+    "category": "trans",
+    "tipo": "trans",
+    "status": "ativo",
+    "idade": 35,
+    "age": 35,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Riacho Fundo II",
+    "neighborhood": "Riacho Fundo II",
+    "telefone": "+5561513130988",
+    "phone": "+5561513130988",
+    "whatsapp": "+5561847913498",
+    "descricao": "Acompanhante trans Violet em Riacho Fundo II, beleza e sensualidade em cada encontro.",
+    "description": "Acompanhante trans Violet em Riacho Fundo II, beleza e sensualidade em cada encontro.",
+    "foto_capa": "Stories.jpg",
+    "coverImage": "Stories.jpg",
+    "foto_stories": "foto (29).jpg",
+    "profileImage": "foto (29).jpg",
+    "galeria_1": "foto (12).jpg",
+    "galeria_2": "foto (16).jpg",
+    "galeria_3": "avatar (3).jpg",
+    "galeria_4": "foto (25).jpg",
+    "galeria_5": "Stories.jpg",
+    "galeria_6": "foto (29).jpg",
+    "images": [
+      "Stories.jpg",
+      "foto (29).jpg",
+      "foto (12).jpg",
+      "foto (16).jpg",
+      "avatar (3).jpg",
+      "foto (25).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 274,
+    "likes": 31,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547624,
+      "_nanoseconds": 64000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1757636028,
+        "_nanoseconds": 603000000
+      },
+      "proximo_exame": {
+        "_seconds": 1761306908,
+        "_nanoseconds": 394000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Pólen",
+      "medicamentos": "Anticoncepcional",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Divorciada",
+    "contato_emergencia": "+5561347396376",
+    "cep": "12107-839",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema",
+        "Leitura",
+        "Esportes"
+      ],
+      "musica_preferida": "Pop",
+      "comida_preferida": "Japonesa",
+      "bebida_preferida": "Cerveja",
+      "fumante": true,
+      "bebe": true,
+      "animais": false,
+      "criancas": false
+    },
+    "tipo_sanguineo": "B-",
+    "cpf": "706083520",
+    "dados_pagamento": {
+      "metodo_pagamento": "Cartão de Crédito",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 2,
+      "desconto_pix": 10
+    },
+    "escolaridade": "Não informado",
+    "nome_real": "Violet",
+    "parentesco_emergencia": "Amiga",
+    "nome_contato_emergencia": "Contato 94",
+    "peso": "57",
+    "profissao": "Acompanhante",
+    "email_pessoal": "violet983@uol.com.br",
+    "dados_bancarios": {
+      "banco": "Nubank",
+      "codigo_banco": "260",
+      "agencia": "5250",
+      "conta": "620363",
+      "tipo_conta": "Poupança",
+      "pix": "ng4frh6vncj-fvsoucbnslr"
+    },
+    "verificacao": {
+      "documento_frente": "foto (1).jpg",
+      "documento_verso": "foto (8).jpg",
+      "documento_selfie": "foto (9).jpg",
+      "comprovante_residencia": "foto (1).jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_28",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 613000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 613000000
+    },
+    "email_comercial": "violetcomercial98@gmail.com",
+    "nome_artistico": "Violet",
+    "etnia": "Branca",
+    "endereco_completo": "Avenida Ipanema, 1113, Apto 986, Riacho Fundo II, Brasília - DF",
+    "altura": "171",
+    "rg": "70696551",
+    "versao_dados": "2.0",
+    "nacionalidade": "Argentina",
+    "level": "N1",
+    "nivel_nome": "Premium VIP",
+    "level_name": "Premium VIP",
+    "premium": true,
+    "destaque": true,
+    "nivel": "N1",
+    "updatedAt": "2025-10-17T02:29:58.257Z",
+    "preco": "900",
+    "preco_hora": "900",
+    "price": "900",
+    "price_per_hour": "900",
+    "preco_30min": "540",
+    "preco_45min": "720",
+    "preco_1h": "900",
+    "id": "3ezmpotZ9cSAbGi5YWgl",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/Stories.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=cxd7mdNRhILAEB5L5sXAlXI%2F5d1jonVI5%2FztzUK1x59FIRy3JVfjuFZk6ISz3GiYk4%2FiNKzFPAO14irk%2Fp4yXDjJdsIlP74xmU8ddW1MvDz5H4fy1iIGqRr2MMuzF2Y9a1fOhLyEB6kntKugUxGs8wAsJS0WW1cmBu5IM2IXt6%2BpFvbhQooZ6R%2BQfSqEm8FpjXNodb1%2BvrqXVZYQyC77R%2BfefEL%2FMdMK4WaNm6q0oa1ilo27Y1G8q5mjZNVqBJ4hL1idld2aBqYK7Rjz1z4Enfy7AglNhydXgR5fkyL8NLOoMXH1WgMkuQWjrW0qSVNPNPzFXfZYgOHz%2FfPuvA8Niw%3D%3D"
+  },
+  {
+    "nome": "Priscila",
+    "name": "Priscila",
+    "categoria": "massagista",
+    "category": "massagista",
+    "tipo": "massagista",
+    "status": "ativo",
+    "idade": 21,
+    "age": 21,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Vicente Pires",
+    "neighborhood": "Vicente Pires",
+    "telefone": "+5561766097302",
+    "phone": "+5561766097302",
+    "whatsapp": "+5561899963205",
+    "preco": 200,
+    "price": 200,
+    "preco_hora": 200,
+    "price_per_hour": 200,
+    "descricao": "Massagista profissional Priscila em Vicente Pires, relaxamento total e bem-estar garantido.",
+    "description": "Massagista profissional Priscila em Vicente Pires, relaxamento total e bem-estar garantido.",
+    "foto_capa": "foto (16).jpg",
+    "coverImage": "foto (16).jpg",
+    "foto_stories": "foto (30).jpg",
+    "profileImage": "foto (30).jpg",
+    "galeria_1": "avatar (10).jpg",
+    "galeria_2": "avatar (15).jpg",
+    "galeria_3": "avatar (3).jpg",
+    "galeria_4": "foto (24).jpg",
+    "galeria_5": "foto (16).jpg",
+    "galeria_6": "foto (30).jpg",
+    "images": [
+      "foto (16).jpg",
+      "foto (30).jpg",
+      "avatar (10).jpg",
+      "avatar (15).jpg",
+      "avatar (3).jpg",
+      "foto (24).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 884,
+    "likes": 24,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547622,
+      "_nanoseconds": 431000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1753522395,
+        "_nanoseconds": 235000000
+      },
+      "proximo_exame": {
+        "_seconds": 1761420216,
+        "_nanoseconds": 509000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Poeira",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Divorciada",
+    "contato_emergencia": "+5561558634218",
+    "cep": "54281-771",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema",
+        "Leitura"
+      ],
+      "musica_preferida": "Funk",
+      "comida_preferida": "Brasileira",
+      "bebida_preferida": "Cerveja",
+      "fumante": false,
+      "bebe": true,
+      "animais": true,
+      "criancas": false
+    },
+    "tipo_sanguineo": "B+",
+    "cpf": "418575991",
+    "dados_pagamento": {
+      "metodo_pagamento": "Transferência",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 4,
+      "desconto_pix": 4
+    },
+    "escolaridade": "Não informado",
+    "nome_real": "Priscila",
+    "parentesco_emergencia": "Amiga",
+    "nome_contato_emergencia": "Contato 35",
+    "peso": "57",
+    "profissao": "Acompanhante",
+    "email_pessoal": "priscila704@uol.com.br",
+    "dados_bancarios": {
+      "banco": "Bradesco",
+      "codigo_banco": "237",
+      "agencia": "7743",
+      "conta": "952739",
+      "tipo_conta": "Corrente",
+      "pix": "619254562"
+    },
+    "verificacao": {
+      "documento_frente": "avatar.jpg",
+      "documento_verso": "foto (10).jpg",
+      "documento_selfie": "foto (10).jpg",
+      "comprovante_residencia": "foto (6).jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_100",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 684000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 684000000
+    },
+    "email_comercial": "priscilacomercial766@gmail.com",
+    "nome_artistico": "Priscila",
+    "etnia": "Não informado",
+    "endereco_completo": "Rua da Paz, 393, Vicente Pires, Brasília - DF",
+    "altura": "168",
+    "rg": "86527241",
+    "versao_dados": "2.0",
+    "nacionalidade": "Venezuelana",
+    "level_name": "Destaque",
+    "premium": false,
+    "level": "N3",
+    "destaque": true,
+    "id": "4D0T8nVKQ7y3fBLqLrne",
+    "nivel": "N3",
+    "nivel_nome": "Destaque",
+    "updatedAt": "2025-10-17T03:10:59.245Z",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2816%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=HUPnk%2FV2%2FVwryzNjSeZH8UAaBIbd3EfODQ1P5%2Bwbk6kYr91ZqMjHT%2BcW0fNFAlLpRQyiuyRl2ZxqdFsTirv4eW09qYxzLdVn8OEjDE445Bp5OBquQFZubAkcKJraBdeikD4jFknvRIWYFUeBVDMyG8ElSO2fjVJcYiRmC93eaFTOBkNGRlUAcnZsaF0Ow16ldNvFjmgAAsvlYrUoQq0Aqwv%2BVDw3SC00vsQvD7%2FDhvS9xImSA5hXeFjrF6xXiWTC3giDFFcPVmPxSqqF7q0ZMCcAFBsBZKvYX3j4rAgz3SAzGf25k6G0Cgd05eMyRdfDmT64pTs4tHazxhcS07zXwQ%3D%3D"
+  },
+  {
+    "nome": "Ivy",
+    "name": "Ivy",
+    "categoria": "webcam",
+    "category": "webcam",
+    "tipo": "webcam",
+    "status": "ativo",
+    "idade": 18,
+    "age": 18,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "SIN",
+    "neighborhood": "SIN",
+    "telefone": "+5561533478600",
+    "phone": "+5561533478600",
+    "whatsapp": "+5561203614848",
+    "descricao": "Webcam girl Ivy em SIN, entretenimento adulto de alta qualidade.",
+    "description": "Webcam girl Ivy em SIN, entretenimento adulto de alta qualidade.",
+    "foto_capa": "foto (1).jpg",
+    "coverImage": "foto (1).jpg",
+    "foto_stories": "foto (26).jpg",
+    "profileImage": "foto (26).jpg",
+    "galeria_1": "foto (15).jpg",
+    "galeria_2": "foto (3).jpg",
+    "galeria_3": "foto (10).jpg",
+    "galeria_4": "avatar (13).jpg",
+    "galeria_5": "foto (1).jpg",
+    "galeria_6": "foto (26).jpg",
+    "images": [
+      "foto (1).jpg",
+      "foto (26).jpg",
+      "foto (15).jpg",
+      "foto (3).jpg",
+      "foto (10).jpg",
+      "avatar (13).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "destaque": true,
+    "views": 781,
+    "likes": 32,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547626,
+      "_nanoseconds": 662000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1759545698,
+        "_nanoseconds": 642000000
+      },
+      "proximo_exame": {
+        "_seconds": 1762080808,
+        "_nanoseconds": 971000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Nenhuma",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Solteira",
+    "contato_emergencia": "+5561951284193",
+    "cep": "98931-752",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema"
+      ],
+      "musica_preferida": "Sertanejo",
+      "comida_preferida": "Mexicana",
+      "bebida_preferida": "Água",
+      "fumante": false,
+      "bebe": false,
+      "animais": false,
+      "criancas": false
+    },
+    "tipo_sanguineo": "AB+",
+    "cpf": "282950263",
+    "dados_pagamento": {
+      "metodo_pagamento": "Transferência",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 0,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Pós-graduação",
+    "nome_real": "Ivy",
+    "parentesco_emergencia": "Irmão",
+    "nome_contato_emergencia": "Contato 27",
+    "peso": "67",
+    "profissao": "Acompanhante",
+    "email_pessoal": "ivy882@uol.com.br",
+    "dados_bancarios": {
+      "banco": "Bradesco",
+      "codigo_banco": "237",
+      "agencia": "3910",
+      "conta": "368862",
+      "tipo_conta": "Corrente",
+      "pix": "pix215@yahoo.com.br"
+    },
+    "verificacao": {
+      "documento_frente": "avatar (5).jpg",
+      "documento_verso": "foto (2).jpg",
+      "documento_selfie": "d4.jpg",
+      "comprovante_residencia": "avatar (5).jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_8",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 761000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 761000000
+    },
+    "email_comercial": "ivycomercial317@gmail.com",
+    "nome_artistico": "Ivy",
+    "etnia": "Indígena",
+    "endereco_completo": "Rua das Flores, 2355, Apto 690, SIN, Brasília - DF",
+    "altura": "153",
+    "rg": "67117738",
+    "versao_dados": "2.0",
+    "nacionalidade": "Chilena",
+    "level": "N1",
+    "nivel_nome": "Premium VIP",
+    "level_name": "Premium VIP",
+    "premium": true,
+    "nivel": "N1",
+    "updatedAt": "2025-10-17T02:29:58.257Z",
+    "preco": "240",
+    "preco_hora": "240",
+    "price": "240",
+    "price_per_hour": "240",
+    "preco_30min": "144",
+    "preco_45min": "192",
+    "preco_1h": "240",
+    "id": "4U6JOWDeN1VRhYwDeTaA",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%281%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=VAL%2Bz5jw5GmEH%2BA3ROn7FBUUyM0A1N7AXMnpbuxjIVVUSB%2FsfO0BTU79EWQbkuiOFJpiKfY4uBb2%2Fg5UcaaSBtAycFIzzAunjO91sxzP92et6C4XfHdpOrEYZn4XDI6RIbZI%2FeOGeyNlmodXWHgnKKwq2SPc1SH1jiFqin%2Ffxh8JDdP7r43%2FyGQqfbKKQPo0AYdNK8L3BWg85L8eOEJ0P99lBwJDg0ROh1R7pfTQ%2FQcRlqzcgTe5aM%2FvrWMOo8UsRMdBbADlzo1vlUq0hSqlVixFS5%2BvCCVbDqfUHRPg3gYsrFODdnaugt%2BJP%2BQSchCekmsr52SjyjqVIg3%2FND4kvw%3D%3D"
+  },
+  {
+    "nome": "Cristina",
+    "name": "Cristina",
+    "categoria": "massagista",
+    "category": "massagista",
+    "tipo": "massagista",
+    "status": "ativo",
+    "idade": 22,
+    "age": 22,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Estrutural",
+    "neighborhood": "Estrutural",
+    "telefone": "+5561777703389",
+    "phone": "+5561777703389",
+    "whatsapp": "+5561645609962",
+    "preco": 300,
+    "price": 300,
+    "preco_hora": 300,
+    "price_per_hour": 300,
+    "descricao": "Profissional em massagens Cristina no Estrutural, alívio do stress e tensões do dia a dia.",
+    "description": "Profissional em massagens Cristina no Estrutural, alívio do stress e tensões do dia a dia.",
+    "foto_capa": "foto (1).jpg",
+    "coverImage": "foto (1).jpg",
+    "foto_stories": "avatar (2).jpg",
+    "profileImage": "avatar (2).jpg",
+    "galeria_1": "avatar (4).jpg",
+    "galeria_2": "foto (28).jpg",
+    "galeria_3": "foto (5).jpg",
+    "galeria_4": "a2.jpg",
+    "galeria_5": "foto (1).jpg",
+    "galeria_6": "avatar (2).jpg",
+    "images": [
+      "foto (1).jpg",
+      "avatar (2).jpg",
+      "avatar (4).jpg",
+      "foto (28).jpg",
+      "foto (5).jpg",
+      "a2.jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 160,
+    "likes": 33,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547622,
+      "_nanoseconds": 197000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1755717708,
+        "_nanoseconds": 197000000
+      },
+      "proximo_exame": {
+        "_seconds": 1762918459,
+        "_nanoseconds": 770000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Nenhuma",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "União Estável",
+    "contato_emergencia": "+5561490135803",
+    "cep": "53330-864",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês",
+        "Espanhol"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema",
+        "Leitura",
+        "Esportes"
+      ],
+      "musica_preferida": "Rock",
+      "comida_preferida": "Mexicana",
+      "bebida_preferida": "Vinho",
+      "fumante": false,
+      "bebe": false,
+      "animais": true,
+      "criancas": false
+    },
+    "tipo_sanguineo": "AB+",
+    "cpf": "842305409",
+    "dados_pagamento": {
+      "metodo_pagamento": "PIX",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 0,
+      "desconto_pix": 3
+    },
+    "escolaridade": "Não informado",
+    "nome_real": "Cristina",
+    "parentesco_emergencia": "Irmã",
+    "nome_contato_emergencia": "Contato 40",
+    "peso": "68",
+    "profissao": "Acompanhante",
+    "email_pessoal": "cristina21@uol.com.br",
+    "dados_bancarios": {
+      "banco": "Inter",
+      "codigo_banco": "077",
+      "agencia": "1725",
+      "conta": "998208",
+      "tipo_conta": "Corrente",
+      "pix": "lgiaqjfz3l-bw4q7v0ufk"
+    },
+    "verificacao": {
+      "documento_frente": "foto (3).jpg",
+      "documento_verso": "foto (1).jpg",
+      "documento_selfie": "avatar (3).jpg",
+      "comprovante_residencia": "a1.jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_61",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 833000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 833000000
+    },
+    "email_comercial": "cristinacomercial442@gmail.com",
+    "nome_artistico": "Cristina",
+    "etnia": "Não informado",
+    "endereco_completo": "Avenida Principal, 289, Estrutural, Brasília - DF",
+    "altura": "174",
+    "rg": "45296807",
+    "versao_dados": "2.0",
+    "nacionalidade": "Argentina",
+    "level_name": "Destaque",
+    "premium": false,
+    "level": "N3",
+    "destaque": true,
+    "id": "4knsQ0pFghDNWm9a79Wd",
+    "nivel": "N3",
+    "nivel_nome": "Destaque",
+    "updatedAt": "2025-10-17T03:10:59.245Z",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%281%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=VAL%2Bz5jw5GmEH%2BA3ROn7FBUUyM0A1N7AXMnpbuxjIVVUSB%2FsfO0BTU79EWQbkuiOFJpiKfY4uBb2%2Fg5UcaaSBtAycFIzzAunjO91sxzP92et6C4XfHdpOrEYZn4XDI6RIbZI%2FeOGeyNlmodXWHgnKKwq2SPc1SH1jiFqin%2Ffxh8JDdP7r43%2FyGQqfbKKQPo0AYdNK8L3BWg85L8eOEJ0P99lBwJDg0ROh1R7pfTQ%2FQcRlqzcgTe5aM%2FvrWMOo8UsRMdBbADlzo1vlUq0hSqlVixFS5%2BvCCVbDqfUHRPg3gYsrFODdnaugt%2BJP%2BQSchCekmsr52SjyjqVIg3%2FND4kvw%3D%3D"
+  },
+  {
+    "nome": "Isabella",
+    "name": "Isabella",
+    "categoria": "premium",
+    "category": "premium",
+    "tipo": "premium",
+    "status": "ativo",
+    "idade": 42,
+    "age": 42,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Estrutural",
+    "neighborhood": "Estrutural",
+    "telefone": "+5561926457452",
+    "phone": "+5561926457452",
+    "whatsapp": "+5561257113423",
+    "preco": 900,
+    "price": 900,
+    "preco_hora": 900,
+    "price_per_hour": 900,
+    "descricao": "Garota de programa premium Isabella no Estrutural, atendimento de luxo com total discrição.",
+    "description": "Garota de programa premium Isabella no Estrutural, atendimento de luxo com total discrição.",
+    "foto_capa": "foto (12).jpg",
+    "coverImage": "foto (12).jpg",
+    "foto_stories": "foto (10).jpg",
+    "profileImage": "foto (10).jpg",
+    "galeria_1": "avatar (12).jpg",
+    "galeria_2": "foto (1).jpg",
+    "galeria_3": "foto (6).jpg",
+    "galeria_4": "46_62fa0.jpg",
+    "galeria_5": "foto (12).jpg",
+    "galeria_6": "foto (10).jpg",
+    "images": [
+      "foto (12).jpg",
+      "foto (10).jpg",
+      "avatar (12).jpg",
+      "foto (1).jpg",
+      "foto (6).jpg",
+      "46_62fa0.jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "destaque": true,
+    "views": 345,
+    "likes": 79,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547619,
+      "_nanoseconds": 881000000
+    },
+    "updatedAt": {
+      "_seconds": 1760547619,
+      "_nanoseconds": 881000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1754914005,
+        "_nanoseconds": 721000000
+      },
+      "proximo_exame": {
+        "_seconds": 1763052979,
+        "_nanoseconds": 341000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Nenhuma",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Solteira",
+    "contato_emergencia": "+5561855042247",
+    "cep": "69017-509",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema",
+        "Leitura"
+      ],
+      "musica_preferida": "Eletrônica",
+      "comida_preferida": "Italiana",
+      "bebida_preferida": "Água",
+      "fumante": false,
+      "bebe": true,
+      "animais": true,
+      "criancas": false
+    },
+    "tipo_sanguineo": "O+",
+    "cpf": "158035661",
+    "dados_pagamento": {
+      "metodo_pagamento": "Transferência",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": false,
+      "taxa_cartao": 0,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Ensino Médio",
+    "nome_real": "Isabella",
+    "parentesco_emergencia": "Pai",
+    "nome_contato_emergencia": "Contato 17",
+    "peso": "70",
+    "profissao": "Acompanhante",
+    "email_pessoal": "isabella708@outlook.com",
+    "dados_bancarios": {
+      "banco": "Santander",
+      "codigo_banco": "033",
+      "agencia": "4212",
+      "conta": "115135",
+      "tipo_conta": "Corrente",
+      "pix": "pix145@hotmail.com"
+    },
+    "verificacao": {
+      "documento_frente": "foto (8).jpg",
+      "documento_verso": "a1.jpg",
+      "documento_selfie": "foto (7).jpg",
+      "comprovante_residencia": "a1.jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_79",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 905000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 905000000
+    },
+    "email_comercial": "isabellacomercial863@uol.com.br",
+    "nome_artistico": "Isabella",
+    "etnia": "Indígena",
+    "endereco_completo": "Avenida das Palmeiras, 660, Estrutural, Brasília - DF",
+    "altura": "162",
+    "rg": "12477535",
+    "versao_dados": "2.0",
+    "nacionalidade": "Chilena",
+    "id": "51i9UGXJvJ4JLeLu6AMF",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2812%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=hN6OGbafO38UWa9Ge9Sxg14pgafl%2BAT%2BpR6w1w0Yg%2BPh9qoptKAC349rw1cgsgVCsCdkuze%2B3arNTXrn5%2BVZhfEYmgfEbF2aVNn5guQGem0VaSVlbVweQlUCEcGroBzRI5gjm0EP1HdJagCrgBKRgWSg5jiEBjSSjLJuGXxsbcImqsz2ckHzfDHvHJm5EJus%2FD%2FDW4fDAvSq86udo51gUexhDKI5%2BbruObSxccgcNk3AiJGK12BN5HrcIoC707BA03pQ7zmIBnZK0ldsvdARCMw6CM7V88GPGZy%2FElKBLYJ2HDFT%2B82ilmyfcFCgSN9nvDscuE6C5NzCoZzdximvPQ%3D%3D"
+  },
+  {
+    "nome": "Fernanda",
+    "name": "Fernanda",
+    "categoria": "massagista",
+    "category": "massagista",
+    "tipo": "massagista",
+    "status": "ativo",
+    "idade": 33,
+    "age": 33,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Park Way",
+    "neighborhood": "Park Way",
+    "telefone": "+5561711400601",
+    "phone": "+5561711400601",
+    "whatsapp": "+5561604824000",
+    "preco": 300,
+    "price": 300,
+    "preco_hora": 300,
+    "price_per_hour": 300,
+    "descricao": "Massagista profissional Fernanda em Park Way, relaxamento total e bem-estar garantido.",
+    "description": "Massagista profissional Fernanda em Park Way, relaxamento total e bem-estar garantido.",
+    "foto_capa": "foto (10).jpg",
+    "coverImage": "foto (10).jpg",
+    "foto_stories": "foto (9).jpg",
+    "profileImage": "foto (9).jpg",
+    "galeria_1": "foto (26).jpg",
+    "galeria_2": "foto (7).jpg",
+    "galeria_3": "d4.jpg",
+    "galeria_4": "foto (6).jpg",
+    "galeria_5": "foto (10).jpg",
+    "galeria_6": "foto (9).jpg",
+    "images": [
+      "foto (10).jpg",
+      "foto (9).jpg",
+      "foto (26).jpg",
+      "foto (7).jpg",
+      "d4.jpg",
+      "foto (6).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 196,
+    "likes": 80,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547621,
+      "_nanoseconds": 641000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1757613153,
+        "_nanoseconds": 809000000
+      },
+      "proximo_exame": {
+        "_seconds": 1761146654,
+        "_nanoseconds": 683000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Nenhuma",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Casada",
+    "contato_emergencia": "+5561141624753",
+    "cep": "69795-299",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês",
+        "Espanhol"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema"
+      ],
+      "musica_preferida": "MPB",
+      "comida_preferida": "Italiana",
+      "bebida_preferida": "Água",
+      "fumante": false,
+      "bebe": true,
+      "animais": true,
+      "criancas": false
+    },
+    "tipo_sanguineo": "A-",
+    "cpf": "432482406",
+    "dados_pagamento": {
+      "metodo_pagamento": "PIX",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": false,
+      "taxa_cartao": 1,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Não informado",
+    "nome_real": "Fernanda",
+    "parentesco_emergencia": "Irmão",
+    "nome_contato_emergencia": "Contato 11",
+    "peso": "58",
+    "profissao": "Acompanhante",
+    "email_pessoal": "fernanda646@outlook.com",
+    "dados_bancarios": {
+      "banco": "Itaú",
+      "codigo_banco": "341",
+      "agencia": "6445",
+      "conta": "733072",
+      "tipo_conta": "Poupança",
+      "pix": "p4iecpnf50l-aafh30s6p5v"
+    },
+    "verificacao": {
+      "documento_frente": "avatar.jpg",
+      "documento_verso": "foto (10).jpg",
+      "documento_selfie": "avatar (3).jpg",
+      "comprovante_residencia": "avatar.jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_90",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 973000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 973000000
+    },
+    "email_comercial": "fernandacomercial94@hotmail.com",
+    "nome_artistico": "Fernanda",
+    "etnia": "Negra",
+    "endereco_completo": "Avenida das Palmeiras, 7811, Apto 880, Park Way, Brasília - DF",
+    "altura": "166",
+    "rg": "97129913",
+    "versao_dados": "2.0",
+    "nacionalidade": "Argentina",
+    "level_name": "Destaque",
+    "premium": false,
+    "level": "N3",
+    "destaque": true,
+    "id": "59lgGUXqTNTqK1SDdJge",
+    "nivel": "N3",
+    "nivel_nome": "Destaque",
+    "updatedAt": "2025-10-17T03:10:59.245Z",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2810%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=H7ZFcxa2G0ysR%2FrvZN9Ex8oC%2BMoGrUqdp%2FnLxjLOzwmymgoeJqSYTwS1rt%2FvnYjWuq%2FcjiBm5tqWSPVcj0qOKGDnbgnrZFr5i0f0ZQb870SHICgBgrVo1mo%2Bs%2BwFWmfrKRYOdkj9JQVkIe%2BBvbLHAD0hERLpJkX2sVcbHJMkjH9WlzP9hpK2fF4FIF9ZmpROWlxug5FFlvaG8RgmwODpCXRJ5FpbFmgMWtrKxWi9Z1mw0CCLJWlMY3oeGsR1UgfZPgIttGoMRLSYjCB2Pm5Ie11UPdRVLhSIVSEit%2Byd0kHDV%2B0iSP72Xl6JCHscXIbMUMNkLyjEOaY6CLt7EZQCjg%3D%3D"
+  },
+  {
+    "nome": "Lily",
+    "name": "Lily",
+    "categoria": "webcam",
+    "category": "webcam",
+    "tipo": "webcam",
+    "status": "ativo",
+    "idade": 31,
+    "age": 31,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Candangolândia",
+    "neighborhood": "Candangolândia",
+    "telefone": "+5561900896026",
+    "phone": "+5561900896026",
+    "whatsapp": "+5561328801353",
+    "descricao": "Modelo cam Lily no Candangolândia, shows exclusivos e momentos de prazer.",
+    "description": "Modelo cam Lily no Candangolândia, shows exclusivos e momentos de prazer.",
+    "foto_capa": "foto (16).jpg",
+    "coverImage": "foto (16).jpg",
+    "foto_stories": "foto (25).jpg",
+    "profileImage": "foto (25).jpg",
+    "galeria_1": "a1.jpg",
+    "galeria_2": "foto (3).jpg",
+    "galeria_3": "foto (17).jpg",
+    "galeria_4": "avatar (5).jpg",
+    "galeria_5": "foto (16).jpg",
+    "galeria_6": "foto (25).jpg",
+    "images": [
+      "foto (16).jpg",
+      "foto (25).jpg",
+      "a1.jpg",
+      "foto (3).jpg",
+      "foto (17).jpg",
+      "avatar (5).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "destaque": true,
+    "views": 281,
+    "likes": 23,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547626,
+      "_nanoseconds": 390000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1754408775,
+        "_nanoseconds": 614000000
+      },
+      "proximo_exame": {
+        "_seconds": 1762236958,
+        "_nanoseconds": 943000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Nenhuma",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "União Estável",
+    "contato_emergencia": "+5561260698369",
+    "cep": "29329-336",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema",
+        "Leitura"
+      ],
+      "musica_preferida": "MPB",
+      "comida_preferida": "Italiana",
+      "bebida_preferida": "Água",
+      "fumante": true,
+      "bebe": false,
+      "animais": false,
+      "criancas": false
+    },
+    "tipo_sanguineo": "A+",
+    "cpf": "984389867",
+    "dados_pagamento": {
+      "metodo_pagamento": "Cartão de Débito",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 0,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Não informado",
+    "nome_real": "Lily",
+    "parentesco_emergencia": "Amigo",
+    "nome_contato_emergencia": "Contato 32",
+    "peso": "58",
+    "profissao": "Acompanhante",
+    "email_pessoal": "lily676@hotmail.com",
+    "dados_bancarios": {
+      "banco": "Inter",
+      "codigo_banco": "077",
+      "agencia": "9008",
+      "conta": "332783",
+      "tipo_conta": "Corrente",
+      "pix": "993763809"
+    },
+    "verificacao": {
+      "documento_frente": "avatar.jpg",
+      "documento_verso": "d4.jpg",
+      "documento_selfie": "a2.jpg",
+      "comprovante_residencia": "foto (9).jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_40",
+      "data_verificacao": {
+        "_seconds": 1760548018,
+        "_nanoseconds": 31000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548018,
+      "_nanoseconds": 31000000
+    },
+    "email_comercial": "lilycomercial401@outlook.com",
+    "nome_artistico": "Lily",
+    "etnia": "Amarela",
+    "endereco_completo": "Avenida Copacabana, 3201, Candangolândia, Brasília - DF",
+    "altura": "161",
+    "rg": "48067025",
+    "versao_dados": "2.0",
+    "nacionalidade": "Peruana",
+    "level": "N1",
+    "price_per_hour": "200",
+    "preco_30min": "120",
+    "preco_1h": "200",
+    "nivel_nome": "Premium VIP",
+    "preco": "200",
+    "level_name": "Premium VIP",
+    "premium": true,
+    "preco_hora": "200",
+    "price": "200",
+    "preco_45min": "160",
+    "nivel": "N1",
+    "updatedAt": "2025-10-17T02:29:58.257Z",
+    "id": "5MJ7LiiVJ5STTj07PqzD",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2816%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=HUPnk%2FV2%2FVwryzNjSeZH8UAaBIbd3EfODQ1P5%2Bwbk6kYr91ZqMjHT%2BcW0fNFAlLpRQyiuyRl2ZxqdFsTirv4eW09qYxzLdVn8OEjDE445Bp5OBquQFZubAkcKJraBdeikD4jFknvRIWYFUeBVDMyG8ElSO2fjVJcYiRmC93eaFTOBkNGRlUAcnZsaF0Ow16ldNvFjmgAAsvlYrUoQq0Aqwv%2BVDw3SC00vsQvD7%2FDhvS9xImSA5hXeFjrF6xXiWTC3giDFFcPVmPxSqqF7q0ZMCcAFBsBZKvYX3j4rAgz3SAzGf25k6G0Cgd05eMyRdfDmT64pTs4tHazxhcS07zXwQ%3D%3D"
+  },
+  {
+    "nome": "Lívia",
+    "name": "Lívia",
+    "categoria": "premium",
+    "category": "premium",
+    "tipo": "premium",
+    "status": "ativo",
+    "idade": 30,
+    "age": 30,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Candangolândia",
+    "neighborhood": "Candangolândia",
+    "telefone": "+5561469194157",
+    "phone": "+5561469194157",
+    "whatsapp": "+5561190959924",
+    "preco": 400,
+    "price": 400,
+    "preco_hora": 400,
+    "price_per_hour": 400,
+    "descricao": "Acompanhante VIP Lívia em Candangolândia, experiência única e inesquecível.",
+    "description": "Acompanhante VIP Lívia em Candangolândia, experiência única e inesquecível.",
+    "foto_capa": "foto (24).jpg",
+    "coverImage": "foto (24).jpg",
+    "foto_stories": "avatar (15).jpg",
+    "profileImage": "avatar (15).jpg",
+    "galeria_1": "foto (3).jpg",
+    "galeria_2": "foto (17).jpg",
+    "galeria_3": "avatar (9).jpg",
+    "galeria_4": "foto (13).jpg",
+    "galeria_5": "foto (24).jpg",
+    "galeria_6": "avatar (15).jpg",
+    "images": [
+      "foto (24).jpg",
+      "avatar (15).jpg",
+      "foto (3).jpg",
+      "foto (17).jpg",
+      "avatar (9).jpg",
+      "foto (13).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "destaque": true,
+    "views": 627,
+    "likes": 48,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547620,
+      "_nanoseconds": 521000000
+    },
+    "updatedAt": {
+      "_seconds": 1760547620,
+      "_nanoseconds": 521000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1760412834,
+        "_nanoseconds": 443000000
+      },
+      "proximo_exame": {
+        "_seconds": 1762095839,
+        "_nanoseconds": 579000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Frutos do mar",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Viúva",
+    "contato_emergencia": "+5561885620244",
+    "cep": "44113-882",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música"
+      ],
+      "musica_preferida": "Funk",
+      "comida_preferida": "Brasileira",
+      "bebida_preferida": "Água",
+      "fumante": false,
+      "bebe": true,
+      "animais": false,
+      "criancas": true
+    },
+    "tipo_sanguineo": "B+",
+    "cpf": "672711547",
+    "dados_pagamento": {
+      "metodo_pagamento": "Dinheiro",
+      "aceita_pix": true,
+      "aceita_cartao": false,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 0,
+      "desconto_pix": 10
+    },
+    "escolaridade": "Não informado",
+    "nome_real": "Lívia",
+    "parentesco_emergencia": "Irmão",
+    "nome_contato_emergencia": "Contato 92",
+    "peso": "72",
+    "profissao": "Acompanhante",
+    "email_pessoal": "lívia622@gmail.com",
+    "dados_bancarios": {
+      "banco": "Bradesco",
+      "codigo_banco": "237",
+      "agencia": "6376",
+      "conta": "736850",
+      "tipo_conta": "Poupança",
+      "pix": "+5561977056604"
+    },
+    "verificacao": {
+      "documento_frente": "foto (6).jpg",
+      "documento_verso": "foto (9).jpg",
+      "documento_selfie": "Stories.jpg",
+      "comprovante_residencia": "avatar.jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_32",
+      "data_verificacao": {
+        "_seconds": 1760548018,
+        "_nanoseconds": 89000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548018,
+      "_nanoseconds": 89000000
+    },
+    "email_comercial": "líviacomercial530@gmail.com",
+    "nome_artistico": "Lívia",
+    "etnia": "Indígena",
+    "endereco_completo": "Rua do Comércio, 6202, Apto 808, Candangolândia, Brasília - DF",
+    "altura": "168",
+    "rg": "22078306",
+    "versao_dados": "2.0",
+    "nacionalidade": "Peruana",
+    "id": "5R3LEeqB65qUS1GDwRu5",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2824%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=fFOByO0AJAFekky3FYqyWdX6CWwE5zBg5iGjXR%2BCVUpdKqsQBJfCrzEUUX8mB0QCTAuT%2FTI147dvkJmcvcTBNsJiNjXpmomBFxsGVMf0eiE8wC70lURtCWl4uNiLZyfOSGgBKyv9IsGIMo9Gw9wq9qgR%2BLP0O2oYvQK45x72YSsq9%2BlX13dXLlnHvUSOzqQCLpVBqMGt6uqJP4Q1k%2Fy113iRNqLsQQ3xnXkMxTGwPj2csG%2FYqpsSU1PyDZ1Ll7Fzisgo71zzm8c0%2FWG%2Boe59hpUWDHt3aCkuJJifVLnooA07CferowEQxPXkAHunnol4783iAx%2BjmCTEppB1jFMH5Q%3D%3D"
+  },
+  {
+    "nome": "Jade",
+    "name": "Jade",
+    "categoria": "trans",
+    "category": "trans",
+    "tipo": "trans",
+    "status": "ativo",
+    "idade": 29,
+    "age": 29,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Sobradinho",
+    "neighborhood": "Sobradinho",
+    "telefone": "+5561352312488",
+    "phone": "+5561352312488",
+    "whatsapp": "+5561979925573",
+    "descricao": "Escort trans Jade em Sobradinho, atendimento personalizado e muito carinho.",
+    "description": "Escort trans Jade em Sobradinho, atendimento personalizado e muito carinho.",
+    "foto_capa": "d4.jpg",
+    "coverImage": "d4.jpg",
+    "foto_stories": "avatar (3).jpg",
+    "profileImage": "avatar (3).jpg",
+    "galeria_1": "avatar (8).jpg",
+    "galeria_2": "avatar (10).jpg",
+    "galeria_3": "foto (28).jpg",
+    "galeria_4": "foto (1).jpg",
+    "galeria_5": "d4.jpg",
+    "galeria_6": "avatar (3).jpg",
+    "images": [
+      "d4.jpg",
+      "avatar (3).jpg",
+      "avatar (8).jpg",
+      "avatar (10).jpg",
+      "foto (28).jpg",
+      "foto (1).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 660,
+    "likes": 35,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547623,
+      "_nanoseconds": 546000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1755545289,
+        "_nanoseconds": 690000000
+      },
+      "proximo_exame": {
+        "_seconds": 1761565886,
+        "_nanoseconds": 606000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Pólen",
+      "medicamentos": "Anticoncepcional",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Viúva",
+    "contato_emergencia": "+5561207090787",
+    "cep": "28992-549",
+    "preferencias": {
+      "idiomas": [
+        "Português"
+      ],
+      "hobbies": [
+        "Música"
+      ],
+      "musica_preferida": "Eletrônica",
+      "comida_preferida": "Francesa",
+      "bebida_preferida": "Vinho",
+      "fumante": false,
+      "bebe": true,
+      "animais": true,
+      "criancas": false
+    },
+    "tipo_sanguineo": "O+",
+    "cpf": "929289826",
+    "dados_pagamento": {
+      "metodo_pagamento": "Cartão de Crédito",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 2,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Ensino Médio",
+    "nome_real": "Jade",
+    "parentesco_emergencia": "Amigo",
+    "nome_contato_emergencia": "Contato 25",
+    "peso": "65",
+    "profissao": "Acompanhante",
+    "email_pessoal": "jade442@hotmail.com",
+    "dados_bancarios": {
+      "banco": "Bradesco",
+      "codigo_banco": "237",
+      "agencia": "8483",
+      "conta": "791884",
+      "tipo_conta": "Corrente",
+      "pix": "866057027"
+    },
+    "verificacao": {
+      "documento_frente": "avatar.jpg",
+      "documento_verso": "d4.jpg",
+      "documento_selfie": "foto (1).jpg",
+      "comprovante_residencia": "avatar (3).jpg",
+      "status_verificacao": "pendente",
+      "verificador_id": "verificador_31",
+      "data_verificacao": {
+        "_seconds": 1760548018,
+        "_nanoseconds": 159000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548018,
+      "_nanoseconds": 159000000
+    },
+    "email_comercial": "jadecomercial690@uol.com.br",
+    "nome_artistico": "Jade",
+    "etnia": "Não informado",
+    "endereco_completo": "Avenida Central, 163, Sobradinho, Brasília - DF",
+    "altura": "155",
+    "rg": "87284985",
+    "versao_dados": "2.0",
+    "nacionalidade": "Venezuelana",
+    "level": "N1",
+    "nivel_nome": "Premium VIP",
+    "level_name": "Premium VIP",
+    "premium": true,
+    "destaque": true,
+    "nivel": "N1",
+    "updatedAt": "2025-10-17T02:29:58.257Z",
+    "preco": "600",
+    "preco_hora": "600",
+    "price": "600",
+    "price_per_hour": "600",
+    "preco_30min": "360",
+    "preco_45min": "480",
+    "preco_1h": "600",
+    "id": "8QL6MbC5KHnp3xav5tRJ",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/d4.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=DAj6PeINGOJlPUJ68enPM6YjdPt2PEyYgVhMLyMLBGBmhtAVPF7TyAZsR0jfaXfN1wI58VX4gfZFv94B5EJdONoWcPTaA0pBCrZ1DIwnfIrkhoqHem%2BYRNdIZRCBJ98ZpRP3YcF18eeRjCOkNMssacrDARNofCLG2Xl%2BOKeySS5RXvy4RY7zkumDF%2B4vl6IyoSmhJJ5b02DpdecXnni%2Fs2U2rL%2FhQO4zXsJaPAkKUf9R8nR%2F25VxIxvadpIlY7mgC1M6sPSwsvneHMKl05R6GL3Rw92DQB5xd38HxVieWdgTMd3I4%2B7plKVPWCFq2QN2YS3%2B4zJZWL%2FYwTc14%2F7yvw%3D%3D"
+  },
+  {
+    "nome": "Sage",
+    "name": "Sage",
+    "categoria": "webcam",
+    "category": "webcam",
+    "tipo": "webcam",
+    "status": "ativo",
+    "idade": 35,
+    "age": 35,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Gama",
+    "neighborhood": "Gama",
+    "telefone": "+5561336587657",
+    "phone": "+5561336587657",
+    "whatsapp": "+5561417009067",
+    "descricao": "Modelo cam Sage no Gama, shows exclusivos e momentos de prazer.",
+    "description": "Modelo cam Sage no Gama, shows exclusivos e momentos de prazer.",
+    "foto_capa": "foto (15).jpg",
+    "coverImage": "foto (15).jpg",
+    "foto_stories": "46_62fa0.jpg",
+    "profileImage": "46_62fa0.jpg",
+    "galeria_1": "foto (10).jpg",
+    "galeria_2": "avatar (13).jpg",
+    "galeria_3": "foto (12).jpg",
+    "galeria_4": "avatar.jpg",
+    "galeria_5": "foto (15).jpg",
+    "galeria_6": "46_62fa0.jpg",
+    "images": [
+      "foto (15).jpg",
+      "46_62fa0.jpg",
+      "foto (10).jpg",
+      "avatar (13).jpg",
+      "foto (12).jpg",
+      "avatar.jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 344,
+    "likes": 72,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547626,
+      "_nanoseconds": 62000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1753202540,
+        "_nanoseconds": 427000000
+      },
+      "proximo_exame": {
+        "_seconds": 1760630369,
+        "_nanoseconds": 547000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Pólen",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "União Estável",
+    "contato_emergencia": "+5561594212589",
+    "cep": "65314-939",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês",
+        "Espanhol"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema",
+        "Leitura"
+      ],
+      "musica_preferida": "Eletrônica",
+      "comida_preferida": "Mexicana",
+      "bebida_preferida": "Água",
+      "fumante": false,
+      "bebe": false,
+      "animais": false,
+      "criancas": true
+    },
+    "tipo_sanguineo": "AB-",
+    "cpf": "833290266",
+    "dados_pagamento": {
+      "metodo_pagamento": "Dinheiro",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 1,
+      "desconto_pix": 5
+    },
+    "escolaridade": "Pós-graduação",
+    "nome_real": "Sage",
+    "parentesco_emergencia": "Pai",
+    "nome_contato_emergencia": "Contato 19",
+    "peso": "47",
+    "profissao": "Acompanhante",
+    "email_pessoal": "sage953@uol.com.br",
+    "dados_bancarios": {
+      "banco": "Caixa Econômica Federal",
+      "codigo_banco": "104",
+      "agencia": "5160",
+      "conta": "428222",
+      "tipo_conta": "Corrente",
+      "pix": "+5561228868663"
+    },
+    "verificacao": {
+      "documento_frente": "a1.jpg",
+      "documento_verso": "foto (5).jpg",
+      "documento_selfie": "foto (8).jpg",
+      "comprovante_residencia": "foto (2).jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_24",
+      "data_verificacao": {
+        "_seconds": 1760548018,
+        "_nanoseconds": 223000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548018,
+      "_nanoseconds": 223000000
+    },
+    "email_comercial": "sagecomercial964@outlook.com",
+    "nome_artistico": "Sage",
+    "etnia": "Amarela",
+    "endereco_completo": "Rua da Liberdade, 73, Apto 87, Gama, Brasília - DF",
+    "altura": "171",
+    "rg": "57440850",
+    "versao_dados": "2.0",
+    "nacionalidade": "Colombiana",
+    "level": "N1",
+    "nivel_nome": "Premium VIP",
+    "level_name": "Premium VIP",
+    "premium": true,
+    "destaque": true,
+    "nivel": "N1",
+    "updatedAt": "2025-10-17T02:29:58.257Z",
+    "preco": "240",
+    "preco_hora": "240",
+    "price": "240",
+    "price_per_hour": "240",
+    "preco_30min": "144",
+    "preco_45min": "192",
+    "preco_1h": "240",
+    "id": "8bX4BMNltRWrd68YUyIi",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2815%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=bdbOTtA44fTbc5Ji3D5xS1jG4PLsDuxhXXLSa4lHFmEABtRcGRxBChPFjOHirzaPDBByKIIHZSTp%2FfGIePrHN76vKmSJDH3%2BgT8iBGPCnBLs6tYCDL2%2Br3N0%2BHA1wkgobYic4Xe5pNX%2FOX4YJ%2FXz12C225FdqOrZAd3kjlMmI9dVc1yqOeEDwRY8L3wU6iJAmWFC%2FNLOA2EcB9vL3Dr49yJWGOS3dnFKchn6uY%2Bs6k6CWf6H7m312KCQve1lMocsb9v1ZhAwEcTbWV8M39OoHhrxTSCsrhRr7WnhH0nOJEQePEv2vu4NqsKajAJn48n%2Bp%2BOjhoh%2FVz0sSUyGR9BkhA%3D%3D"
+  },
+  {
+    "nome": "Denise",
+    "name": "Denise",
+    "categoria": "massagista",
+    "category": "massagista",
+    "tipo": "massagista",
+    "status": "ativo",
+    "idade": 38,
+    "age": 38,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Itapoã",
+    "neighborhood": "Itapoã",
+    "telefone": "+5561400158393",
+    "phone": "+5561400158393",
+    "whatsapp": "+5561944683136",
+    "preco": 300,
+    "price": 300,
+    "preco_hora": 300,
+    "price_per_hour": 300,
+    "descricao": "Massagista profissional Denise em Itapoã, relaxamento total e bem-estar garantido.",
+    "description": "Massagista profissional Denise em Itapoã, relaxamento total e bem-estar garantido.",
+    "foto_capa": "foto (1).jpg",
+    "coverImage": "foto (1).jpg",
+    "foto_stories": "46_62fa0.jpg",
+    "profileImage": "46_62fa0.jpg",
+    "galeria_1": "foto (7).jpg",
+    "galeria_2": "avatar (15).jpg",
+    "galeria_3": "foto (27).jpg",
+    "galeria_4": "foto (15).jpg",
+    "galeria_5": "foto (1).jpg",
+    "galeria_6": "46_62fa0.jpg",
+    "images": [
+      "foto (1).jpg",
+      "46_62fa0.jpg",
+      "foto (7).jpg",
+      "avatar (15).jpg",
+      "foto (27).jpg",
+      "foto (15).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 105,
+    "likes": 102,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547622,
+      "_nanoseconds": 38000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1755075998,
+        "_nanoseconds": 865000000
+      },
+      "proximo_exame": {
+        "_seconds": 1762474755,
+        "_nanoseconds": 26000000
+      },
+      "vacinas_em_dia": false,
+      "alergias": "Nenhuma",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Divorciada",
+    "contato_emergencia": "+5561545273931",
+    "cep": "67746-450",
+    "preferencias": {
+      "idiomas": [
+        "Português"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema"
+      ],
+      "musica_preferida": "Sertanejo",
+      "comida_preferida": "Italiana",
+      "bebida_preferida": "Água",
+      "fumante": false,
+      "bebe": true,
+      "animais": false,
+      "criancas": false
+    },
+    "tipo_sanguineo": "B+",
+    "cpf": "283121550",
+    "dados_pagamento": {
+      "metodo_pagamento": "Transferência",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": false,
+      "taxa_cartao": 1,
+      "desconto_pix": 2
+    },
+    "escolaridade": "Ensino Fundamental",
+    "nome_real": "Denise",
+    "parentesco_emergencia": "Amiga",
+    "nome_contato_emergencia": "Contato 13",
+    "peso": "74",
+    "profissao": "Acompanhante",
+    "email_pessoal": "denise510@gmail.com",
+    "dados_bancarios": {
+      "banco": "Bradesco",
+      "codigo_banco": "237",
+      "agencia": "5333",
+      "conta": "162701",
+      "tipo_conta": "Corrente",
+      "pix": "+5561101631004"
+    },
+    "verificacao": {
+      "documento_frente": "foto (7).jpg",
+      "documento_verso": "Stories.jpg",
+      "documento_selfie": "foto (1).jpg",
+      "comprovante_residencia": "foto (8).jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_54",
+      "data_verificacao": {
+        "_seconds": 1760548018,
+        "_nanoseconds": 286000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548018,
+      "_nanoseconds": 286000000
+    },
+    "email_comercial": "denisecomercial527@yahoo.com.br",
+    "nome_artistico": "Denise",
+    "etnia": "Amarela",
+    "endereco_completo": "Avenida Copacabana, 7670, Itapoã, Brasília - DF",
+    "altura": "177",
+    "rg": "61463795",
+    "versao_dados": "2.0",
+    "nacionalidade": "Peruana",
+    "level_name": "Destaque",
+    "premium": false,
+    "level": "N3",
+    "destaque": true,
+    "id": "8qN8gXSP0QQ21CQHNtOa",
+    "nivel": "N3",
+    "nivel_nome": "Destaque",
+    "updatedAt": "2025-10-17T03:10:59.245Z",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%281%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=VAL%2Bz5jw5GmEH%2BA3ROn7FBUUyM0A1N7AXMnpbuxjIVVUSB%2FsfO0BTU79EWQbkuiOFJpiKfY4uBb2%2Fg5UcaaSBtAycFIzzAunjO91sxzP92et6C4XfHdpOrEYZn4XDI6RIbZI%2FeOGeyNlmodXWHgnKKwq2SPc1SH1jiFqin%2Ffxh8JDdP7r43%2FyGQqfbKKQPo0AYdNK8L3BWg85L8eOEJ0P99lBwJDg0ROh1R7pfTQ%2FQcRlqzcgTe5aM%2FvrWMOo8UsRMdBbADlzo1vlUq0hSqlVixFS5%2BvCCVbDqfUHRPg3gYsrFODdnaugt%2BJP%2BQSchCekmsr52SjyjqVIg3%2FND4kvw%3D%3D"
+  },
+  {
+    "nome": "Isadora",
+    "name": "Isadora",
+    "categoria": "premium",
+    "category": "premium",
+    "tipo": "premium",
+    "status": "ativo",
+    "idade": 20,
+    "age": 20,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Fercal",
+    "neighborhood": "Fercal",
+    "telefone": "+5561206009676",
+    "phone": "+5561206009676",
+    "whatsapp": "+5561882727585",
+    "preco": 900,
+    "price": 900,
+    "preco_hora": 900,
+    "price_per_hour": 900,
+    "descricao": "Acompanhante de luxo Isadora em Fercal, elegância e sofisticação em cada encontro.",
+    "description": "Acompanhante de luxo Isadora em Fercal, elegância e sofisticação em cada encontro.",
+    "foto_capa": "foto (16).jpg",
+    "coverImage": "foto (16).jpg",
+    "foto_stories": "foto (17).jpg",
+    "profileImage": "foto (17).jpg",
+    "galeria_1": "foto (26).jpg",
+    "galeria_2": "Stories.jpg",
+    "galeria_3": "avatar (9).jpg",
+    "galeria_4": "avatar (13).jpg",
+    "galeria_5": "foto (16).jpg",
+    "galeria_6": "foto (17).jpg",
+    "images": [
+      "foto (16).jpg",
+      "foto (17).jpg",
+      "foto (26).jpg",
+      "Stories.jpg",
+      "avatar (9).jpg",
+      "avatar (13).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "destaque": true,
+    "views": 246,
+    "likes": 91,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547620,
+      "_nanoseconds": 963000000
+    },
+    "updatedAt": {
+      "_seconds": 1760547620,
+      "_nanoseconds": 963000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1756345812,
+        "_nanoseconds": 498000000
+      },
+      "proximo_exame": {
+        "_seconds": 1761688484,
+        "_nanoseconds": 541000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Nenhuma",
+      "medicamentos": "Anticoncepcional",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Viúva",
+    "contato_emergencia": "+5561467011923",
+    "cep": "71960-863",
+    "preferencias": {
+      "idiomas": [
+        "Português"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema",
+        "Leitura"
+      ],
+      "musica_preferida": "Sertanejo",
+      "comida_preferida": "Brasileira",
+      "bebida_preferida": "Vinho",
+      "fumante": false,
+      "bebe": false,
+      "animais": true,
+      "criancas": false
+    },
+    "tipo_sanguineo": "AB-",
+    "cpf": "988347740",
+    "dados_pagamento": {
+      "metodo_pagamento": "Cartão de Débito",
+      "aceita_pix": true,
+      "aceita_cartao": false,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 2,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Ensino Médio",
+    "nome_real": "Isadora",
+    "parentesco_emergencia": "Irmã",
+    "nome_contato_emergencia": "Contato 37",
+    "peso": "70",
+    "profissao": "Acompanhante",
+    "email_pessoal": "isadora313@uol.com.br",
+    "dados_bancarios": {
+      "banco": "Santander",
+      "codigo_banco": "033",
+      "agencia": "3780",
+      "conta": "786845",
+      "tipo_conta": "Poupança",
+      "pix": "pix177@hotmail.com"
+    },
+    "verificacao": {
+      "documento_frente": "d4.jpg",
+      "documento_verso": "foto (1).jpg",
+      "documento_selfie": "foto (6).jpg",
+      "comprovante_residencia": "avatar (5).jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_78",
+      "data_verificacao": {
+        "_seconds": 1760548018,
+        "_nanoseconds": 345000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548018,
+      "_nanoseconds": 345000000
+    },
+    "email_comercial": "isadoracomercial311@gmail.com",
+    "nome_artistico": "Isadora",
+    "etnia": "Parda",
+    "endereco_completo": "Rua das Flores, 7233, Fercal, Brasília - DF",
+    "altura": "161",
+    "rg": "45428516",
+    "versao_dados": "2.0",
+    "nacionalidade": "Colombiana",
+    "id": "93KJkW30aYnd39DswrDq",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2816%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=HUPnk%2FV2%2FVwryzNjSeZH8UAaBIbd3EfODQ1P5%2Bwbk6kYr91ZqMjHT%2BcW0fNFAlLpRQyiuyRl2ZxqdFsTirv4eW09qYxzLdVn8OEjDE445Bp5OBquQFZubAkcKJraBdeikD4jFknvRIWYFUeBVDMyG8ElSO2fjVJcYiRmC93eaFTOBkNGRlUAcnZsaF0Ow16ldNvFjmgAAsvlYrUoQq0Aqwv%2BVDw3SC00vsQvD7%2FDhvS9xImSA5hXeFjrF6xXiWTC3giDFFcPVmPxSqqF7q0ZMCcAFBsBZKvYX3j4rAgz3SAzGf25k6G0Cgd05eMyRdfDmT64pTs4tHazxhcS07zXwQ%3D%3D"
+  },
+  {
+    "nome": "Rosana",
+    "name": "Rosana",
+    "categoria": "massagista",
+    "category": "massagista",
+    "tipo": "massagista",
+    "status": "ativo",
+    "idade": 40,
+    "age": 40,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Lago Sul",
+    "neighborhood": "Lago Sul",
+    "telefone": "+5561521915656",
+    "phone": "+5561521915656",
+    "whatsapp": "+5561629644445",
+    "preco": 250,
+    "price": 250,
+    "preco_hora": 250,
+    "price_per_hour": 250,
+    "descricao": "Massagista profissional Rosana em Lago Sul, relaxamento total e bem-estar garantido.",
+    "description": "Massagista profissional Rosana em Lago Sul, relaxamento total e bem-estar garantido.",
+    "foto_capa": "avatar (6).jpg",
+    "coverImage": "avatar (6).jpg",
+    "foto_stories": "avatar (4).jpg",
+    "profileImage": "avatar (4).jpg",
+    "galeria_1": "foto (30).jpg",
+    "galeria_2": "foto (6).jpg",
+    "galeria_3": "foto (4).jpg",
+    "galeria_4": "foto (28).jpg",
+    "galeria_5": "avatar (6).jpg",
+    "galeria_6": "avatar (4).jpg",
+    "images": [
+      "avatar (6).jpg",
+      "avatar (4).jpg",
+      "foto (30).jpg",
+      "foto (6).jpg",
+      "foto (4).jpg",
+      "foto (28).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 274,
+    "likes": 44,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547622,
+      "_nanoseconds": 831000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1755208479,
+        "_nanoseconds": 285000000
+      },
+      "proximo_exame": {
+        "_seconds": 1761883594,
+        "_nanoseconds": 979000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Pólen",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Solteira",
+    "contato_emergencia": "+5561644576327",
+    "cep": "90987-431",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música"
+      ],
+      "musica_preferida": "MPB",
+      "comida_preferida": "Mexicana",
+      "bebida_preferida": "Cerveja",
+      "fumante": false,
+      "bebe": true,
+      "animais": false,
+      "criancas": true
+    },
+    "tipo_sanguineo": "O+",
+    "cpf": "621697451",
+    "dados_pagamento": {
+      "metodo_pagamento": "Dinheiro",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": false,
+      "taxa_cartao": 0,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Ensino Médio",
+    "nome_real": "Rosana",
+    "parentesco_emergencia": "Irmão",
+    "nome_contato_emergencia": "Contato 14",
+    "peso": "48",
+    "profissao": "Acompanhante",
+    "email_pessoal": "rosana875@outlook.com",
+    "dados_bancarios": {
+      "banco": "Bradesco",
+      "codigo_banco": "237",
+      "agencia": "5408",
+      "conta": "244501",
+      "tipo_conta": "Poupança",
+      "pix": "609238704"
+    },
+    "verificacao": {
+      "documento_frente": "foto (9).jpg",
+      "documento_verso": "foto (10).jpg",
+      "documento_selfie": "foto (8).jpg",
+      "comprovante_residencia": "d4.jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_79",
+      "data_verificacao": {
+        "_seconds": 1760548018,
+        "_nanoseconds": 399000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548018,
+      "_nanoseconds": 399000000
+    },
+    "email_comercial": "rosanacomercial134@outlook.com",
+    "nome_artistico": "Rosana",
+    "etnia": "Não informado",
+    "endereco_completo": "Avenida Brasil, 7186, Apto 671, Lago Sul, Brasília - DF",
+    "altura": "177",
+    "rg": "74469141",
+    "versao_dados": "2.0",
+    "nacionalidade": "Chilena",
+    "level_name": "Destaque",
+    "premium": false,
+    "level": "N3",
+    "destaque": true,
+    "id": "9XaNsrBC9VGKEkYf7W41",
+    "nivel": "N3",
+    "nivel_nome": "Destaque",
+    "updatedAt": "2025-10-17T03:10:59.245Z",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/avatar%20%286%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=Awdw5bLxonWuC%2BKbB7MivRkijxnlQ0ugnz0dRO6f6zGnDl83Ssqzz4aehtqJpuQqeLk1aLV0wETrXD%2Fy%2BNaJ13Gi719Hxzxa6ERgVHlVR4QNNLx3bC9n5sKxajOMFZ7Aif1FLYiPkerz8%2F0PRpNSHInlQvlCehn%2FHfFf4gXiodJjoSU1HCtyy33az6yVL0oyjmKYMkPIQZxMnKpyD4jdxSMlNzO8B8w2eDYXJmVP1j80s80Y3oQKaCIKX8l%2Fs%2BPCwXcJEIqMNynHng%2FvesDf5cbi%2BKNg%2FjQ9wx%2FfzOB4ZxjPrRjUKj818R4w6%2BCNnGNCHGV2fbsRqAuWoEmP0sNM1A%3D%3D"
+  },
+  {
+    "nome": "Lavínia",
+    "name": "Lavínia",
+    "categoria": "premium",
+    "category": "premium",
+    "tipo": "premium",
+    "status": "ativo",
+    "idade": 35,
+    "age": 35,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Cruzeiro",
+    "neighborhood": "Cruzeiro",
+    "telefone": "+5561194970672",
+    "phone": "+5561194970672",
+    "whatsapp": "+5561180518588",
+    "preco": 600,
+    "price": 600,
+    "preco_hora": 600,
+    "price_per_hour": 600,
+    "descricao": "Acompanhante VIP Lavínia em Cruzeiro, experiência única e inesquecível.",
+    "description": "Acompanhante VIP Lavínia em Cruzeiro, experiência única e inesquecível.",
+    "foto_capa": "foto (4).jpg",
+    "coverImage": "foto (4).jpg",
+    "foto_stories": "foto (7).jpg",
+    "profileImage": "foto (7).jpg",
+    "galeria_1": "a3.jpg",
+    "galeria_2": "foto (28).jpg",
+    "galeria_3": "foto (25).jpg",
+    "galeria_4": "foto (23).jpg",
+    "galeria_5": "foto (4).jpg",
+    "galeria_6": "foto (7).jpg",
+    "images": [
+      "foto (4).jpg",
+      "foto (7).jpg",
+      "a3.jpg",
+      "foto (28).jpg",
+      "foto (25).jpg",
+      "foto (23).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "destaque": false,
+    "views": 961,
+    "likes": 107,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547621,
+      "_nanoseconds": 301000000
+    },
+    "updatedAt": {
+      "_seconds": 1760547621,
+      "_nanoseconds": 301000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1757365858,
+        "_nanoseconds": 868000000
+      },
+      "proximo_exame": {
+        "_seconds": 1760645405,
+        "_nanoseconds": 989000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Pólen",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Casada",
+    "contato_emergencia": "+5561388359253",
+    "cep": "84328-591",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês",
+        "Espanhol"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema",
+        "Leitura",
+        "Esportes"
+      ],
+      "musica_preferida": "MPB",
+      "comida_preferida": "Italiana",
+      "bebida_preferida": "Suco",
+      "fumante": false,
+      "bebe": true,
+      "animais": true,
+      "criancas": false
+    },
+    "tipo_sanguineo": "B+",
+    "cpf": "232927773",
+    "dados_pagamento": {
+      "metodo_pagamento": "Dinheiro",
+      "aceita_pix": true,
+      "aceita_cartao": false,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 0,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Ensino Superior",
+    "nome_real": "Lavínia",
+    "parentesco_emergencia": "Amigo",
+    "nome_contato_emergencia": "Contato 74",
+    "peso": "48",
+    "profissao": "Acompanhante",
+    "email_pessoal": "lavínia234@gmail.com",
+    "dados_bancarios": {
+      "banco": "Caixa Econômica Federal",
+      "codigo_banco": "104",
+      "agencia": "4963",
+      "conta": "508363",
+      "tipo_conta": "Corrente",
+      "pix": "8nykv5xfu53-xclxz229l4r"
+    },
+    "verificacao": {
+      "documento_frente": "foto (10).jpg",
+      "documento_verso": "a1.jpg",
+      "documento_selfie": "foto (4).jpg",
+      "comprovante_residencia": "foto (7).jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_95",
+      "data_verificacao": {
+        "_seconds": 1760548018,
+        "_nanoseconds": 622000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548018,
+      "_nanoseconds": 622000000
+    },
+    "email_comercial": "lavíniacomercial800@uol.com.br",
+    "nome_artistico": "Lavínia",
+    "etnia": "Parda",
+    "endereco_completo": "Rua das Flores, 5426, Cruzeiro, Brasília - DF",
+    "altura": "162",
+    "rg": "65513104",
+    "versao_dados": "2.0",
+    "nacionalidade": "Venezuelana",
+    "id": "9fkMyWzpi62cDzX1uKTf",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%284%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=Z7fpCMvKIdm4pKEFb%2FDQFjVQuFds2IEgPVCxW1FLZp55i87oh0yl%2FO0f8dEzvw%2B8pJU4w0kskqxRVe%2F0J2DY%2BVGWPmHnSl9yeFimPqCTZo0hWLyU0wOfVpwXOs%2FlDJh%2FZEskTDlOHIz7PMB05NV0Sa161ncLY%2B6YWGwWmQV9VaRLxIv%2BoNXkqEDvXaFbB2%2Fj2NvSNWvDygyzKslyKwxoKgubzMsaK9ojUdNHus6RTk27Qu3ObCqxx7UGlE2g3x3yx%2FPJc6THpfhY6T8UZzN8BVGUdSkZJTAzvtiQvsePIl8wV7aDyQro19Vy2qC4Wc1woSqRn1pKU%2FUKLY%2Fwt2%2FKIA%3D%3D"
+  },
+  {
+    "nome": "Felipe",
+    "name": "Felipe",
+    "categoria": "homem",
+    "category": "homem",
+    "tipo": "homem",
+    "status": "ativo",
+    "idade": 38,
+    "age": 38,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "SIV",
+    "neighborhood": "SIV",
+    "telefone": "+5561506003240",
+    "phone": "+5561506003240",
+    "whatsapp": "+5561481635190",
+    "preco": 450,
+    "price": 450,
+    "preco_hora": 450,
+    "price_per_hour": 450,
+    "descricao": "Modelo masculino Felipe em SIV, beleza e charme para momentos únicos.",
+    "description": "Modelo masculino Felipe em SIV, beleza e charme para momentos únicos.",
+    "foto_capa": "avatar (8).jpg",
+    "coverImage": "avatar (8).jpg",
+    "foto_stories": "foto (1).jpg",
+    "profileImage": "foto (1).jpg",
+    "galeria_1": "avatar (13).jpg",
+    "galeria_2": "avatar (11).jpg",
+    "galeria_3": "foto (16).jpg",
+    "galeria_4": "foto (21).jpg",
+    "galeria_5": "avatar (8).jpg",
+    "galeria_6": "foto (1).jpg",
+    "images": [
+      "avatar (8).jpg",
+      "foto (1).jpg",
+      "avatar (13).jpg",
+      "avatar (11).jpg",
+      "foto (16).jpg",
+      "foto (21).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 559,
+    "likes": 55,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547624,
+      "_nanoseconds": 511000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1758186628,
+        "_nanoseconds": 738000000
+      },
+      "proximo_exame": {
+        "_seconds": 1761344331,
+        "_nanoseconds": 861000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Pólen",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Divorciada",
+    "contato_emergencia": "+5561303856315",
+    "cep": "46018-472",
+    "preferencias": {
+      "idiomas": [
+        "Português"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema",
+        "Leitura"
+      ],
+      "musica_preferida": "Pop",
+      "comida_preferida": "Francesa",
+      "bebida_preferida": "Suco",
+      "fumante": false,
+      "bebe": false,
+      "animais": true,
+      "criancas": true
+    },
+    "tipo_sanguineo": "AB+",
+    "cpf": "832589067",
+    "dados_pagamento": {
+      "metodo_pagamento": "Transferência",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 2,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Ensino Médio",
+    "nome_real": "Felipe",
+    "parentesco_emergencia": "Irmão",
+    "nome_contato_emergencia": "Contato 72",
+    "peso": "49",
+    "profissao": "Acompanhante",
+    "email_pessoal": "felipe289@yahoo.com.br",
+    "dados_bancarios": {
+      "banco": "Inter",
+      "codigo_banco": "077",
+      "agencia": "3910",
+      "conta": "317300",
+      "tipo_conta": "Poupança",
+      "pix": "fokj6qhv2rd-3q8dc65g79i"
+    },
+    "verificacao": {
+      "documento_frente": "foto (2).jpg",
+      "documento_verso": "foto (7).jpg",
+      "documento_selfie": "foto (6).jpg",
+      "comprovante_residencia": "avatar.jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_10",
+      "data_verificacao": {
+        "_seconds": 1760548018,
+        "_nanoseconds": 682000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548018,
+      "_nanoseconds": 682000000
+    },
+    "email_comercial": "felipecomercial368@yahoo.com.br",
+    "nome_artistico": "Felipe",
+    "etnia": "Não informado",
+    "endereco_completo": "Avenida Paulista, 797, SIV, Brasília - DF",
+    "altura": "161",
+    "rg": "92215769",
+    "versao_dados": "2.0",
+    "nacionalidade": "Chilena",
+    "level_name": "Destaque",
+    "premium": false,
+    "level": "N3",
+    "destaque": true,
+    "id": "9hiX55iaofWRthh8QHZz",
+    "nivel": "N3",
+    "nivel_nome": "Destaque",
+    "updatedAt": "2025-10-17T03:10:59.246Z",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/avatar%20%288%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760758377&Signature=Svd0sMdIpDRJGAsT554luZEViWPhqnJTf%2Bdqwp%2FNARtPqcm%2F%2BG%2FobbA1UOvSrroASxu354LcK3wtHfs%2BxOOWiH%2FqQG%2BLPdGutIPcg9E2abtDdumuIVtouH0MSUhmyXcoQfgYfryzjhwl6OKgswEitWQcbNAwkhHbdV%2BiLFTqsFFt%2Bgc%2Frxy7luNX9hfZriJ8Bn3gWPaQSNbVJJav4FiHS6cZgOHVgXB7XJPlpXaaO0S9RlCydS22a%2FF6mJ7Z9WZi%2FGTZPyIoIJr3m6MBpOkUtssu86xDy46z8qhoE1eVxv09RJfFI0D2wFPjdt6nRlmsCKoY6C7qSQlf7k2nbFALfA%3D%3D"
+  }
+];
+        
+        // Função para criar um story item
+        function createStoryItem(ad, index) {
+            const storyItem = document.createElement('div');
+            storyItem.className = 'story-item';
+            
+            const storyImage = ad.foto_stories ? 
+                `https://firebasestorage.googleapis.com/v0/b/copia-do-job.firebasestorage.app/o/${encodeURIComponent(ad.foto_stories)}?alt=media` : 
+                'https://via.placeholder.com/60x60/FFB6C1/FFFFFF?text=Erro';
+            
+            storyItem.innerHTML = `
+                <div class="story-ring">
+                    <img src="${storyImage}" class="story-thumb" alt="${ad.nome}" 
+                         onerror="this.src='https://via.placeholder.com/60x60/FFB6C1/FFFFFF?text=Erro'">
+                </div>
+                <div class="story-name">${ad.nome.split(' ')[0]}</div>
+            `;
+            
+            return storyItem;
+        }
+        
+        // Função para mover o carrossel (otimizada)
+        function moveCarousel() {
+            if (!isPaused && !isDragging) {
+                currentIndex++;
+                
+                const track = document.querySelector('.stories-track');
+                
+                // Se chegou ao final, voltar ao início
+                if (currentIndex >= anuncios.length) {
+                    currentIndex = 0;
+                    // Resetar posição sem transição
+                    track.style.transition = 'none';
+                    track.style.transform = 'translateX(0px)';
+                    
+                    // Forçar reflow
+                    track.offsetHeight;
+                    
+                    // Restaurar transição
+                    track.style.transition = 'transform 0.8s ease-in-out';
+                } else {
+                    // Mover para o próximo item com transição suave
+                    track.style.transition = 'transform 0.8s ease-in-out';
+                    const translateX = -currentIndex * itemWidth;
+                    track.style.transform = `translateX(${translateX}px)`;
+                }
+                
+                // Atualizar status
+                document.getElementById('status').textContent = `Status: Item ${currentIndex + 1} de ${anuncios.length}`;
+            }
+            
+            // Agendar próxima movimentação (3 segundos)
+            animationId = setTimeout(moveCarousel, 3000);
+        }
+        
+        // Funções de controle
+        function pauseCarousel() {
+            isPaused = true;
+            if (animationId) {
+                clearTimeout(animationId);
+            }
+            document.getElementById('status').textContent = 'Status: Pausado';
+        }
+        
+        function resumeCarousel() {
+            isPaused = false;
+            moveCarousel();
+            document.getElementById('status').textContent = 'Status: Executando';
+        }
+        
+        function resetCarousel() {
+            currentIndex = 0;
+            const track = document.querySelector('.stories-track');
+            track.style.transition = 'none';
+            track.style.transform = 'translateX(0px)';
+            track.offsetHeight;
+            track.style.transition = 'transform 0.8s ease-in-out';
+            document.getElementById('status').textContent = 'Status: Resetado';
+        }
+        
+        // Inicializar carrossel
+        function initCarousel() {
+            const storiesWrapper = document.getElementById('stories-wrapper');
+            const track = document.createElement('div');
+            track.className = 'stories-track';
+            
+            // Adicionar stories
+            anuncios.forEach((ad, index) => {
+                track.appendChild(createStoryItem(ad, index));
+            });
+            
+            storiesWrapper.appendChild(track);
+            
+            // Eventos de mouse
+            storiesWrapper.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                startX = e.pageX - storiesWrapper.offsetLeft;
+                scrollLeft = currentIndex * itemWidth;
+                pauseCarousel();
+                storiesWrapper.style.cursor = 'grabbing';
+            });
+            
+            storiesWrapper.addEventListener('mouseup', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    storiesWrapper.style.cursor = 'grab';
+                    setTimeout(() => {
+                        if (!isPaused) {
+                            resumeCarousel();
+                        }
+                    }, 1000);
+                }
+            });
+            
+            storiesWrapper.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                
+                const x = e.pageX - storiesWrapper.offsetLeft;
+                const walk = (x - startX) * 2;
+                const newScrollLeft = scrollLeft - walk;
+                
+                const newIndex = Math.round(newScrollLeft / itemWidth);
+                if (newIndex >= 0 && newIndex < anuncios.length) {
+                    currentIndex = newIndex;
+                    track.style.transition = 'none';
+                    track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+                }
+            });
+            
+            // Pausar quando hover
+            storiesWrapper.addEventListener('mouseenter', pauseCarousel);
+            storiesWrapper.addEventListener('mouseleave', () => {
+                if (!isDragging) {
+                    resumeCarousel();
+                }
+            });
+            
+            // Iniciar animação
+            moveCarousel();
+            
+            document.getElementById('status').textContent = `Status: Executando - ${anuncios.length} stories carregados`;
+        }
+        
+        // Inicializar quando a página carregar
+        document.addEventListener('DOMContentLoaded', initCarousel);
+        
+        // Limpar animação quando a página for fechada
+        window.addEventListener('beforeunload', () => {
+            if (animationId) {
+                clearTimeout(animationId);
+            }
+        });
+    </script>
+</body>
+</html>

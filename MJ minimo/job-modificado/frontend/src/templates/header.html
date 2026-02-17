@@ -1,0 +1,77 @@
+<header class="main-header">
+  <div class="header-container">
+    <div class="header-left">
+      <a href="#" class="home-btn" title="Voltar para o topo da página" onclick="scrollToTop(); return false;">
+        <i class="fa fa-home"></i>
+      </a>
+      <h1 class="logo-text">Mansão do Job</h1>
+    </div>
+    <div class="header-right" id="mobile-menu">
+      <div class="location-wrapper" style="display: flex; align-items: center; gap: 8px;">
+        <button class="location-btn" id="locationBtn" title="Detectar minha localização">
+          <i class="fas fa-map-marker-alt"></i>
+        </button>
+        <span class="location-text" id="locationText" style="display: none; font-size: 14px; color: var(--text-medium); font-weight: 500;"></span>
+      </div>
+      <div class="dropdown-menu-item" id="brasil-dropdown">
+        <a href="#">Brasil <i class="fa-solid fa-caret-down"></i></a>
+        <ul class="dropdown-submenu" id="estados-submenu">
+          <!-- Estados serão carregados dinamicamente via JavaScript -->
+        </ul>
+      </div>
+      <a href="#">Favoritos</a>
+      
+      <div class="header-buttons">
+        <div class="sign-button" id="cadastre-se-gratis" onclick="openCadastroPopup()">
+          <button class="sign-button__action">
+            <p class="sign-button__title sign-button__title-register">
+              Publicar Anuncio
+            </p>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M17.5481 7.89971L11.9928 13.2027L6.43758 7.89971C5.87919 7.36668 4.97718 7.36668 4.41879 7.89971C3.8604 8.43274 3.8604 9.29379 4.41879 9.82682L10.9906 16.1002C11.549 16.6332 12.451 16.6332 13.0094 16.1002L19.5812 9.82682C20.1396 9.29379 20.1396 8.43274 19.5812 7.89971C19.0228 7.38035 18.1065 7.36668 17.5481 7.89971Z" fill="#e25352"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <!-- Container do botão de login com dropdown -->
+      <div class="login-container" id="loginContainer">
+        <a href="#" class="btn-login" id="btnLogin" onclick="toggleLoginDropdown(event)">
+          <i class="fas fa-user"></i>
+          <span id="loginText">Login</span>
+        </a>
+        <!-- Dropdown do usuário logado -->
+        <div class="login-dropdown" id="loginDropdown" style="display: none;">
+          <a href="dashboard.html" class="dropdown-item">
+            <i class="fas fa-tachometer-alt"></i>
+            Painel de Controle
+          </a>
+          <a href="#" class="dropdown-item" onclick="handleLogout(event)">
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- Botão de login para mobile (sempre visível ao lado do menu-toggle) -->
+    <div class="login-container-mobile" id="loginContainerMobile">
+      <button class="header-login-mobile" id="headerLoginMobile" onclick="toggleLoginDropdownMobile(event)">
+        <i class="fas fa-user"></i>
+        <span id="loginTextMobile">Login</span>
+      </button>
+      <!-- Dropdown do usuário logado (mobile) -->
+      <div class="login-dropdown-mobile" id="loginDropdownMobile" style="display: none;">
+        <a href="dashboard.html" class="dropdown-item">
+          <i class="fas fa-tachometer-alt"></i>
+          Painel de Controle
+        </a>
+        <a href="#" class="dropdown-item" onclick="handleLogout(event)">
+          <i class="fas fa-sign-out-alt"></i>
+          Logout
+        </a>
+      </div>
+    </div>
+    <button class="menu-toggle" id="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+</header>

@@ -1,0 +1,561 @@
+/* ===== TEMAS DE PERFIL ===== */
+
+/* ===== TEMA 1: ACOMPANHANTE SENSUAL (Mulher, Trans, Homem) ===== */
+.perfil-container[data-tema="acompanhante-sensual"] {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d1b69 100%);
+    color: white;
+}
+
+.perfil-container[data-tema="acompanhante-sensual"] .perfil-header {
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #FF1493 100%);
+    box-shadow: 0 10px 30px rgba(220, 20, 60, 0.3);
+}
+
+.perfil-container[data-tema="acompanhante-sensual"] .perfil-informacoes {
+    background: linear-gradient(135deg, #2d1b69 0%, #1a1a1a 100%);
+    color: white;
+}
+
+.perfil-container[data-tema="acompanhante-sensual"] .info-item {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.perfil-container[data-tema="acompanhante-sensual"] .info-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #FF1493;
+}
+
+.perfil-container[data-tema="acompanhante-sensual"] .info-item i {
+    color: #FF1493;
+}
+
+.perfil-container[data-tema="acompanhante-sensual"] .perfil-contatos {
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+}
+
+.perfil-container[data-tema="acompanhante-sensual"] .perfil-precos {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d1b69 100%);
+    color: white;
+}
+
+.perfil-container[data-tema="acompanhante-sensual"] .preco-item {
+    background: linear-gradient(135deg, #DC143C 0%, #FF1493 100%);
+    box-shadow: 0 5px 15px rgba(220, 20, 60, 0.4);
+}
+
+.perfil-container[data-tema="acompanhante-sensual"] .perfil-descricao {
+    background: linear-gradient(135deg, #2d1b69 0%, #1a1a1a 100%);
+    color: white;
+}
+
+.perfil-container[data-tema="acompanhante-sensual"] .perfil-servicos {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d1b69 100%);
+    color: white;
+}
+
+.perfil-container[data-tema="acompanhante-sensual"] .servico-item {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.perfil-container[data-tema="acompanhante-sensual"] .servico-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #FF1493;
+}
+
+.perfil-container[data-tema="acompanhante-sensual"] .servico-item i {
+    color: #FF1493;
+}
+
+.perfil-container[data-tema="acompanhante-sensual"] .perfil-especifico {
+    background: linear-gradient(135deg, #2d1b69 0%, #1a1a1a 100%);
+    color: white;
+}
+
+.perfil-container[data-tema="acompanhante-sensual"] .especifico-item {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.perfil-container[data-tema="acompanhante-sensual"] .perfil-audio,
+.perfil-container[data-tema="acompanhante-sensual"] .perfil-video {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d1b69 100%);
+    color: white;
+}
+
+.perfil-container[data-tema="acompanhante-sensual"] .audio-player,
+.perfil-container[data-tema="acompanhante-sensual"] .video-container {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.perfil-container[data-tema="acompanhante-sensual"] .perfil-adicional {
+    background: linear-gradient(135deg, #2d1b69 0%, #1a1a1a 100%);
+    color: white;
+}
+
+.perfil-container[data-tema="acompanhante-sensual"] .adicional-item {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* ===== TEMA 2: LUXO SOFISTICADO (Mulher de Luxo, Massagista de Luxo) ===== */
+.perfil-container[data-tema="luxo-sofisticado"] {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2c1810 100%);
+    color: #f5f5dc;
+}
+
+.perfil-container[data-tema="luxo-sofisticado"] .perfil-header {
+    background: linear-gradient(135deg, #8B4513 0%, #DAA520 50%, #FFD700 100%);
+    box-shadow: 0 10px 30px rgba(218, 165, 32, 0.3);
+}
+
+.perfil-container[data-tema="luxo-sofisticado"] .perfil-informacoes {
+    background: linear-gradient(135deg, #2c1810 0%, #1a1a1a 100%);
+    color: #f5f5dc;
+}
+
+.perfil-container[data-tema="luxo-sofisticado"] .info-item {
+    background: rgba(218, 165, 32, 0.1);
+    border: 1px solid rgba(218, 165, 32, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.perfil-container[data-tema="luxo-sofisticado"] .info-item:hover {
+    background: rgba(218, 165, 32, 0.2);
+    border-color: #FFD700;
+}
+
+.perfil-container[data-tema="luxo-sofisticado"] .info-item i {
+    color: #FFD700;
+}
+
+.perfil-container[data-tema="luxo-sofisticado"] .perfil-contatos {
+    background: linear-gradient(135deg, #8B4513 0%, #DAA520 100%);
+}
+
+.perfil-container[data-tema="luxo-sofisticado"] .perfil-precos {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2c1810 100%);
+    color: #f5f5dc;
+}
+
+.perfil-container[data-tema="luxo-sofisticado"] .preco-item {
+    background: linear-gradient(135deg, #DAA520 0%, #FFD700 100%);
+    color: #1a1a1a;
+    box-shadow: 0 5px 15px rgba(218, 165, 32, 0.4);
+}
+
+.perfil-container[data-tema="luxo-sofisticado"] .perfil-descricao {
+    background: linear-gradient(135deg, #2c1810 0%, #1a1a1a 100%);
+    color: #f5f5dc;
+}
+
+.perfil-container[data-tema="luxo-sofisticado"] .perfil-servicos {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2c1810 100%);
+    color: #f5f5dc;
+}
+
+.perfil-container[data-tema="luxo-sofisticado"] .servico-item {
+    background: rgba(218, 165, 32, 0.1);
+    border: 1px solid rgba(218, 165, 32, 0.3);
+    color: #f5f5dc;
+}
+
+.perfil-container[data-tema="luxo-sofisticado"] .servico-item:hover {
+    background: rgba(218, 165, 32, 0.2);
+    border-color: #FFD700;
+}
+
+.perfil-container[data-tema="luxo-sofisticado"] .servico-item i {
+    color: #FFD700;
+}
+
+.perfil-container[data-tema="luxo-sofisticado"] .perfil-especifico {
+    background: linear-gradient(135deg, #2c1810 0%, #1a1a1a 100%);
+    color: #f5f5dc;
+}
+
+.perfil-container[data-tema="luxo-sofisticado"] .especifico-item {
+    background: rgba(218, 165, 32, 0.1);
+    border: 1px solid rgba(218, 165, 32, 0.3);
+    color: #f5f5dc;
+}
+
+.perfil-container[data-tema="luxo-sofisticado"] .perfil-audio,
+.perfil-container[data-tema="luxo-sofisticado"] .perfil-video {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2c1810 100%);
+    color: #f5f5dc;
+}
+
+.perfil-container[data-tema="luxo-sofisticado"] .audio-player,
+.perfil-container[data-tema="luxo-sofisticado"] .video-container {
+    background: rgba(218, 165, 32, 0.1);
+    border: 1px solid rgba(218, 165, 32, 0.3);
+}
+
+.perfil-container[data-tema="luxo-sofisticado"] .perfil-adicional {
+    background: linear-gradient(135deg, #2c1810 0%, #1a1a1a 100%);
+    color: #f5f5dc;
+}
+
+.perfil-container[data-tema="luxo-sofisticado"] .adicional-item {
+    background: rgba(218, 165, 32, 0.1);
+    border: 1px solid rgba(218, 165, 32, 0.3);
+    color: #f5f5dc;
+}
+
+/* ===== TEMA 3: MASSAGISTA ZEN (Massagistas) ===== */
+.perfil-container[data-tema="massagista-zen"] {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    color: #495057;
+}
+
+.perfil-container[data-tema="massagista-zen"] .perfil-header {
+    background: linear-gradient(135deg, #6f42c1 0%, #9c88ff 50%, #c3aed6 100%);
+    box-shadow: 0 10px 30px rgba(111, 66, 193, 0.3);
+}
+
+.perfil-container[data-tema="massagista-zen"] .perfil-informacoes {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    color: #495057;
+}
+
+.perfil-container[data-tema="massagista-zen"] .info-item {
+    background: rgba(111, 66, 193, 0.1);
+    border: 1px solid rgba(111, 66, 193, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.perfil-container[data-tema="massagista-zen"] .info-item:hover {
+    background: rgba(111, 66, 193, 0.15);
+    border-color: #9c88ff;
+}
+
+.perfil-container[data-tema="massagista-zen"] .info-item i {
+    color: #6f42c1;
+}
+
+.perfil-container[data-tema="massagista-zen"] .perfil-contatos {
+    background: linear-gradient(135deg, #6f42c1 0%, #9c88ff 100%);
+}
+
+.perfil-container[data-tema="massagista-zen"] .perfil-precos {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    color: #495057;
+}
+
+.perfil-container[data-tema="massagista-zen"] .preco-item {
+    background: linear-gradient(135deg, #6f42c1 0%, #9c88ff 100%);
+    box-shadow: 0 5px 15px rgba(111, 66, 193, 0.3);
+}
+
+.perfil-container[data-tema="massagista-zen"] .perfil-descricao {
+    background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+    color: #495057;
+}
+
+.perfil-container[data-tema="massagista-zen"] .perfil-servicos {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    color: #495057;
+}
+
+.perfil-container[data-tema="massagista-zen"] .servico-item {
+    background: rgba(111, 66, 193, 0.1);
+    border: 1px solid rgba(111, 66, 193, 0.2);
+    color: #495057;
+}
+
+.perfil-container[data-tema="massagista-zen"] .servico-item:hover {
+    background: rgba(111, 66, 193, 0.15);
+    border-color: #9c88ff;
+}
+
+.perfil-container[data-tema="massagista-zen"] .servico-item i {
+    color: #6f42c1;
+}
+
+.perfil-container[data-tema="massagista-zen"] .perfil-especifico {
+    background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+    color: #495057;
+}
+
+.perfil-container[data-tema="massagista-zen"] .especifico-item {
+    background: rgba(111, 66, 193, 0.1);
+    border: 1px solid rgba(111, 66, 193, 0.2);
+    color: #495057;
+}
+
+.perfil-container[data-tema="massagista-zen"] .perfil-audio,
+.perfil-container[data-tema="massagista-zen"] .perfil-video {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    color: #495057;
+}
+
+.perfil-container[data-tema="massagista-zen"] .audio-player,
+.perfil-container[data-tema="massagista-zen"] .video-container {
+    background: rgba(111, 66, 193, 0.1);
+    border: 1px solid rgba(111, 66, 193, 0.2);
+}
+
+.perfil-container[data-tema="massagista-zen"] .perfil-adicional {
+    background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+    color: #495057;
+}
+
+.perfil-container[data-tema="massagista-zen"] .adicional-item {
+    background: rgba(111, 66, 193, 0.1);
+    border: 1px solid rgba(111, 66, 193, 0.2);
+    color: #495057;
+}
+
+/* ===== TEMA 4: SEXO VIRTUAL TECNOLÓGICO ===== */
+.perfil-container[data-tema="virtual-tecnologico"] {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0033 100%);
+    color: #e6e6fa;
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .perfil-header {
+    background: linear-gradient(135deg, #4b0082 0%, #8a2be2 50%, #00bfff 100%);
+    box-shadow: 0 10px 30px rgba(138, 43, 226, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .perfil-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .perfil-informacoes {
+    background: linear-gradient(135deg, #1a0033 0%, #0a0a0a 100%);
+    color: #e6e6fa;
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .info-item {
+    background: rgba(138, 43, 226, 0.1);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .info-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(0, 191, 255, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .info-item:hover::before {
+    opacity: 1;
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .info-item:hover {
+    background: rgba(138, 43, 226, 0.2);
+    border-color: #00bfff;
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .info-item i {
+    color: #00bfff;
+    text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .perfil-contatos {
+    background: linear-gradient(135deg, #4b0082 0%, #8a2be2 100%);
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .perfil-precos {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0033 100%);
+    color: #e6e6fa;
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .preco-item {
+    background: linear-gradient(135deg, #8a2be2 0%, #00bfff 100%);
+    box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .preco-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: priceShine 2s infinite;
+}
+
+@keyframes priceShine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .perfil-descricao {
+    background: linear-gradient(135deg, #1a0033 0%, #0a0a0a 100%);
+    color: #e6e6fa;
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .perfil-servicos {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0033 100%);
+    color: #e6e6fa;
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .servico-item {
+    background: rgba(138, 43, 226, 0.1);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    color: #e6e6fa;
+    position: relative;
+    overflow: hidden;
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .servico-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(0, 191, 255, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .servico-item:hover::before {
+    opacity: 1;
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .servico-item:hover {
+    background: rgba(138, 43, 226, 0.2);
+    border-color: #00bfff;
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.3);
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .servico-item i {
+    color: #00bfff;
+    text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .perfil-especifico {
+    background: linear-gradient(135deg, #1a0033 0%, #0a0a0a 100%);
+    color: #e6e6fa;
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .especifico-item {
+    background: rgba(138, 43, 226, 0.1);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    color: #e6e6fa;
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .perfil-audio,
+.perfil-container[data-tema="virtual-tecnologico"] .perfil-video {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0033 100%);
+    color: #e6e6fa;
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .audio-player,
+.perfil-container[data-tema="virtual-tecnologico"] .video-container {
+    background: rgba(138, 43, 226, 0.1);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .perfil-adicional {
+    background: linear-gradient(135deg, #1a0033 0%, #0a0a0a 100%);
+    color: #e6e6fa;
+}
+
+.perfil-container[data-tema="virtual-tecnologico"] .adicional-item {
+    background: rgba(138, 43, 226, 0.1);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    color: #e6e6fa;
+}
+
+/* ===== VARIAÇÕES DE LAYOUT ===== */
+
+/* Variação 1: Layout Centralizado */
+.perfil-container[data-layout="centralizado"] .perfil-header {
+    text-align: center;
+}
+
+.perfil-container[data-layout="centralizado"] .info-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    justify-items: center;
+}
+
+.perfil-container[data-layout="centralizado"] .precos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    justify-items: center;
+}
+
+/* Variação 2: Layout Lateral */
+.perfil-container[data-layout="lateral"] {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 30px;
+}
+
+.perfil-container[data-layout="lateral"] .perfil-galeria {
+    grid-column: 1;
+}
+
+.perfil-container[data-layout="lateral"] .perfil-informacoes {
+    grid-column: 2;
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+}
+
+/* Variação 3: Layout Compacto */
+.perfil-container[data-layout="compacto"] .foto-principal {
+    height: 300px;
+}
+
+.perfil-container[data-layout="compacto"] .info-grid {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.perfil-container[data-layout="compacto"] .precos-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* ===== RESPONSIVIDADE PARA TEMAS ===== */
+@media (max-width: 768px) {
+    .perfil-container[data-layout="lateral"] {
+        grid-template-columns: 1fr;
+    }
+    
+    .perfil-container[data-layout="lateral"] .perfil-informacoes {
+        position: static;
+    }
+    
+    .perfil-container[data-tema="virtual-tecnologico"] .perfil-header::before {
+        animation: none;
+    }
+    
+    .perfil-container[data-tema="virtual-tecnologico"] .preco-item::before {
+        animation: none;
+    }
+}

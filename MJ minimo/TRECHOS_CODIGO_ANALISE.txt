@@ -1,0 +1,529 @@
+================================================================================
+                    TRECHOS DE CÓDIGO PARA ANÁLISE
+                    Salvamento e Exibição de Dados
+================================================================================
+
+================================================================================
+1. TRECHO DE SALVAMENTO - modelo-cadastro-anuncios.html
+================================================================================
+
+📍 LOCALIZAÇÃO: Linhas ~8064-8143
+📍 ARQUIVO: /job Modificado/frontend/src/modelo-cadastro-anuncios.html
+
+════════════════════════════════════════════════════════════════════════════════
+OBJETO anuncioData (LINHA ~8064)
+════════════════════════════════════════════════════════════════════════════════
+
+const anuncioData = {
+  // Dados básicos
+  nome: formData.get('nome'),
+  idade: formData.get('idade'),
+  telefone_celular: formData.get('telefone_celular'),
+  telefone_fixo: formData.get('telefone_fixo'),
+  email: formData.get('email'),
+  descricao: formData.get('descricao'),
+  'frase-efeito': formData.get('frase-efeito'),
+  frase_efeito: formData.get('frase-efeito'),
+  
+  // Serviços obrigatórios - CORRIGIDO: pegar apenas se marcado, salvar como "sim" em vez de "on"
+  'oral-sem': document.querySelector('input[name="oral-sem"]:checked') ? 'sim' : null,
+  oral_sem: document.querySelector('input[name="oral-sem"]:checked') ? 'sim' : null,
+  beija: document.querySelector('input[name="beija"]:checked') ? 'sim' : null,
+  anal: document.querySelector('input[name="anal"]:checked') ? 'sim' : null,
+  'mora-so': document.querySelector('input[name="mora-so"]:checked') ? 'sim' : null,
+  mora_so: document.querySelector('input[name="mora-so"]:checked') ? 'sim' : null,
+  
+  // Atende (array de checkboxes) - usar valores já calculados e validados
+  atende: atendeValues,
+  
+  // Eu Faço (array de checkboxes) - usar função padrão
+  'eu-faco': capturarCheckboxesValidados('eu-faco', true),
+  eu_faco: capturarCheckboxesValidados('eu-faco', true),
+  
+  // Pubis (array de checkboxes) - usar função padrão
+  pubis: capturarCheckboxesValidados('pubis', true),
+  
+  // Aceita WhatsApp e Ligação (campos booleanos únicos, não arrays)
+  aceita_whatsapp: document.querySelector('input[name="aceita_whatsapp"]:checked') ? true : false,
+  aceita_ligacao: document.querySelector('input[name="aceita_ligacao"]:checked') ? true : false,
+  
+  // ═══════════════════════════════════════════════════════════════════════
+  // ⭐ SERVIÇOS ORGANIZADOS POR CATEGORIA - APENAS ESTES SERÃO SALVOS
+  // ═══════════════════════════════════════════════════════════════════════
+  servicos_basicos: servicosBasicos,        // Array com nomes completos em português
+  servicos_especiais: servicosEspeciais,   // Array com nomes completos em português
+  fetichismo_bdsm: fetichismoBdsm,         // Array com nomes completos em português
+  atendimento_grupo: atendimentoGrupo,     // Array com nomes completos em português
+  perfil_estilo: perfilEstilo,             // Array com nomes completos em português
+  servicos_extras: servicosExtras,         // Array com nomes completos em português
+  
+  // CAMPOS REMOVIDOS (não serão mais salvos):
+  // servicos - REMOVIDO
+  // servicos_oferecidos - REMOVIDO
+  // servicos_total - REMOVIDO
+  // servicos_categorias_preenchidas - REMOVIDO
+  
+  // Localização
+  estado: formData.get('estado'),
+  cidade: formData.get('cidade'),
+  bairro: formData.get('bairro'),
+  
+  // Local (Com Local / Sem Local)
+  local: formData.get('local') || document.querySelector('input[name="local"]:checked')?.value || null,
+  
+  // Categoria e gênero
+  genero: gender,
+  categoria: category,
+  category: category,
+  gender: gender,
+  
+  // Dados físicos
+  corpo: formData.get('corpo'),
+  estatura: formData.get('estatura'),
+  altura: formData.get('altura'),
+  peso: formData.get('peso'),
+  
+  // Preços
+  preco_30min: formData.get('preco_30min'),
+  preco_1h: formData.get('preco_1h'),
+  preco_2h: formData.get('preco_2h'),
+  
+  // Timestamp
+  createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+  userId: activeUser.uid,
+  userEmail: activeUser.email
+};
+
+════════════════════════════════════════════════════════════════════════════════
+VALIDAÇÃO E GARANTIA DE ARRAYS (LINHAS ~8177-8184)
+════════════════════════════════════════════════════════════════════════════════
+
+// Garantir que os arrays sempre existam (mesmo que vazios)
+if (!Array.isArray(anuncioData.servicos_basicos)) anuncioData.servicos_basicos = [];
+if (!Array.isArray(anuncioData.servicos_especiais)) anuncioData.servicos_especiais = [];
+if (!Array.isArray(anuncioData.fetichismo_bdsm)) anuncioData.fetichismo_bdsm = [];
+if (!Array.isArray(anuncioData.atendimento_grupo)) anuncioData.atendimento_grupo = [];
+if (!Array.isArray(anuncioData.perfil_estilo)) anuncioData.perfil_estilo = [];
+if (!Array.isArray(anuncioData.servicos_extras)) anuncioData.servicos_extras = [];
+
+════════════════════════════════════════════════════════════════════════════════
+GARANTIA FINAL ANTES DE SALVAR (LINHAS ~8241-8248)
+════════════════════════════════════════════════════════════════════════════════
+
+// GARANTIR que TODOS os arrays de serviços sejam salvos (mesmo que vazios)
+// Firestore pode omitir arrays vazios, então forçamos a criação explícita
+anuncioDataParaSalvar.servicos_basicos = anuncioDataParaSalvar.servicos_basicos || [];
+anuncioDataParaSalvar.servicos_especiais = anuncioDataParaSalvar.servicos_especiais || [];
+anuncioDataParaSalvar.fetichismo_bdsm = anuncioDataParaSalvar.fetichismo_bdsm || [];
+anuncioDataParaSalvar.atendimento_grupo = anuncioDataParaSalvar.atendimento_grupo || [];
+anuncioDataParaSalvar.perfil_estilo = anuncioDataParaSalvar.perfil_estilo || [];
+anuncioDataParaSalvar.servicos_extras = anuncioDataParaSalvar.servicos_extras || [];
+
+════════════════════════════════════════════════════════════════════════════════
+SALVAMENTO NO FIRESTORE (LINHA ~8258)
+════════════════════════════════════════════════════════════════════════════════
+
+const docRef = await db.collection("anuncios").add(anuncioDataParaSalvar);
+console.log("\n✅ Anúncio salvo com ID:", docRef.id);
+
+════════════════════════════════════════════════════════════════════════════════
+VERIFICAÇÃO PÓS-SALVAMENTO (LINHAS ~8262-8286)
+════════════════════════════════════════════════════════════════════════════════
+
+// Verificar após salvar se os campos foram realmente salvos
+await new Promise(resolve => setTimeout(resolve, 1000));
+const docSalvo = await db.collection("anuncios").doc(docRef.id).get();
+if (docSalvo.exists) {
+  const dadosSalvos = docSalvo.data();
+  console.log("\n🔍 Verificação após salvar - Campos no Firebase:");
+  console.log("  - servicos_basicos:", dadosSalvos.servicos_basicos);
+  console.log("  - servicos_especiais:", dadosSalvos.servicos_especiais);
+  console.log("  - fetichismo_bdsm:", dadosSalvos.fetichismo_bdsm);
+  console.log("  - atendimento_grupo:", dadosSalvos.atendimento_grupo);
+  console.log("  - perfil_estilo:", dadosSalvos.perfil_estilo);
+  console.log("  - servicos_extras:", dadosSalvos.servicos_extras);
+  
+  // Se algum array não foi salvo, forçar atualização
+  const precisaAtualizar = !dadosSalvos.fetichismo_bdsm || 
+                          !dadosSalvos.atendimento_grupo || 
+                          !dadosSalvos.perfil_estilo;
+  if (precisaAtualizar) {
+    console.warn("⚠️ Alguns arrays não foram salvos, forçando atualização...");
+    await db.collection("anuncios").doc(docRef.id).update({
+      fetichismo_bdsm: anuncioDataParaSalvar.fetichismo_bdsm,
+      atendimento_grupo: anuncioDataParaSalvar.atendimento_grupo,
+      perfil_estilo: anuncioDataParaSalvar.perfil_estilo
+    });
+    console.log("✅ Arrays faltantes foram atualizados!");
+  }
+}
+
+================================================================================
+2. TRECHO DE EXIBIÇÃO - A_02__premium_Anuncio_modelo_01.html
+================================================================================
+
+📍 LOCALIZAÇÃO: Linhas ~2964-3112 (servicosMap) e ~3293-3470 (updateServiceList)
+📍 ARQUIVO: /job Modificado/frontend/src/A_02__premium_Anuncio_modelo_01.html
+
+════════════════════════════════════════════════════════════════════════════════
+MAPEAMENTO DE SERVIÇOS (servicosMap) - LINHAS ~2964-3112
+════════════════════════════════════════════════════════════════════════════════
+
+// Mapeamento de serviços do Firebase para os itens da lista
+// IMPORTANTE: USAR APENAS ARRAYS - Campos booleanos REMOVIDOS completamente
+const servicosMap = {
+    // Serviços Básicos - PRIORIDADE: arrays categorizados (servicos_basicos)
+    'Beijos na boca': (anuncio.servicos_basicos && Array.isArray(anuncio.servicos_basicos) && anuncio.servicos_basicos.includes('Beijos na boca')) ||
+                     (anuncio.servicos && Array.isArray(anuncio.servicos) && anuncio.servicos.includes('Beijos na boca')) ||
+                     (anuncio.servicos_oferecidos && Array.isArray(anuncio.servicos_oferecidos) && anuncio.servicos_oferecidos.includes('Beijos na boca')),
+    
+    'Oral com camisinha': (anuncio.servicos_basicos && Array.isArray(anuncio.servicos_basicos) && anuncio.servicos_basicos.includes('Oral com camisinha')) ||
+                          (anuncio.servicos && Array.isArray(anuncio.servicos) && anuncio.servicos.includes('Oral com camisinha')) ||
+                          (anuncio.servicos_oferecidos && Array.isArray(anuncio.servicos_oferecidos) && anuncio.servicos_oferecidos.includes('Oral com camisinha')),
+    
+    // ... (todos os outros serviços seguem o mesmo padrão)
+    
+    // Serviços Especiais - APENAS arrays
+    'Beijo negro': (anuncio.servicos_especiais && Array.isArray(anuncio.servicos_especiais) && anuncio.servicos_especiais.includes('Beijo negro')) ||
+                  (anuncio.servicos && Array.isArray(anuncio.servicos) && anuncio.servicos.includes('Beijo negro')) ||
+                  (anuncio.servicos_oferecidos && Array.isArray(anuncio.servicos_oferecidos) && anuncio.servicos_oferecidos.includes('Beijo negro')),
+    
+    'Beijo branco': (anuncio.servicos_especiais && Array.isArray(anuncio.servicos_especiais) && anuncio.servicos_especiais.includes('Beijo branco')) ||
+                    (anuncio.servicos && Array.isArray(anuncio.servicos) && anuncio.servicos.includes('Beijo branco')) ||
+                    (anuncio.servicos_oferecidos && Array.isArray(anuncio.servicos_oferecidos) && anuncio.servicos_oferecidos.includes('Beijo branco')),
+    
+    'Ejaculação facial': (anuncio.servicos_especiais && Array.isArray(anuncio.servicos_especiais) && anuncio.servicos_especiais.includes('Ejaculação facial')) ||
+                        (anuncio.servicos && Array.isArray(anuncio.servicos) && anuncio.servicos.includes('Ejaculação facial')) ||
+                        (anuncio.servicos_oferecidos && Array.isArray(anuncio.servicos_oferecidos) && anuncio.servicos_oferecidos.includes('Ejaculação facial')),
+    
+    // ... (todos os outros serviços especiais seguem o mesmo padrão)
+    
+    // Fetichismo e BDSM - APENAS arrays
+    'Fetichismo': (anuncio.fetichismo_bdsm && Array.isArray(anuncio.fetichismo_bdsm) && anuncio.fetichismo_bdsm.includes('Fetichismo')) ||
+                 (anuncio.servicos && Array.isArray(anuncio.servicos) && anuncio.servicos.includes('Fetichismo')) ||
+                 (anuncio.servicos_oferecidos && Array.isArray(anuncio.servicos_oferecidos) && anuncio.servicos_oferecidos.includes('Fetichismo')),
+    
+    // ... (todos os outros serviços de fetichismo seguem o mesmo padrão)
+    
+    // Atendimento em Grupo - APENAS arrays
+    'Atenção à casais': (anuncio.atendimento_grupo && Array.isArray(anuncio.atendimento_grupo) && anuncio.atendimento_grupo.includes('Atenção à casais')) ||
+                       (anuncio.servicos && Array.isArray(anuncio.servicos) && anuncio.servicos.includes('Atenção à casais')) ||
+                       (anuncio.servicos_oferecidos && Array.isArray(anuncio.servicos_oferecidos) && anuncio.servicos_oferecidos.includes('Atenção à casais')),
+    
+    // ... (todos os outros serviços de atendimento em grupo seguem o mesmo padrão)
+    
+    // Perfil e Estilo - APENAS arrays
+    'Ativo': (anuncio.perfil_estilo && Array.isArray(anuncio.perfil_estilo) && anuncio.perfil_estilo.includes('Ativo')) ||
+            (anuncio.servicos && Array.isArray(anuncio.servicos) && anuncio.servicos.includes('Ativo')) ||
+            (anuncio.servicos_oferecidos && Array.isArray(anuncio.servicos_oferecidos) && anuncio.servicos_oferecidos.includes('Ativo')),
+    
+    // ... (todos os outros serviços de perfil e estilo seguem o mesmo padrão)
+    
+    // Serviços Extras - APENAS arrays
+    'Fantasias e figurinos': (anuncio.servicos_extras && Array.isArray(anuncio.servicos_extras) && anuncio.servicos_extras.includes('Fantasias e figurinos')) ||
+                            (anuncio.servicos && Array.isArray(anuncio.servicos) && anuncio.servicos.includes('Fantasias e figurinos')) ||
+                            (anuncio.servicos_oferecidos && Array.isArray(anuncio.servicos_oferecidos) && anuncio.servicos_oferecidos.includes('Fantasias e figurinos')),
+    
+    // ... (todos os outros serviços extras seguem o mesmo padrão)
+};
+
+════════════════════════════════════════════════════════════════════════════════
+CARREGAMENTO DE ARRAYS DO FIREBASE (LINHAS ~3114-3186)
+════════════════════════════════════════════════════════════════════════════════
+
+// Verificar se há array de serviços no Firebase - buscar em múltiplos campos
+// PRIORIDADE: Combinar todos os arrays categorizados primeiro, depois arrays gerais
+let servicosArray = [];
+
+// MÉTODO 1: Combinar arrays categorizados (mais confiável - salva pelo formulário atualizado)
+const categorias = [
+    anuncio.servicos_basicos,
+    anuncio.servicos_especiais,
+    anuncio.fetichismo_bdsm,
+    anuncio.atendimento_grupo,
+    anuncio.perfil_estilo,
+    anuncio.servicos_extras
+];
+
+const servicosDeCategorias = [];
+const nomesCategorias = ['servicos_basicos', 'servicos_especiais', 'fetichismo_bdsm', 'atendimento_grupo', 'perfil_estilo', 'servicos_extras'];
+
+categorias.forEach((cat, index) => {
+    if (cat && Array.isArray(cat) && cat.length > 0) {
+        console.log(`📦 Categoria "${nomesCategorias[index]}" encontrada com ${cat.length} itens:`, cat);
+        servicosDeCategorias.push(...cat);
+    }
+});
+
+if (servicosDeCategorias.length > 0) {
+    servicosArray = servicosDeCategorias;
+    console.log('📦 Array de serviços combinado das categorias (MÉTODO 1):', servicosArray);
+    console.log(`📦 Total: ${servicosArray.length} serviços encontrados nas categorias`);
+}
+
+// MÉTODO 2: Fallback para anúncios antigos (campos removidos, mas ainda podem existir em dados antigos)
+else if (anuncio.servicos && Array.isArray(anuncio.servicos) && anuncio.servicos.length > 0) {
+    servicosArray = anuncio.servicos;
+    console.log('⚠️ Array de serviços encontrado em campo antigo (servicos - FALLBACK para anúncios antigos):', servicosArray);
+} 
+else if (anuncio.servicos_oferecidos && Array.isArray(anuncio.servicos_oferecidos) && anuncio.servicos_oferecidos.length > 0) {
+    servicosArray = anuncio.servicos_oferecidos;
+    console.log('⚠️ Array de serviços encontrado em campo antigo (servicos_oferecidos - FALLBACK para anúncios antigos):', servicosArray);
+}
+
+// SEMPRE filtrar valores inválidos
+if (servicosArray.length > 0) {
+    const servicosValidos = servicosArray.filter(s => {
+        const valor = String(s).toLowerCase().trim();
+        return valor && valor !== 'on' && valor !== 'null' && valor !== 'undefined' && valor !== '';
+    });
+    
+    servicosArray = servicosValidos;
+    console.log(`✅ Array final de serviços válidos: ${servicosArray.length} itens`, servicosArray);
+}
+
+════════════════════════════════════════════════════════════════════════════════
+FUNÇÃO updateServiceList - ATUALIZAÇÃO DE EXIBIÇÃO (LINHAS ~3293-3470)
+════════════════════════════════════════════════════════════════════════════════
+
+function updateServiceList(sectionTitle, serviceMap) {
+    console.log(`\n🔍 Processando seção: "${sectionTitle}"`);
+    const sections = document.querySelectorAll('.services-section-detailed');
+    let sectionFound = false;
+    
+    sections.forEach(section => {
+        const title = section.querySelector('h5');
+        if (title && title.textContent.trim() === sectionTitle) {
+            sectionFound = true;
+            console.log(`  ✅ Seção encontrada: "${sectionTitle}"`);
+            const list = section.querySelector('.services-list-detailed');
+            
+            if (list) {
+                const items = list.querySelectorAll('li');
+                console.log(`  📋 Total de itens na lista: ${items.length}`);
+                
+                items.forEach((li, index) => {
+                    // Extrair texto do serviço (clonando e removendo ícone)
+                    const clone = li.cloneNode(true);
+                    const icons = clone.querySelectorAll('i');
+                    icons.forEach(icon => icon.remove());
+                    let text = clone.textContent.trim();
+                    // Remover qualquer símbolo no início
+                    text = text.replace(/^[✓✔×✕•]\s*/, '').trim();
+                    const checkIcon = li.querySelector('i');
+                    
+                    // Verificar se o serviço está ativo
+                    let isActive = false;
+                    let activeSource = '';
+                    
+                    // ═══════════════════════════════════════════════════════════════
+                    // PRIMEIRO: Verificar no array de serviços do Firebase
+                    // ═══════════════════════════════════════════════════════════════
+                    if (servicosArray.length > 0) {
+                        const normalizedText = text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^\w\s]/g, '').replace(/\s+/g, '');
+                        
+                        const encontradoNoArray = servicosArray.some(s => {
+                            const servicoFirebase = String(s).trim();
+                            
+                            // PRIMEIRO: Comparação direta exata (case-insensitive)
+                            if (servicoFirebase.toLowerCase() === text.toLowerCase()) {
+                                console.log(`    ✅ Match DIRETO EXATO: "${servicoFirebase}" === "${text}"`);
+                                return true;
+                            }
+                            
+                            // SEGUNDO: Verificar se o valor do Firebase mapeia para este texto
+                            const servicoLower = servicoFirebase.toLowerCase();
+                            const mapeado = checkboxToDisplayMap[servicoLower];
+                            if (mapeado && mapeado.toLowerCase() === text.toLowerCase()) {
+                                console.log(`    ✅ Match por mapeamento: "${servicoFirebase}" → "${mapeado}" === "${text}"`);
+                                return true;
+                            }
+                            
+                            // TERCEIRO: Se o valor do Firebase é um slug (como "beijo-branco"), verificar mapeamento
+                            const mapeadoSlug = checkboxToDisplayMap[servicoLower];
+                            if (mapeadoSlug && mapeadoSlug.toLowerCase() === text.toLowerCase()) {
+                                console.log(`    ✅ Match por slug mapeado: "${servicoFirebase}" → "${mapeadoSlug}" === "${text}"`);
+                                return true;
+                            }
+                            
+                            // QUARTO: Verificar mapeamento reverso (texto → slug)
+                            const valoresMapeados = Object.keys(checkboxToDisplayMap).filter(key => 
+                                checkboxToDisplayMap[key] && checkboxToDisplayMap[key].toLowerCase() === text.toLowerCase()
+                            );
+                            
+                            if (valoresMapeados.length > 0 && valoresMapeados.some(slug => slug === servicoLower)) {
+                                console.log(`    ✅ Match por mapeamento reverso: "${servicoFirebase}" → "${text}"`);
+                                return true;
+                            }
+                            
+                            // QUINTO: Comparação normalizada (sem acentos e espaços)
+                            const normalizedS = servicoFirebase.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^\w\s]/g, '').replace(/\s+/g, '');
+                            const match = normalizedS === normalizedText || 
+                                       normalizedS.includes(normalizedText) || 
+                                       normalizedText.includes(normalizedS);
+                            if (match) {
+                                console.log(`    ✅ Match por normalização: "${servicoFirebase}" (${normalizedS}) === "${text}" (${normalizedText})`);
+                            }
+                            return match;
+                        });
+                        
+                        if (encontradoNoArray) {
+                            isActive = true;
+                            activeSource = 'servicosArray (original)';
+                        }
+                    }
+                    
+                    // ═══════════════════════════════════════════════════════════════
+                    // SEGUNDO: Verificar no array de serviços normalizados
+                    // ═══════════════════════════════════════════════════════════════
+                    if (!isActive && servicosArrayNormalized.length > 0) {
+                        const normalizedText = text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^\w]/g, '').replace(/\s+/g, '');
+                        const encontradoNormalizado = servicosArrayNormalized.some(s => {
+                            const normalizedS = String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^\w]/g, '').replace(/\s+/g, '');
+                            
+                            // Comparação exata
+                            if (normalizedS === normalizedText) {
+                                console.log(`    ✅ Match EXATO: "${s}" === "${text}"`);
+                                return true;
+                            }
+                            
+                            // Comparação parcial (mais flexível)
+                            const match = normalizedS.includes(normalizedText) || normalizedText.includes(normalizedS);
+                            if (match) {
+                                console.log(`    ✅ Match PARCIAL: "${s}" (${normalizedS}) contém "${text}" (${normalizedText})`);
+                            }
+                            return match;
+                        });
+                        if (encontradoNormalizado) {
+                            isActive = true;
+                            activeSource = 'servicosArray (normalizado)';
+                        }
+                    }
+                    
+                    // ═══════════════════════════════════════════════════════════════
+                    // TERCEIRO: Verificar no mapeamento fornecido (servicosMap)
+                    // ═══════════════════════════════════════════════════════════════
+                    if (!isActive && serviceMap && text in serviceMap) {
+                        const value = serviceMap[text];
+                        // Verificar se é verdadeiramente true (não apenas truthy)
+                        if (value === true) {
+                            isActive = true;
+                            activeSource = 'servicosMap (array)';
+                            console.log(`    ✅ "${text}": Encontrado no serviceMap como true`);
+                        } else {
+                            console.log(`    ❌ "${text}": serviceMap retornou ${value} (não true)`);
+                        }
+                    }
+                    
+                    // ═══════════════════════════════════════════════════════════════
+                    // QUARTO: Verificar no mapeamento global de serviços (servicosMap)
+                    // ═══════════════════════════════════════════════════════════════
+                    if (!isActive && servicosMap && text in servicosMap) {
+                        const value = servicosMap[text];
+                        // Verificar se é verdadeiramente true (não apenas truthy)
+                        if (value === true) {
+                            isActive = true;
+                            activeSource = 'servicosMap (array)';
+                            console.log(`    ✅ "${text}": Encontrado no servicosMap como true`);
+                        } else {
+                            console.log(`    ❌ "${text}": servicosMap retornou ${value} (não true)`);
+                        }
+                    }
+                    
+                    // ═══════════════════════════════════════════════════════════════
+                    // ATUALIZAR ÍCONE E ESTILO
+                    // ═══════════════════════════════════════════════════════════════
+                    if (checkIcon) {
+                        // IMPORTANTE: Só marcar como ativo se isActive for verdadeiro
+                        if (isActive) {
+                            checkIcon.className = 'fas fa-check';
+                            checkIcon.style.color = '#28a745';
+                            li.style.opacity = '1';
+                            li.style.fontWeight = '500';
+                            checkIcon.style.display = 'inline-block';
+                            if (index < 5) {
+                                console.log(`  ✅ "${text}": ATIVO (${activeSource})`);
+                            }
+                        } else {
+                            // Verificar se há dados no Firebase para decidir como mostrar
+                            const temDadosFirebase = servicosArray.length > 0 || 
+                                                   servicosArrayNormalized.length > 0 ||
+                                                   (anuncio.servicos_basicos && Array.isArray(anuncio.servicos_basicos) && anuncio.servicos_basicos.length > 0) ||
+                                                   (anuncio.servicos_especiais && Array.isArray(anuncio.servicos_especiais) && anuncio.servicos_especiais.length > 0) ||
+                                                   (anuncio.fetichismo_bdsm && Array.isArray(anuncio.fetichismo_bdsm) && anuncio.fetichismo_bdsm.length > 0) ||
+                                                   (anuncio.atendimento_grupo && Array.isArray(anuncio.atendimento_grupo) && anuncio.atendimento_grupo.length > 0) ||
+                                                   (anuncio.perfil_estilo && Array.isArray(anuncio.perfil_estilo) && anuncio.perfil_estilo.length > 0) ||
+                                                   (anuncio.servicos_extras && Array.isArray(anuncio.servicos_extras) && anuncio.servicos_extras.length > 0);
+                            
+                            if (temDadosFirebase) {
+                                // Se há dados mas este serviço não está ativo, marcar como inativo
+                                checkIcon.className = 'fas fa-times';
+                                checkIcon.style.color = '#dc3545';
+                                li.style.opacity = '0.4';
+                                li.style.fontWeight = '300';
+                                checkIcon.style.display = 'inline-block';
+                                if (index < 5) {
+                                    console.log(`  ❌ "${text}": INATIVO (não encontrado nos arrays)`);
+                                }
+                            } else {
+                                // Se não há dados no Firebase, remover ícone completamente
+                                checkIcon.style.display = 'none';
+                                li.style.opacity = '0.6';
+                                if (index < 5) {
+                                    console.log(`  ⚪ "${text}": SEM DADOS (ícone removido - arrays vazios)`);
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    });
+    
+    if (!sectionFound) {
+        console.warn(`  ⚠️ Seção "${sectionTitle}" NÃO encontrada no DOM!`);
+    }
+}
+
+════════════════════════════════════════════════════════════════════════════════
+CHAMADA DA FUNÇÃO updateServiceList (LINHAS ~3474-3480)
+════════════════════════════════════════════════════════════════════════════════
+
+// Atualizar todas as listas principais
+updateServiceList('Serviços Básicos', servicosMap);
+updateServiceList('Serviços Especiais', servicosMap);
+updateServiceList('Serviços de Fetichismo e BDSM', servicosMap);
+updateServiceList('Serviços de Atendimento em Grupo', servicosMap);
+updateServiceList('Serviços do Perfil e Estilo', servicosMap);
+updateServiceList('Serviços Extras', servicosMap);
+
+================================================================================
+PONTOS CRÍTICOS PARA ANÁLISE
+================================================================================
+
+📍 PONTO 1: Salvamento
+   - Os serviços são salvos como ARRAYS categorizados com NOMES COMPLETOS em português
+   - Exemplo: servicos_especiais: ["Beijo branco", "Ejaculação facial"]
+   - Arrays são SEMPRE inicializados (mesmo que vazios) para garantir salvamento
+
+📍 PONTO 2: Leitura/Exibição
+   - Busca PRIMEIRO nos arrays categorizados do Firebase
+   - Compara o texto do HTML com os valores dos arrays do Firebase
+   - Usa múltiplas estratégias de comparação (direta, mapeamento, normalização)
+   - Fallback para campos antigos (servicos, servicos_oferecidos) para compatibilidade
+
+📍 PONTO 3: Possíveis Problemas
+   1. Nome no Firebase não corresponde exatamente ao texto no HTML
+   2. Array vazio pode não estar sendo salvo (mas há garantia de salvamento)
+   3. Comparação case-sensitive (mas código normaliza para lowercase)
+   4. Espaços ou acentos diferentes entre Firebase e HTML
+
+📍 PONTO 4: Debug
+   - Logs extensivos em ambos os arquivos
+   - Verificação pós-salvamento para garantir integridade
+   - Logs mostram exatamente o que foi encontrado e o que não foi
+
+================================================================================
+FIM DO DOCUMENTO
+================================================================================
+

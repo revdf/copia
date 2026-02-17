@@ -1,0 +1,111 @@
+============================================
+COMANDOS PARA CONFIGURAR STRIPE + FIREBASE
+============================================
+
+⚠️ SUBSTITUIR OS VALORES COM SUAS CHAVES REAIS DO STRIPE!
+
+============================================
+1. INSTALAR DEPENDÊNCIAS
+============================================
+
+cd S-COPIA-S/job-modificado/functions
+npm install
+cd ../..
+
+============================================
+2. CONFIGURAR VARIÁVEIS DO FIREBASE
+============================================
+
+# Substituir sk_test_XXXXX pela sua Secret Key do Stripe
+firebase functions:config:set stripe.secret="sk_test_XXXXX"
+
+# Substituir pk_test_XXXXX pela sua Publishable Key do Stripe
+firebase functions:config:set stripe.publishable="pk_test_XXXXX"
+
+# Substituir price_XXXXX pelos price_ids reais dos produtos criados no Stripe
+firebase functions:config:set stripe.price_basico="price_XXXXX"
+firebase functions:config:set stripe.price_plus="price_XXXXX"
+firebase functions:config:set stripe.price_especial="price_XXXXX"
+
+# O webhook_secret será configurado DEPOIS do deploy (ver passo 4)
+
+============================================
+3. VERIFICAR CONFIGURAÇÃO
+============================================
+
+firebase functions:config:get
+
+============================================
+4. FAZER DEPLOY DAS FUNCTIONS
+============================================
+
+firebase deploy --only functions
+
+============================================
+5. CONFIGURAR WEBHOOK NO STRIPE
+============================================
+
+1. Acesse: https://dashboard.stripe.com/webhooks
+2. Clique em "Add endpoint"
+3. URL: https://us-central1-[SEU-PROJECT-ID].cloudfunctions.net/webhook
+   (Substituir [SEU-PROJECT-ID] pelo ID do seu projeto Firebase)
+4. Selecionar eventos:
+   - checkout.session.completed
+   - invoice.payment_succeeded
+   - invoice.payment_failed
+   - customer.subscription.deleted
+   - customer.subscription.updated
+5. Copiar o "Signing secret" (whsec_...)
+
+============================================
+6. ATUALIZAR WEBHOOK_SECRET
+============================================
+
+# Substituir whsec_XXXXX pelo signing secret copiado
+firebase functions:config:set stripe.webhook_secret="whsec_XXXXX"
+
+# Fazer deploy novamente
+firebase deploy --only functions
+
+============================================
+7. ATUALIZAR checkout.js COM PROJECT ID
+============================================
+
+Editar: frontend/src/js/checkout.js
+
+Linha ~50, substituir:
+const projectId = 'mansao-do-job'; // Substituir com seu project ID
+
+============================================
+8. TESTAR LOCALMENTE (OPCIONAL)
+============================================
+
+# Terminal 1: Iniciar emuladores
+firebase emulators:start
+
+# Terminal 2: Escutar webhooks
+stripe listen --forward-to http://localhost:5001/[PROJECT-ID]/us-central1/webhook
+
+# Terminal 3: Testar evento
+stripe trigger checkout.session.completed
+
+============================================
+9. ATIVAR MODO PRODUÇÃO (QUANDO PRONTO)
+============================================
+
+# Obter chaves Live do Stripe Dashboard
+firebase functions:config:set stripe.secret="sk_live_XXXXX"
+firebase functions:config:set stripe.publishable="pk_live_XXXXX"
+
+# Atualizar webhook no Stripe Dashboard para URL de produção
+# Fazer deploy final
+firebase deploy --only functions
+
+============================================
+PRONTO! 🎉
+============================================
+
+
+
+
+

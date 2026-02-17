@@ -1,0 +1,643 @@
+/* ===== PERFIL MULHER DE LUXO - ESTILOS ESPECÍFICOS ===== */
+
+/* ===== RESET E BASE ===== */
+.mulher-luxo {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #0a0a0a;
+    color: #f5f5f5;
+    line-height: 1.7;
+    overflow-x: hidden;
+}
+
+/* ===== HEADER DE LUXO ===== */
+.mulher-luxo .luxo-header {
+    position: relative;
+    height: 85vh;
+    background: center/cover no-repeat;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 50px;
+    margin: 0;
+    border-radius: 0;
+}
+
+.mulher-luxo .header-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.mulher-luxo .header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2));
+}
+
+.mulher-luxo .luxo-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="luxo" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(212,175,55,0.1)"/><circle cx="0" cy="0" r="0.5" fill="rgba(212,175,55,0.05)"/><circle cx="50" cy="50" r="0.5" fill="rgba(212,175,55,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23luxo)"/></svg>');
+    opacity: 0.3;
+}
+
+.mulher-luxo .header-info {
+    position: relative;
+    z-index: 2;
+}
+
+.mulher-luxo .perfil-nome {
+    font-size: 3rem;
+    color: #fff;
+    margin: 0;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    font-weight: 600;
+    background: linear-gradient(45deg, #fff, #d4af37, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.mulher-luxo .perfil-subtitle {
+    color: #d4af37;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    font-weight: 400;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+/* ===== BOTÕES DE AÇÃO FLUTUANTES ===== */
+.mulher-luxo .floating-actions {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mulher-luxo .btn-floating {
+    background: rgba(212, 175, 55, 0.9);
+    color: #0a0a0a;
+    border-radius: 25px;
+    padding: 12px 16px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+}
+
+.mulher-luxo .btn-floating:hover {
+    background: #fff;
+    color: #000;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+}
+
+.mulher-luxo .btn-whatsapp {
+    background: rgba(37, 211, 102, 0.9);
+    color: white;
+}
+
+.mulher-luxo .btn-whatsapp:hover {
+    background: #25d366;
+    color: white;
+}
+
+.mulher-luxo .btn-favorite:hover {
+    background: #ff1493;
+    color: white;
+}
+
+.mulher-luxo .btn-report:hover {
+    background: #ff4444;
+    color: white;
+}
+
+/* ===== SEÇÃO PRINCIPAL ===== */
+.mulher-luxo .profile-section {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+/* ===== BADGE VERIFICADO ===== */
+.mulher-luxo .verified-badge {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+    color: #d4af37;
+    border: 2px solid #d4af37;
+    border-radius: 25px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    animation: luxoPulse 3s ease-in-out infinite;
+}
+
+@keyframes luxoPulse {
+    0%, 100% { box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
+    50% { box-shadow: 0 4px 25px rgba(212, 175, 55, 0.6); }
+}
+
+.mulher-luxo .verified-badge i {
+    margin-right: 8px;
+    color: #ffd700;
+}
+
+/* ===== INFORMAÇÕES DO PERFIL ===== */
+.mulher-luxo .profile-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    background: linear-gradient(135deg, #111, #1a1a1a);
+    border-radius: 12px;
+    padding: 25px;
+    margin-top: 20px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.mulher-luxo .info-item {
+    background: rgba(212, 175, 55, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    transition: all 0.3s ease;
+}
+
+.mulher-luxo .info-item:hover {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: #d4af37;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+}
+
+.mulher-luxo .info-item strong {
+    color: #d4af37;
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.mulher-luxo .status-online {
+    color: #28a745;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+}
+
+.mulher-luxo .status-online i {
+    animation: pulse 2s infinite;
+}
+
+/* ===== SOBRE MIM ===== */
+.mulher-luxo .about {
+    background: linear-gradient(135deg, #111, #1a1a1a);
+    padding: 30px;
+    border-radius: 12px;
+    margin-top: 40px;
+    font-size: 1.05rem;
+    text-align: justify;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.mulher-luxo .about h3 {
+    color: #d4af37;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mulher-luxo .about h3::before {
+    content: '👑';
+    font-size: 1.2rem;
+}
+
+.mulher-luxo .about p {
+    margin-bottom: 15px;
+    line-height: 1.8;
+}
+
+.mulher-luxo .luxo-tagline {
+    font-style: italic;
+    color: #d4af37;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.mulher-luxo .luxo-highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.mulher-luxo .highlight-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(212, 175, 55, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    transition: all 0.3s ease;
+}
+
+.mulher-luxo .highlight-item:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: #d4af37;
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+}
+
+.mulher-luxo .highlight-item i {
+    color: #ffd700;
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* ===== PREÇOS DE LUXO ===== */
+.mulher-luxo .luxo-precos {
+    margin-top: 40px;
+}
+
+.mulher-luxo .luxo-precos h3 {
+    color: #d4af37;
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mulher-luxo .luxo-precos h3::before {
+    content: '💎';
+    font-size: 1.2rem;
+}
+
+.mulher-luxo .precos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.mulher-luxo .preco-item.luxo {
+    background: linear-gradient(135deg, #d4af37, #ffd700, #ffed4e);
+    color: #000;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.mulher-luxo .preco-item.luxo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.mulher-luxo .preco-item.luxo:hover::before {
+    left: 100%;
+}
+
+.mulher-luxo .preco-item.luxo:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+}
+
+.mulher-luxo .preco-item.luxo.destaque {
+    background: linear-gradient(135deg, #ffd700, #ffed4e, #fff);
+    transform: scale(1.05);
+    box-shadow: 0 12px 35px rgba(255, 215, 0, 0.5);
+}
+
+.mulher-luxo .preco-tempo {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.mulher-luxo .preco-valor {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.mulher-luxo .preco-descricao {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    font-style: italic;
+}
+
+/* ===== GALERIA DE LUXO ===== */
+.mulher-luxo .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+    margin-top: 40px;
+}
+
+.mulher-luxo .gallery-item.luxo {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+}
+
+.mulher-luxo .gallery-item.luxo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+    border-color: #d4af37;
+}
+
+.mulher-luxo .gallery-item.luxo img {
+    width: 100%;
+    height: 320px;
+    border-radius: 12px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    filter: brightness(1.1) contrast(1.1);
+}
+
+.mulher-luxo .gallery-item.luxo:hover img {
+    transform: scale(1.1);
+    filter: brightness(1.2) contrast(1.2);
+}
+
+.mulher-luxo .gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(212, 175, 55, 0.8), rgba(255, 215, 0, 0.8));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mulher-luxo .gallery-item.luxo:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.mulher-luxo .gallery-overlay i {
+    color: #000;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+/* ===== INFORMAÇÕES ADICIONAIS ===== */
+.mulher-luxo .adicional-info {
+    margin-top: 40px;
+}
+
+.mulher-luxo .adicional-info h3 {
+    color: #d4af37;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mulher-luxo .adicional-info h3::before {
+    content: '📋';
+    font-size: 1.2rem;
+}
+
+.mulher-luxo .adicional-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.mulher-luxo .adicional-item {
+    background: linear-gradient(135deg, #111, #1a1a1a);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.mulher-luxo .adicional-item:hover {
+    background: linear-gradient(135deg, #1a1a1a, #222);
+    border-color: #d4af37;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
+}
+
+.mulher-luxo .adicional-label {
+    display: block;
+    color: #d4af37;
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.mulher-luxo .adicional-value {
+    display: block;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* ===== FOOTER ===== */
+.mulher-luxo .perfil-footer {
+    background: linear-gradient(135deg, #050505, #0a0a0a);
+    color: #aaa;
+    text-align: center;
+    padding: 30px;
+    margin-top: 60px;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* ===== MODAL ===== */
+.mulher-luxo .modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.95);
+}
+
+.mulher-luxo .modal-content {
+    position: relative;
+    margin: auto;
+    padding: 0;
+    width: 90%;
+    max-width: 1000px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.mulher-luxo .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #d4af37;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2001;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.mulher-luxo .close:hover {
+    color: #ffd700;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+}
+
+.mulher-luxo #modal-image {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+}
+
+.mulher-luxo .modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.mulher-luxo .modal-nav button {
+    background: rgba(212, 175, 55, 0.9);
+    border: none;
+    color: #000;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.mulher-luxo .modal-nav button:hover {
+    background: #d4af37;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+    .mulher-luxo .luxo-header {
+        height: 60vh;
+        padding: 20px;
+    }
+
+    .mulher-luxo .perfil-nome {
+        font-size: 2.2rem;
+    }
+
+    .mulher-luxo .floating-actions {
+        flex-direction: row;
+        bottom: 20px;
+        top: auto;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .mulher-luxo .btn-floating {
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
+
+    .mulher-luxo .profile-section {
+        margin: 40px auto;
+        padding: 0 15px;
+    }
+
+    .mulher-luxo .profile-info,
+    .mulher-luxo .precos-grid,
+    .mulher-luxo .adicional-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mulher-luxo .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .mulher-luxo .gallery-item.luxo img {
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mulher-luxo .perfil-nome {
+        font-size: 1.8rem;
+    }
+
+    .mulher-luxo .perfil-subtitle {
+        font-size: 1rem;
+    }
+
+    .mulher-luxo .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .mulher-luxo .gallery-item.luxo img {
+        height: 300px;
+    }
+}

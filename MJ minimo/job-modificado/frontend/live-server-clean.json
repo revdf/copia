@@ -1,0 +1,20 @@
+{
+  "port": 8080,
+  "host": "localhost",
+  "root": "src",
+  "open": "A_01__index_clean.html",
+  "file": "A_01__index_clean.html",
+  "wait": 1000,
+  "logLevel": 2,
+  "proxy": [{
+    "path": "/api",
+    "target": "http://localhost:5001"
+  }],
+  "cors": true,
+  "corsOptions": {
+    "origin": "*",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204
+  }
+}

@@ -1,0 +1,689 @@
+================================================================================
+                    DOCUMENTAÇÃO COMPLETA - FLUXO DO BANCO DE DADOS
+                    Sistema de Cadastro e Perfil de Anúncios
+================================================================================
+
+DATA DE CRIAÇÃO: $(date)
+VERSÃO: 1.0
+
+================================================================================
+ÍNDICE
+================================================================================
+
+1. ARQUIVOS HTML INCLUÍDOS
+2. ESTRUTURA DO BANCO DE DADOS (Firebase Firestore)
+3. CONFIGURAÇÃO DE SALVAMENTO
+4. VALIDAÇÃO E PADRONIZAÇÃO DE CHECKBOXES
+5. ESTRUTURA DE DADOS DO ANÚNCIO (objeto anuncioData)
+6. MAPEAMENTO DE SERVIÇOS
+7. FUNÇÃO PADRÃO DE CAPTURA DE CHECKBOXES
+8. PROCESSO COMPLETO DE SALVAMENTO
+9. REFERÊNCIA AO ANÚNCIO ESPECÍFICO
+10. ANEXOS
+
+================================================================================
+1. ARQUIVOS HTML INCLUÍDOS
+================================================================================
+
+1.1. A_02__premium_copy.html
+    Localização: /job Modificado/frontend/src/A_02__premium_copy.html
+    Descrição: Página de perfil modelo copy (versão alternativa)
+    Tamanho: ~4700 linhas
+    Funcionalidades:
+    - Exibição de perfil de anúncio
+    - Carregamento de dados do Firebase
+    - Galeria de fotos
+    - Informações detalhadas do perfil
+
+1.2. A_02__premium_Anuncio_modelo_01.html
+    Localização: /job Modificado/frontend/src/A_02__premium_Anuncio_modelo_01.html
+    URL de exemplo: http://127.0.0.1:5500/job%20Modificado/frontend/src/A_02__premium_Anuncio_modelo_01.html?id=bFLmbPE6oUk5OWohEdKg&name=Baba
+    Descrição: Página principal de perfil de anúncio
+    Tamanho: ~4659 linhas
+    Funcionalidades:
+    - Exibição completa do perfil do anúncio
+    - Carregamento de dados via Firebase Firestore
+    - Exibição de serviços categorizados
+    - Galeria de fotos e vídeos
+    - Botões de contato (WhatsApp, ligação)
+    - Mapeamento de serviços do banco para exibição
+
+NOTA: Os arquivos HTML completos são muito extensos (>4000 linhas cada). 
+Este documento foca na estrutura de dados e fluxo de salvamento.
+
+================================================================================
+2. ESTRUTURA DO BANCO DE DADOS (Firebase Firestore)
+================================================================================
+
+2.1. COLEÇÃO: "anuncios"
+
+2.2. ESTRUTURA DO DOCUMENTO:
+
+{
+  // ========== DADOS BÁSICOS ==========
+  "id": "string (gerado automaticamente pelo Firestore)",
+  "nome": "string",
+  "idade": "string",
+  "telefone_celular": "string",
+  "telefone_fixo": "string",
+  "email": "string",
+  "descricao": "string",
+  "frase-efeito": "string",
+  "frase_efeito": "string (duplicado para compatibilidade)",
+  
+  // ========== SERVIÇOS OBRIGATÓRIOS (Booleanos) ==========
+  "oral-sem": "string ('sim' ou null)",
+  "oral_sem": "string ('sim' ou null)",
+  "beija": "string ('sim' ou null)",
+  "anal": "string ('sim' ou null)",
+  "mora-so": "string ('sim' ou null)",
+  "mora_so": "string ('sim' ou null)",
+  
+  // ========== ATENDE (Array) ==========
+  "atende": ["ele", "ela", "casais"],  // Array de strings (valores válidos)
+  
+  // ========== SERVIÇOS ORGANIZADOS POR CATEGORIA (Arrays) ==========
+  "servicos_basicos": [
+    "Beijos na boca",
+    "Oral com camisinha",
+    "Oral sem camisinha",
+    "Oral até o final",
+    "Sexo anal",
+    "Garganta profunda",
+    "Massagem erótica",
+    "Namoradinha"
+  ],
+  
+  "servicos_especiais": [
+    "Beijo negro",
+    "Beijo branco",
+    "Ejaculação facial",
+    "Ejaculação corpo",
+    "Chuva dourada",
+    "Cubana",
+    "PSE",
+    "Face fucking"
+  ],
+  
+  "fetichismo_bdsm": [
+    "Fetichismo",
+    "Sado submissa",
+    "Sado dominadora",
+    "Sado suave",
+    "Sado duro",
+    "Fisting Anal",
+    "Brinquedos sexuais",
+    "Lingerie"
+  ],
+  
+  "atendimento_grupo": [
+    "Atenção à casais",
+    "Duplas",
+    "Trios",
+    "Orgia",
+    "Festas e eventos",
+    "Despedida de solteiro"
+  ],
+  
+  "perfil_estilo": [
+    "Ativo",
+    "Passivo",
+    "Versátil",
+    "Inversão de papéis",
+    "Lésbica",
+    "Atenção à mulheres",
+    "Experto principiantes",
+    "Atenção à deficientes físicos"
+  ],
+  
+  "servicos_extras": [
+    "Fantasias e figurinos",
+    "Sem limite",
+    "Sexcam",
+    "Atendimento em domicílio",
+    "Pacotes promocionais",
+    "Acompanhante para eventos"
+  ],
+  
+  // ========== CAMPOS REMOVIDOS (NÃO SÃO MAIS SALVOS) ==========
+  // "servicos": REMOVIDO
+  // "servicos_oferecidos": REMOVIDO
+  // "servicos_total": REMOVIDO
+  // "servicos_categorias_preenchidas": REMOVIDO
+  
+  // ========== OUTROS CHECKBOXES ==========
+  "eu-faco": ["venda-conteudo", "24-horas", "viajo-ate-voce", ...],  // Array de strings
+  "eu_faco": ["venda-conteudo", "24-horas", ...],  // Versão com underscore
+  "pubis": ["peludos", "depilado"],  // Array de strings
+  "aceita_whatsapp": boolean (true/false),
+  "aceita_ligacao": boolean (true/false),
+  
+  // ========== LOCALIZAÇÃO ==========
+  "estado": "string",
+  "cidade": "string",
+  "bairro": "string",
+  "local": "string ('com-local' ou 'sem-local')",
+  
+  // ========== CATEGORIA E GÊNERO ==========
+  "genero": "string",
+  "categoria": "string",
+  "category": "string (duplicado para compatibilidade)",
+  "gender": "string (duplicado para compatibilidade)",
+  
+  // ========== DADOS FÍSICOS ==========
+  "corpo": "string",
+  "estatura": "string",
+  "altura": "string",
+  "peso": "string",
+  
+  // ========== PREÇOS ==========
+  "preco_30min": "string",
+  "preco_1h": "string",
+  "preco_2h": "string",
+  
+  // ========== URLS DE ARQUIVOS (Firebase Storage) ==========
+  "foto_capa_url": "string (Firebase Storage URL)",
+  "foto_banner_url": "string",
+  "foto_stories_url": "string",
+  "galeria_1_url": "string",
+  "galeria_2_url": "string",
+  // ... até galeria_8_url
+  "video_capa_url": "string",
+  "audio_url": "string",
+  "documento-frente_url": "string",
+  "documento-verso_url": "string",
+  "selfie-documento_url": "string",
+  "verification-video_url": "string",
+  
+  // ========== METADADOS DE ARQUIVOS ==========
+  "foto_capa_name": "string",
+  "foto_capa_size": number,
+  "galeria_1_name": "string",
+  "galeria_1_size": number,
+  // ... (mesmo padrão para todos os arquivos)
+  
+  // ========== STATUS E VERIFICAÇÃO ==========
+  "status": "string ('ativo' ou 'aguardando_verificacao')",
+  "verificacao_enviada": boolean,
+  "verificacao_aprovada": boolean,
+  "verificacao_data": "timestamp (ou null)",
+  
+  // ========== PAGAMENTO E PLANO ==========
+  "plano": "string ('plus', 'camarote', 'vip')",
+  "status_pagamento": "string ('pago', 'pendente', 'cancelado')",
+  "pagamento_data": "timestamp",
+  "valor_pago": number,
+  "metodo_pagamento": "string ('PIX', 'Cartão', etc.)",
+  "transacao_id": "string",
+  "plano_inicio": "timestamp",
+  "plano_vencimento": "timestamp",
+  
+  // ========== TIMESTAMPS ==========
+  "createdAt": "timestamp (Firestore serverTimestamp)",
+  "userId": "string (Firebase Auth UID)",
+  "userEmail": "string (Firebase Auth Email)"
+}
+
+================================================================================
+3. CONFIGURAÇÃO DE SALVAMENTO
+================================================================================
+
+3.1. ARQUIVO DE CRIAÇÃO: modelo-cadastro-anuncios.html
+    Localização: /job Modificado/frontend/src/modelo-cadastro-anuncios.html
+    Linha do objeto: ~8064 (const anuncioData)
+
+3.2. PROCESSO DE SALVAMENTO:
+
+    PASSO 1: Coleta de dados do formulário (linha ~7773)
+    const formData = new FormData(form);
+    
+    PASSO 2: Captura de serviços organizados por categoria (linha ~7936)
+    - Os checkboxes com name="servicos" são capturados
+    - Valores são convertidos de slugs para nomes completos em português
+    - Serviços são categorizados em arrays específicos
+    
+    PASSO 3: Validação e filtragem (linha ~7787)
+    - Todos os valores "on" são filtrados e removidos
+    - Valores vazios, null e undefined são removidos
+    - Arrays são garantidos mesmo que vazios
+    
+    PASSO 4: Criação do objeto anuncioData (linha ~8064)
+    const anuncioData = {
+      // ... todos os campos
+    };
+    
+    PASSO 5: Garantia de arrays vazios (linha ~8243)
+    - Todos os arrays de serviços são inicializados como [] se não existirem
+    - Isso garante que o Firestore salve os campos mesmo vazios
+    
+    PASSO 6: Salvamento no Firestore (linha ~8258)
+    const docRef = await db.collection("anuncios").add(anuncioDataParaSalvar);
+    
+    PASSO 7: Upload de arquivos (linha ~8288)
+    - Fotos, documentos, vídeos e áudio são enviados para Firebase Storage
+    - URLs são geradas e salvas no documento
+    
+    PASSO 8: Verificação de documentos (linha ~8215)
+    - Se documentos foram enviados, status pode ser 'ativo'
+    - Senão, status fica 'aguardando_verificacao'
+    
+    PASSO 9: Atualização com pagamento (linha ~8324)
+    - Simulação de pagamento
+    - Atualização com informações de plano e pagamento
+
+================================================================================
+4. VALIDAÇÃO E PADRONIZAÇÃO DE CHECKBOXES
+================================================================================
+
+4.1. FUNÇÃO PADRÃO: capturarCheckboxesValidados()
+    Localização: linha ~7787 do modelo-cadastro-anuncios.html
+    
+    Sintaxe:
+    capturarCheckboxesValidados(checkboxName, returnArray, labelMapping)
+    
+    Parâmetros:
+    - checkboxName: string - Nome do campo (atributo 'name')
+    - returnArray: boolean - Se true retorna array, se false retorna string única
+    - labelMapping: object - Mapeamento opcional de labels para valores
+    
+    Funcionalidades:
+    1. Usa querySelector para encontrar checkboxes marcados
+    2. Valida que valores não sejam "on", "", null ou undefined
+    3. Fallback para FormData.getAll() se querySelector não encontrar
+    4. Fallback para label se checkbox não tiver atributo 'value'
+    5. Filtra todos os valores inválidos
+    6. Retorna array ou valor único conforme solicitado
+    
+    Exemplo de uso:
+    const atendeValues = capturarCheckboxesValidados('atende', true, {
+      'ele': 'ele',
+      'ela': 'ela',
+      'casais': 'casais'
+    });
+    // Retorna: ["ele", "ela", "casais"]
+    
+4.2. CAMPOS PADRONIZADOS:
+    - atende: Array de strings (usando função padrão)
+    - eu-faco: Array de strings (usando função padrão)
+    - pubis: Array de strings (usando função padrão)
+    - aceita_whatsapp: Boolean (verificação direta)
+    - aceita_ligacao: Boolean (verificação direta)
+    - servicos: Array de strings (com validação inline personalizada)
+
+================================================================================
+5. ESTRUTURA DE DADOS DO ANÚNCIO (objeto anuncioData)
+================================================================================
+
+5.1. OBJETO COMPLETO anuncioData (linha ~8064):
+
+const anuncioData = {
+  // Dados básicos
+  nome: formData.get('nome'),
+  idade: formData.get('idade'),
+  telefone_celular: formData.get('telefone_celular'),
+  telefone_fixo: formData.get('telefone_fixo'),
+  email: formData.get('email'),
+  descricao: formData.get('descricao'),
+  'frase-efeito': formData.get('frase-efeito'),
+  frase_efeito: formData.get('frase-efeito'),
+  
+  // Serviços obrigatórios (booleanos)
+  'oral-sem': document.querySelector('input[name="oral-sem"]:checked') ? 'sim' : null,
+  oral_sem: document.querySelector('input[name="oral-sem"]:checked') ? 'sim' : null,
+  beija: document.querySelector('input[name="beija"]:checked') ? 'sim' : null,
+  anal: document.querySelector('input[name="anal"]:checked') ? 'sim' : null,
+  'mora-so': document.querySelector('input[name="mora-so"]:checked') ? 'sim' : null,
+  mora_so: document.querySelector('input[name="mora-so"]:checked') ? 'sim' : null,
+  
+  // Atende (array)
+  atende: atendeValues,  // Array validado pela função padrão
+  
+  // Outros checkboxes
+  'eu-faco': capturarCheckboxesValidados('eu-faco', true),
+  eu_faco: capturarCheckboxesValidados('eu-faco', true),
+  pubis: capturarCheckboxesValidados('pubis', true),
+  aceita_whatsapp: document.querySelector('input[name="aceita_whatsapp"]:checked') ? true : false,
+  aceita_ligacao: document.querySelector('input[name="aceita_ligacao"]:checked') ? true : false,
+  
+  // Serviços organizados por categoria
+  servicos_basicos: servicosBasicos,  // Array com nomes completos em português
+  servicos_especiais: servicosEspeciais,
+  fetichismo_bdsm: fetichismoBdsm,
+  atendimento_grupo: atendimentoGrupo,
+  perfil_estilo: perfilEstilo,
+  servicos_extras: servicosExtras,
+  
+  // Localização
+  estado: formData.get('estado'),
+  cidade: formData.get('cidade'),
+  bairro: formData.get('bairro'),
+  local: formData.get('local') || document.querySelector('input[name="local"]:checked')?.value || null,
+  
+  // Categoria e gênero
+  genero: gender,
+  categoria: category,
+  category: category,
+  gender: gender,
+  
+  // Dados físicos
+  corpo: formData.get('corpo'),
+  estatura: formData.get('estatura'),
+  altura: formData.get('altura'),
+  peso: formData.get('peso'),
+  
+  // Preços
+  preco_30min: formData.get('preco_30min'),
+  preco_1h: formData.get('preco_1h'),
+  preco_2h: formData.get('preco_2h'),
+  
+  // Timestamps
+  createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+  userId: activeUser.uid,
+  userEmail: activeUser.email
+};
+
+================================================================================
+6. MAPEAMENTO DE SERVIÇOS
+================================================================================
+
+6.1. MAPEAMENTO DE SLUGS PARA NOMES (linha ~7830):
+
+const servicoSlugToNome = {
+  // Serviços Básicos
+  'beijos-boca': 'Beijos na boca',
+  'oral-com-camisinha': 'Oral com camisinha',
+  'oral-sem-camisinha': 'Oral sem camisinha',
+  'oral-ate-final': 'Oral até o final',
+  'sexo-anal': 'Sexo anal',
+  'garganta-profunda': 'Garganta profunda',
+  'massagem-erotica': 'Massagem erótica',
+  'namoradinha': 'Namoradinha',
+  
+  // Serviços Especiais
+  'beijo-negro': 'Beijo negro',
+  'beijo-branco': 'Beijo branco',
+  'ejaculacao-facial': 'Ejaculação facial',
+  'ejaculacao-corpo': 'Ejaculação corpo',
+  'chuva-dourada': 'Chuva dourada',
+  'cubana': 'Cubana',
+  'pse': 'PSE',
+  'face-fucking': 'Face fucking',
+  
+  // Fetichismo e BDSM
+  'fetichismo': 'Fetichismo',
+  'sado-submissa': 'Sado submissa',
+  'sado-dominadora': 'Sado dominadora',
+  'sado-suave': 'Sado suave',
+  'sado-duro': 'Sado duro',
+  'fisting-anal': 'Fisting Anal',
+  'brinquedos-sexuais': 'Brinquedos sexuais',
+  'lingerie': 'Lingerie',
+  
+  // Atendimento em Grupo
+  'atencao-casais': 'Atenção à casais',
+  'duplas': 'Duplas',
+  'trios': 'Trios',
+  'orgia': 'Orgia',
+  'festas-eventos': 'Festas e eventos',
+  'despedida-solteiro': 'Despedida de solteiro',
+  
+  // Perfil e Estilo
+  'ativa': 'Ativo',
+  'passiva': 'Passivo',
+  'versatil': 'Versátil',
+  'inversao-papeis': 'Inversão de papéis',
+  'lesbica': 'Lésbica',
+  'atencao-mulheres': 'Atenção à mulheres',
+  'experta-principiantes': 'Experto principiantes',
+  'atencao-deficientes': 'Atenção à deficientes físicos',
+  
+  // Serviços Extras
+  'fantasias-figurinos': 'Fantasias e figurinos',
+  'sem-limite': 'Sem limite',
+  'sexcam': 'Sexcam',
+  'atendimento-domicilio': 'Atendimento em domicílio',
+  'pacotes-promocionais': 'Pacotes promocionais',
+  'acompanhante-eventos': 'Acompanhante para eventos'
+};
+
+6.2. CATEGORIZAÇÃO DE SERVIÇOS (linha ~7884):
+
+const servicosPorCategoria = {
+  servicos_basicos: [
+    'beijos-boca', 'oral-com-camisinha', 'oral-sem-camisinha', 'oral-ate-final',
+    'sexo-anal', 'garganta-profunda', 'massagem-erotica', 'namoradinha'
+  ],
+  servicos_especiais: [
+    'beijo-negro', 'beijo-branco', 'ejaculacao-facial', 'ejaculacao-corpo',
+    'chuva-dourada', 'cubana', 'pse', 'face-fucking'
+  ],
+  fetichismo_bdsm: [
+    'fetichismo', 'sado-submissa', 'sado-dominadora', 'sado-suave',
+    'sado-duro', 'fisting-anal', 'brinquedos-sexuais', 'lingerie'
+  ],
+  atendimento_grupo: [
+    'atencao-casais', 'duplas', 'trios', 'orgia',
+    'festas-eventos', 'despedida-solteiro'
+  ],
+  perfil_estilo: [
+    'ativa', 'passiva', 'versatil', 'inversao-papeis',
+    'lesbica', 'atencao-mulheres', 'experta-principiantes', 'atencao-deficientes'
+  ],
+  servicos_extras: [
+    'fantasias-figurinos', 'sem-limite', 'sexcam', 'atendimento-domicilio',
+    'pacotes-promocionais', 'acompanhante-eventos'
+  ]
+};
+
+================================================================================
+7. FUNÇÃO PADRÃO DE CAPTURA DE CHECKBOXES
+================================================================================
+
+7.1. CÓDIGO COMPLETO (linha ~7787):
+
+const capturarCheckboxesValidados = (checkboxName, returnArray = true, labelMapping = {}) => {
+  console.log(`\n🔍 Capturando checkboxes: name="${checkboxName}"`);
+  
+  // MÉTODO 1: querySelector (mais confiável)
+  const checkboxes = Array.from(document.querySelectorAll(`input[name="${checkboxName}"]:checked`));
+  
+  // MÉTODO 2: FormData (fallback)
+  const formDataValues = formData.getAll(checkboxName);
+  
+  // Usar querySelector se encontrar checkboxes marcados, senão usar FormData
+  const valores = checkboxes.length > 0 
+    ? checkboxes.map(cb => {
+        const value = cb.value || cb.getAttribute('value');
+        
+        // Validar que o valor não é "on" (valor padrão de checkboxes sem value)
+        if (!value || value === 'on' || value === '') {
+          console.warn(`  ⚠️ Checkbox "${checkboxName}" sem valor válido: "${value}". Tentando usar label...`);
+          
+          // Tentar pegar do label como fallback
+          const label = cb.closest('label')?.querySelector('.check-box')?.textContent?.trim() ||
+                       cb.closest('label')?.textContent?.trim() ||
+                       cb.parentElement?.textContent?.trim();
+          
+          if (label) {
+            const labelLower = label.toLowerCase();
+            // Se houver mapeamento, usar
+            if (labelMapping[labelLower]) {
+              console.log(`  ✅ Usando valor do mapeamento para label "${label}": "${labelMapping[labelLower]}"`);
+              return labelMapping[labelLower];
+            }
+            // Senão, usar o label diretamente (normalizado)
+            console.log(`  ✅ Usando label como valor: "${labelLower}"`);
+            return labelLower;
+          }
+          
+          return null; // Ignorar checkboxes sem valor válido
+        }
+        
+        console.log(`  ✅ Checkbox válido: value="${value}"`);
+        return value;
+      })
+    : formDataValues.filter(v => v && v !== 'on' && v !== '' && v !== null && v !== undefined);
+  
+  // Filtrar valores inválidos
+  const valoresValidos = valores.filter(v => v !== null && v !== 'on' && v !== '' && v !== undefined);
+  
+  console.log(`  📋 Valores capturados para "${checkboxName}":`, valoresValidos);
+  
+  // Retornar conforme solicitado
+  if (returnArray) {
+    return valoresValidos;
+  } else {
+    // Retornar primeiro valor ou null
+    return valoresValidos.length > 0 ? valoresValidos[0] : null;
+  }
+};
+
+7.2. VALIDAÇÕES APLICADAS:
+    - Remove valores "on" (padrão de checkboxes sem value)
+    - Remove strings vazias ""
+    - Remove null e undefined
+    - Fallback para label se checkbox não tiver value
+    - Usa mapeamento se fornecido
+
+================================================================================
+8. PROCESSO COMPLETO DE SALVAMENTO
+================================================================================
+
+8.1. FLUXO DETALHADO:
+
+    ETAPA 1: Coleta do FormData (linha ~7773)
+    └─> const formData = new FormData(form);
+    
+    ETAPA 2: Inicialização da função padrão (linha ~7787)
+    └─> capturarCheckboxesValidados() definida
+    
+    ETAPA 3: Captura de serviços (linha ~7851)
+    ├─> FormData.getAll('servicos')
+    ├─> Filtragem de valores inválidos
+    └─> Conversão de slugs para nomes completos
+    
+    ETAPA 4: Categorização (linha ~8036)
+    ├─> servicosBasicos = capturarServicosCategoria(...)
+    ├─> servicosEspeciais = capturarServicosCategoria(...)
+    ├─> fetichismoBdsm = capturarServicosCategoria(...)
+    ├─> atendimentoGrupo = capturarServicosCategoria(...)
+    ├─> perfilEstilo = capturarServicosCategoria(...)
+    └─> servicosExtras = capturarServicosCategoria(...)
+    
+    ETAPA 5: Captura de outros checkboxes (linha ~8051)
+    ├─> atendeValues = capturarCheckboxesValidados('atende', true, labelMapping)
+    ├─> eu-faco = capturarCheckboxesValidados('eu-faco', true)
+    └─> pubis = capturarCheckboxesValidados('pubis', true)
+    
+    ETAPA 6: Criação do objeto anuncioData (linha ~8064)
+    └─> Todos os campos são montados no objeto
+    
+    ETAPA 7: Validação final (linha ~8145)
+    ├─> Verifica se há valores inválidos ("on", null, etc.)
+    └─> Garante que arrays existam (mesmo que vazios)
+    
+    ETAPA 8: Preparação para salvar (linha ~8223)
+    ├─> Cria cópia do objeto (anuncioDataParaSalvar)
+    └─> Força inicialização de arrays vazios
+    
+    ETAPA 9: Salvamento no Firestore (linha ~8258)
+    └─> db.collection("anuncios").add(anuncioDataParaSalvar)
+    
+    ETAPA 10: Upload de arquivos (linha ~8288)
+    ├─> Fotos para Firebase Storage
+    ├─> Documentos para Firebase Storage
+    ├─> Vídeos para Firebase Storage
+    └─> URLs são atualizadas no documento
+    
+    ETAPA 11: Verificação de documentos (linha ~8215)
+    ├─> Verifica se documentos foram enviados
+    └─> Define status ('ativo' ou 'aguardando_verificacao')
+    
+    ETAPA 12: Atualização com pagamento (linha ~8324)
+    ├─> Simulação de pagamento
+    └─> Atualização com dados de plano e pagamento
+    
+    ETAPA 13: Verificação pós-salvamento (linha ~8262)
+    ├─> Verifica se arrays foram salvos
+    └─> Força atualização se necessário
+
+8.2. GARANTIAS DE SALVAMENTO:
+    - Todos os arrays são inicializados como [] se não existirem
+    - Arrays vazios são salvos explicitamente
+    - Valores "on" são sempre filtrados
+    - Verificação pós-salvamento garante integridade
+
+================================================================================
+9. REFERÊNCIA AO ANÚNCIO ESPECÍFICO
+================================================================================
+
+9.1. ANÚNCIO ID: bFLmbPE6oUk5OWohEdKg
+    Nome: Baba
+    URL: http://127.0.0.1:5500/job%20Modificado/frontend/src/A_02__premium_Anuncio_modelo_01.html?id=bFLmbPE6oUk5OWohEdKg&name=Baba
+    
+9.2. COLEÇÃO NO FIRESTORE: "anuncios"
+9.3. ID DO DOCUMENTO: "bFLmbPE6oUk5OWohEdKg"
+9.4. CAMINHO COMPLETO: anuncios/bFLmbPE6oUk5OWohEdKg
+
+9.5. COMO ACESSAR OS DADOS:
+    
+    // JavaScript
+    const anuncioRef = db.collection("anuncios").doc("bFLmbPE6oUk5OWohEdKg");
+    const anuncioDoc = await anuncioRef.get();
+    
+    if (anuncioDoc.exists) {
+      const dados = anuncioDoc.data();
+      console.log("Nome:", dados.nome);
+      console.log("Serviços Básicos:", dados.servicos_basicos);
+      console.log("Serviços Especiais:", dados.servicos_especiais);
+      // ... etc
+    }
+    
+    // Console do Firebase:
+    // 1. Acesse: https://console.firebase.google.com
+    // 2. Selecione o projeto
+    // 3. Firestore Database
+    // 4. Coleção: "anuncios"
+    // 5. Documento: "bFLmbPE6oUk5OWohEdKg"
+
+================================================================================
+10. ANEXOS
+================================================================================
+
+10.1. LOCALIZAÇÃO DOS ARQUIVOS:
+
+    Arquivo de Cadastro:
+    /job Modificado/frontend/src/modelo-cadastro-anuncios.html
+    
+    Arquivo de Perfil (Principal):
+    /job Modificado/frontend/src/A_02__premium_Anuncio_modelo_01.html
+    
+    Arquivo de Perfil (Copy):
+    /job Modificado/frontend/src/A_02__premium_copy.html
+    
+    Configuração do Firebase:
+    /job Modificado/frontend/src/firebase-config.js
+
+10.2. DOCUMENTAÇÃO ADICIONAL:
+
+    Arquivo de Documentação:
+    /job Modificado/frontend/src/CAMINHO_CODIGO_CRIACAO_ANUNCIO.md
+
+10.3. NOTAS IMPORTANTES:
+
+    - Todos os checkboxes usam validação padrão para evitar valores "on"
+    - Arrays são sempre salvos, mesmo que vazios
+    - Serviços são convertidos de slugs para nomes completos em português
+    - Existe verificação pós-salvamento para garantir integridade
+    - Campos antigos (servicos, servicos_oferecidos, etc.) foram removidos
+    - Sistema usa apenas arrays categorizados para serviços
+
+================================================================================
+FIM DO DOCUMENTO
+================================================================================
+
+Este documento foi gerado automaticamente e contém toda a estrutura de dados
+e configuração do sistema de cadastro e exibição de anúncios.
+
+Para mais informações, consulte os arquivos HTML mencionados neste documento.
+

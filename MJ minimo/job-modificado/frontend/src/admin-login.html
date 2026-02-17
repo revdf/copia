@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Administrativo - Mansão do Job</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="admin-login.css">
+    <!-- Removendo temporariamente o reCAPTCHA -->
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <img src="assets/logo.png" alt="Mansão do Job Logo" class="logo">
+                <h1>Login Administrativo</h1>
+            </div>
+            
+            <form id="adminLoginForm" class="login-form">
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i>
+                        E-mail
+                    </label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i>
+                        Senha
+                    </label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <div class="form-group security-code" style="display: none;">
+                    <label for="securityCode">
+                        <i class="fas fa-shield-alt"></i>
+                        Código de Segurança
+                    </label>
+                    <input type="text" id="securityCode" name="securityCode">
+                </div>
+
+                <div class="form-group authenticator-code" style="display: none;">
+                    <label for="authenticatorCode">
+                        <i class="fas fa-mobile-alt"></i>
+                        Código do Google Authenticator
+                    </label>
+                    <input type="text" id="authenticatorCode" name="authenticatorCode" placeholder="Digite o código de 6 dígitos">
+                </div>
+
+                <!-- Removendo temporariamente o container do reCAPTCHA -->
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="remember" name="remember">
+                        Manter conectado
+                    </label>
+                    <a href="#" class="forgot-password">Esqueceu a senha?</a>
+                </div>
+
+                <button type="submit" class="login-button">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Entrar
+                </button>
+
+                <div class="security-info">
+                    <p><i class="fas fa-shield-alt"></i> Acesso restrito a IPs autorizados</p>
+                    <p><i class="fas fa-clock"></i> Bloqueio após 5 tentativas falhas</p>
+                    <p><i class="fas fa-lock"></i> Autenticação em duas etapas</p>
+                    <p><i class="fas fa-mobile-alt"></i> Google Authenticator</p>
+                </div>
+            </form>
+
+            <div class="login-footer">
+                <p>© 2024 Mansão do Job - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </div>
+    <script src="admin-login.js"></script>
+</body>
+</html> 

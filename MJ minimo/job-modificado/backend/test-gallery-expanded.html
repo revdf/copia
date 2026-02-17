@@ -1,0 +1,809 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste Galeria Expandida</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .info-box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .success {
+            border-left: 4px solid #28a745;
+        }
+        
+        .gallery-demo {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .gallery-item video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-overlay i {
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .video-item .gallery-overlay i {
+            font-size: 2.5rem;
+        }
+        
+        .test-links {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .test-link {
+            display: block;
+            background: #dc3545;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 10px 0;
+            transition: background 0.3s;
+        }
+        
+        .test-link:hover {
+            background: #c82333;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #dc3545;
+        }
+        
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖼️ Teste Galeria Expandida</h1>
+        
+        <div class="info-box success">
+            <h3>✅ Galeria Expandida Implementada</h3>
+            <p><strong>Funcionalidades adicionadas:</strong></p>
+            <ul>
+                <li>✅ <strong>6-15 fotos aleatórias</strong> adicionadas automaticamente</li>
+                <li>✅ <strong>Vídeos suportados</strong> com ícone de play</li>
+                <li>✅ <strong>Modal para vídeos</strong> com controles</li>
+                <li>✅ <strong>Fotos do Firebase Storage</strong> e Google Cloud Storage</li>
+                <li>✅ <strong>Seleção aleatória</strong> de fotos para cada perfil</li>
+                <li>✅ <strong>Fallback para vídeos</strong> se não houver vídeos reais</li>
+            </ul>
+        </div>
+        
+        <div class="gallery-demo">
+            <h3>📸 Demonstração da Galeria</h3>
+            <p>Exemplo de como a galeria ficará com fotos e vídeos:</p>
+            
+            <div class="gallery-grid" id="demo-gallery">
+                <!-- Fotos de demonstração -->
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%281%29.jpg" alt="Foto 1" onerror="this.src='https://via.placeholder.com/200x200/FFB6C1/FFFFFF?text=Foto+1'">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%282%29.jpg" alt="Foto 2" onerror="this.src='https://via.placeholder.com/200x200/FFB6C1/FFFFFF?text=Foto+2'">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%283%29.jpg" alt="Foto 3" onerror="this.src='https://via.placeholder.com/200x200/FFB6C1/FFFFFF?text=Foto+3'">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%284%29.jpg" alt="Foto 4" onerror="this.src='https://via.placeholder.com/200x200/FFB6C1/FFFFFF?text=Foto+4'">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%285%29.jpg" alt="Foto 5" onerror="this.src='https://via.placeholder.com/200x200/FFB6C1/FFFFFF?text=Foto+5'">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%286%29.jpg" alt="Foto 6" onerror="this.src='https://via.placeholder.com/200x200/FFB6C1/FFFFFF?text=Foto+6'">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%287%29.jpg" alt="Foto 7" onerror="this.src='https://via.placeholder.com/200x200/FFB6C1/FFFFFF?text=Foto+7'">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%288%29.jpg" alt="Foto 8" onerror="this.src='https://via.placeholder.com/200x200/FFB6C1/FFFFFF?text=Foto+8'">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%289%29.jpg" alt="Foto 9" onerror="this.src='https://via.placeholder.com/200x200/FFB6C1/FFFFFF?text=Foto+9'">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2810%29.jpg" alt="Foto 10" onerror="this.src='https://via.placeholder.com/200x200/FFB6C1/FFFFFF?text=Foto+10'">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2811%29.jpg" alt="Foto 11" onerror="this.src='https://via.placeholder.com/200x200/FFB6C1/FFFFFF?text=Foto+11'">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2812%29.jpg" alt="Foto 12" onerror="this.src='https://via.placeholder.com/200x200/FFB6C1/FFFFFF?text=Foto+12'">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2813%29.jpg" alt="Foto 13" onerror="this.src='https://via.placeholder.com/200x200/FFB6C1/FFFFFF?text=Foto+13'">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2814%29.jpg" alt="Foto 14" onerror="this.src='https://via.placeholder.com/200x200/FFB6C1/FFFFFF?text=Foto+14'">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2815%29.jpg" alt="Foto 15" onerror="this.src='https://via.placeholder.com/200x200/FFB6C1/FFFFFF?text=Foto+15'">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                
+                <!-- Vídeo de demonstração -->
+                <div class="gallery-item video-item">
+                    <video muted>
+                        <source src="https://storage.googleapis.com/copia-do-job.firebasestorage.app/video%20teste.mp4" type="video/mp4">
+                        Seu navegador não suporta vídeos.
+                    </video>
+                    <div class="gallery-overlay">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value">39</div>
+                <div class="stat-label">Anúncios Premium</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">6-15</div>
+                <div class="stat-label">Fotos por Galeria</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">1+</div>
+                <div class="stat-label">Vídeos por Galeria</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">20</div>
+                <div class="stat-label">Fotos Disponíveis</div>
+            </div>
+        </div>
+        
+        <div class="test-links">
+            <h3>🔗 Links de Teste</h3>
+            <p>Teste os links abaixo para verificar a galeria expandida:</p>
+            
+            <a href="A_02__premium_Anuncio_modelo_01.html?id=0UvOqZ66KWsoH9XOMAwb&name=Ana" class="test-link">🖼️ Ver galeria de Ana</a><a href="A_02__premium_Anuncio_modelo_01.html?id=1MDx3IGzVIiSxMoJx8Bz&name=Ruby" class="test-link">🖼️ Ver galeria de Ruby</a><a href="A_02__premium_Anuncio_modelo_01.html?id=1f6XehOGnB0f0dWHsnlJ&name=Aria" class="test-link">🖼️ Ver galeria de Aria</a>
+            
+            <a href="A_02__premium.html" class="test-link">🏠 Voltar para página premium</a>
+        </div>
+        
+        <div class="info-box">
+            <h3>🛠️ Como Funciona</h3>
+            <p><strong>1. Fotos Aleatórias:</strong></p>
+            <ul>
+                <li>Seleciona entre 6-15 fotos aleatórias</li>
+                <li>Usa fotos do Firebase Storage e Google Cloud Storage</li>
+                <li>Evita duplicatas na mesma galeria</li>
+            </ul>
+            
+            <p><strong>2. Vídeos:</strong></p>
+            <ul>
+                <li>Adiciona vídeos se disponíveis no anúncio</li>
+                <li>Fallback para vídeo de teste se não houver vídeos</li>
+                <li>Ícone de play para identificar vídeos</li>
+            </ul>
+            
+            <p><strong>3. Modal:</strong></p>
+            <ul>
+                <li>Suporte para imagens e vídeos</li>
+                <li>Controles de vídeo no modal</li>
+                <li>Pausa automática ao fechar</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        console.log('🖼️ Teste de galeria expandida carregado');
+        console.log('📊 Anúncios premium:', [
+  {
+    "nome": "Ana",
+    "name": "Ana",
+    "categoria": "massagista",
+    "category": "massagista",
+    "tipo": "massagista",
+    "status": "ativo",
+    "idade": 23,
+    "age": 23,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "SML",
+    "neighborhood": "SML",
+    "telefone": "+5561784956784",
+    "phone": "+5561784956784",
+    "whatsapp": "+5561377519659",
+    "preco": 150,
+    "price": 150,
+    "preco_hora": 150,
+    "price_per_hour": 150,
+    "descricao": "Terapeuta especializada Ana no SML, técnicas avançadas de relaxamento.",
+    "description": "Terapeuta especializada Ana no SML, técnicas avançadas de relaxamento.",
+    "foto_capa": "foto (26).jpg",
+    "coverImage": "foto (26).jpg",
+    "foto_stories": "foto (23).jpg",
+    "profileImage": "foto (23).jpg",
+    "galeria_1": "avatar (8).jpg",
+    "galeria_2": "d4.jpg",
+    "galeria_3": "foto (7).jpg",
+    "galeria_4": "foto (15).jpg",
+    "galeria_5": "foto (26).jpg",
+    "galeria_6": "foto (23).jpg",
+    "images": [
+      "foto (26).jpg",
+      "foto (23).jpg",
+      "avatar (8).jpg",
+      "d4.jpg",
+      "foto (7).jpg",
+      "foto (15).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 750,
+    "likes": 28,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547621,
+      "_nanoseconds": 546000000
+    },
+    "updatedAt": {
+      "_seconds": 1760547621,
+      "_nanoseconds": 546000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1753832101,
+        "_nanoseconds": 850000000
+      },
+      "proximo_exame": {
+        "_seconds": 1761023905,
+        "_nanoseconds": 466000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Nenhuma",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Casada",
+    "contato_emergencia": "+5561527223518",
+    "cep": "20416-853",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música"
+      ],
+      "musica_preferida": "Eletrônica",
+      "comida_preferida": "Brasileira",
+      "bebida_preferida": "Vinho",
+      "fumante": false,
+      "bebe": false,
+      "animais": true,
+      "criancas": false
+    },
+    "tipo_sanguineo": "A-",
+    "cpf": "252653408",
+    "dados_pagamento": {
+      "metodo_pagamento": "Dinheiro",
+      "aceita_pix": true,
+      "aceita_cartao": false,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 1,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Ensino Médio",
+    "nome_real": "Ana",
+    "parentesco_emergencia": "Amigo",
+    "nome_contato_emergencia": "Contato 83",
+    "peso": "61",
+    "profissao": "Acompanhante",
+    "email_pessoal": "ana451@gmail.com",
+    "dados_bancarios": {
+      "banco": "Caixa Econômica Federal",
+      "codigo_banco": "104",
+      "agencia": "8150",
+      "conta": "231536",
+      "tipo_conta": "Corrente",
+      "pix": "136731298"
+    },
+    "verificacao": {
+      "documento_frente": "avatar (4).jpg",
+      "documento_verso": "avatar (5).jpg",
+      "documento_selfie": "a2.jpg",
+      "comprovante_residencia": "a3.jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_76",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 257000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 257000000
+    },
+    "email_comercial": "anacomercial836@gmail.com",
+    "nome_artistico": "Ana",
+    "etnia": "Indígena",
+    "endereco_completo": "Avenida dos Estados, 7880, SML, Brasília - DF",
+    "altura": "171",
+    "rg": "98530117",
+    "versao_dados": "2.0",
+    "nacionalidade": "Chilena",
+    "destaque": true,
+    "nivel": "N1",
+    "id": "0UvOqZ66KWsoH9XOMAwb",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2826%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760759517&Signature=stxV9hDLnHookKmrf3H%2FmOOmr%2FbdFHtp2X6ESox11%2BEur3B49NdvrKI%2BoYxtgkbBrVZhzkARbAZKUfhDmvWTeWwrtqL3Tt%2FNJXJ7HqjVTCVfchvkgZf4woti6%2FKzG%2BsH9mFojwwic8r42FGkMBKV0HKQY7hcpl2OZg4KN8XUHOXgzGRzJpKQSimrLmLc1reTQnKdyAhF4f%2FbMpebZDj2CigTZLIAd6ZjAq7M5OEvR4V6THYb8BLjttXnPBu8QgbZoB74ziMxMkka6XLxFJyI%2BSvCDagyuibVi1Z3mI5Qwk7PHOZTPTvhvJdd5JvAeWVI3GvFdPjDoKqmz7yFB6wE7Q%3D%3D"
+  },
+  {
+    "nome": "Ruby",
+    "name": "Ruby",
+    "categoria": "trans",
+    "category": "trans",
+    "tipo": "trans",
+    "status": "ativo",
+    "idade": 36,
+    "age": 36,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Asa Sul",
+    "neighborhood": "Asa Sul",
+    "telefone": "+5561106681124",
+    "phone": "+5561106681124",
+    "whatsapp": "+5561337013884",
+    "descricao": "Garota trans elegante Ruby em Asa Sul, momentos únicos de prazer e diversão.",
+    "description": "Garota trans elegante Ruby em Asa Sul, momentos únicos de prazer e diversão.",
+    "foto_capa": "foto (14).jpg",
+    "coverImage": "foto (14).jpg",
+    "foto_stories": "d4.jpg",
+    "profileImage": "d4.jpg",
+    "galeria_1": "a3.jpg",
+    "galeria_2": "foto (28).jpg",
+    "galeria_3": "foto (3).jpg",
+    "galeria_4": "foto (26).jpg",
+    "galeria_5": "foto (14).jpg",
+    "galeria_6": "d4.jpg",
+    "images": [
+      "foto (14).jpg",
+      "d4.jpg",
+      "a3.jpg",
+      "foto (28).jpg",
+      "foto (3).jpg",
+      "foto (26).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 629,
+    "likes": 81,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547623,
+      "_nanoseconds": 491000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1754624480,
+        "_nanoseconds": 141000000
+      },
+      "proximo_exame": {
+        "_seconds": 1762171331,
+        "_nanoseconds": 581000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Nenhuma",
+      "medicamentos": "Anticoncepcional",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "Casada",
+    "contato_emergencia": "+5561185037022",
+    "cep": "59427-118",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema",
+        "Leitura"
+      ],
+      "musica_preferida": "MPB",
+      "comida_preferida": "Brasileira",
+      "bebida_preferida": "Suco",
+      "fumante": false,
+      "bebe": true,
+      "animais": true,
+      "criancas": false
+    },
+    "tipo_sanguineo": "O-",
+    "cpf": "793754800",
+    "dados_pagamento": {
+      "metodo_pagamento": "PIX",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 4,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Não informado",
+    "nome_real": "Ruby",
+    "parentesco_emergencia": "Irmã",
+    "nome_contato_emergencia": "Contato 43",
+    "peso": "63",
+    "profissao": "Acompanhante",
+    "email_pessoal": "ruby452@gmail.com",
+    "dados_bancarios": {
+      "banco": "Inter",
+      "codigo_banco": "077",
+      "agencia": "1825",
+      "conta": "859348",
+      "tipo_conta": "Corrente",
+      "pix": "pboittnlvh8-81d1gc99zuc"
+    },
+    "verificacao": {
+      "documento_frente": "foto (8).jpg",
+      "documento_verso": "avatar (4).jpg",
+      "documento_selfie": "avatar (2).jpg",
+      "comprovante_residencia": "avatar (2).jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_11",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 331000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 331000000
+    },
+    "email_comercial": "rubycomercial734@hotmail.com",
+    "nome_artistico": "Ruby",
+    "etnia": "Parda",
+    "endereco_completo": "Rua das Margaridas, 5880, Asa Sul, Brasília - DF",
+    "altura": "177",
+    "rg": "49727847",
+    "versao_dados": "2.0",
+    "nacionalidade": "Venezuelana",
+    "level": "N1",
+    "nivel_nome": "Premium VIP",
+    "level_name": "Premium VIP",
+    "premium": true,
+    "destaque": true,
+    "nivel": "N1",
+    "updatedAt": "2025-10-17T02:29:58.257Z",
+    "preco": "500",
+    "preco_hora": "500",
+    "price": "500",
+    "price_per_hour": "500",
+    "preco_30min": "300",
+    "preco_45min": "400",
+    "preco_1h": "500",
+    "id": "1MDx3IGzVIiSxMoJx8Bz",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/foto%20%2814%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760759517&Signature=lKlBhsca6ewk0dXrnr%2FkZndGOZmGfwdiuc3PVMh960w5ROI5Qudko0GMA5WrradKpmUD6nXtxb9zm9lWq1zw28KZcegIMKQ4cuqMNzGmY86XagytjwKoG%2BocGaBRQw6n%2FJ6qrnehjPunldAEbomXyvnypbme1uxpC3bdrSMz1wcGF9VHS2klED0aoYlBaoFOmU1vkvkd12q5G%2BxSgCEkoxxhCeCO2%2BRHdrCrlRU1cjOopURkLXZJ%2FnEkeCseBreln78dwZktQgmWg2Y%2FSDzU%2F57rtB54jwnWXFs%2FslPHBtWnjxMBXAuie9kkHn5svP0bkFrhe3ovv%2BvZHut1NpBm1A%3D%3D"
+  },
+  {
+    "nome": "Aria",
+    "name": "Aria",
+    "categoria": "trans",
+    "category": "trans",
+    "tipo": "trans",
+    "status": "ativo",
+    "idade": 40,
+    "age": 40,
+    "cidade": "Brasília",
+    "city": "Brasília",
+    "estado": "DF",
+    "state": "DF",
+    "bairro": "Riacho Fundo II",
+    "neighborhood": "Riacho Fundo II",
+    "telefone": "+5561137696281",
+    "phone": "+5561137696281",
+    "whatsapp": "+5561184083386",
+    "descricao": "Transexual linda e sensual Aria no Riacho Fundo II, atendimento especial e carinhoso.",
+    "description": "Transexual linda e sensual Aria no Riacho Fundo II, atendimento especial e carinhoso.",
+    "foto_capa": "avatar (2).jpg",
+    "coverImage": "avatar (2).jpg",
+    "foto_stories": "foto (23).jpg",
+    "profileImage": "foto (23).jpg",
+    "galeria_1": "a3.jpg",
+    "galeria_2": "foto (12).jpg",
+    "galeria_3": "foto (3).jpg",
+    "galeria_4": "foto (25).jpg",
+    "galeria_5": "avatar (2).jpg",
+    "galeria_6": "foto (23).jpg",
+    "images": [
+      "avatar (2).jpg",
+      "foto (23).jpg",
+      "a3.jpg",
+      "foto (12).jpg",
+      "foto (3).jpg",
+      "foto (25).jpg"
+    ],
+    "ativo": true,
+    "verificado": true,
+    "views": 239,
+    "likes": 48,
+    "environment": "test",
+    "project": "copia-do-job",
+    "createdAt": {
+      "_seconds": 1760547623,
+      "_nanoseconds": 188000000
+    },
+    "dados_saude": {
+      "ultimo_exame": {
+        "_seconds": 1756978294,
+        "_nanoseconds": 645000000
+      },
+      "proximo_exame": {
+        "_seconds": 1760689985,
+        "_nanoseconds": 159000000
+      },
+      "vacinas_em_dia": true,
+      "alergias": "Frutos do mar",
+      "medicamentos": "Nenhum",
+      "restricoes_alimentares": "Nenhuma"
+    },
+    "dados_sensíveis": true,
+    "estado_civil": "União Estável",
+    "contato_emergencia": "+5561714647502",
+    "cep": "74285-730",
+    "preferencias": {
+      "idiomas": [
+        "Português",
+        "Inglês"
+      ],
+      "hobbies": [
+        "Música",
+        "Cinema",
+        "Leitura",
+        "Esportes"
+      ],
+      "musica_preferida": "Sertanejo",
+      "comida_preferida": "Italiana",
+      "bebida_preferida": "Suco",
+      "fumante": false,
+      "bebe": false,
+      "animais": true,
+      "criancas": false
+    },
+    "tipo_sanguineo": "B+",
+    "cpf": "257779018",
+    "dados_pagamento": {
+      "metodo_pagamento": "Cartão de Crédito",
+      "aceita_pix": true,
+      "aceita_cartao": true,
+      "aceita_dinheiro": true,
+      "taxa_cartao": 1,
+      "desconto_pix": 0
+    },
+    "escolaridade": "Ensino Fundamental",
+    "nome_real": "Aria",
+    "parentesco_emergencia": "Irmã",
+    "nome_contato_emergencia": "Contato 71",
+    "peso": "48",
+    "profissao": "Acompanhante",
+    "email_pessoal": "aria122@gmail.com",
+    "dados_bancarios": {
+      "banco": "Nubank",
+      "codigo_banco": "260",
+      "agencia": "2239",
+      "conta": "419680",
+      "tipo_conta": "Poupança",
+      "pix": "437987995"
+    },
+    "verificacao": {
+      "documento_frente": "foto (9).jpg",
+      "documento_verso": "Stories.jpg",
+      "documento_selfie": "foto (5).jpg",
+      "comprovante_residencia": "foto (10).jpg",
+      "status_verificacao": "aprovado",
+      "verificador_id": "verificador_59",
+      "data_verificacao": {
+        "_seconds": 1760548017,
+        "_nanoseconds": 467000000
+      }
+    },
+    "data_atualizacao_sensivel": {
+      "_seconds": 1760548017,
+      "_nanoseconds": 467000000
+    },
+    "email_comercial": "ariacomercial516@yahoo.com.br",
+    "nome_artistico": "Aria",
+    "etnia": "Indígena",
+    "endereco_completo": "Rua da Paz, 638, Riacho Fundo II, Brasília - DF",
+    "altura": "178",
+    "rg": "38155783",
+    "versao_dados": "2.0",
+    "nacionalidade": "Peruana",
+    "level": "N1",
+    "price_per_hour": "500",
+    "preco_30min": "300",
+    "preco_1h": "500",
+    "nivel_nome": "Premium VIP",
+    "preco": "500",
+    "level_name": "Premium VIP",
+    "premium": true,
+    "preco_hora": "500",
+    "price": "500",
+    "destaque": true,
+    "preco_45min": "400",
+    "nivel": "N1",
+    "updatedAt": "2025-10-17T02:29:58.257Z",
+    "id": "1f6XehOGnB0f0dWHsnlJ",
+    "foto_capa_url": "https://storage.googleapis.com/copia-do-job.firebasestorage.app/avatar%20%282%29.jpg?GoogleAccessId=firebase-adminsdk-fbsvc%40copia-do-job.iam.gserviceaccount.com&Expires=1760759517&Signature=LNvqyLkNcXlKiFhWt93FkNV7sSO7YkOySanCqs4EhnXL6YUSEh9JTei0a4WxQYQ1RfQDYaTFZlat%2FjCu0x9KuUnU3EdQLHeH%2BTw7lPEja%2FGMXKIwxZPEDavkTyS0YAN1pdFm9aVSNm2FekitlsjPXM5RPKzMl5xh9QBINO%2FSsV9fkjrXq8SVxs3wnI06tqwv8dFaffQblJ69hsK65ElFOAZ5AWxyWrimkG6YBq4uVEFPUWIUONs7jOzkpnhvsxyfEZkXOtQF37fObkX0dVa6W4%2BXXicTy0%2BfOn38FqE95egjFC1wmB6O9B4QfIkp%2F524VU5B4Cp5h9t7Q5BDE50Gxw%3D%3D"
+  }
+]);
+        
+        // Testar se a API está acessível
+        fetch('http://localhost:5001/api/anuncios')
+            .then(response => response.json())
+            .then(data => {
+                console.log('✅ API acessível:', data.length, 'anúncios');
+            })
+            .catch(error => {
+                console.error('❌ Erro na API:', error);
+            });
+    </script>
+</body>
+</html>
