@@ -4,20 +4,30 @@ service cloud.firestore {
     
     // ============================================
     // COLECÇÃO: anuncios (Dados Públicos)
+    // MODERAÇÃO: Usuário não pode alterar campo status
     // ============================================
     match /anuncios/{anuncioId} {
-      // Leitura: Público (qualquer um pode ler)
+      // Leitura: Público
       allow read: if true;
       
-      // Criação: Apenas usuários autenticados
-      allow create: if request.auth != null;
+      // Criação: usuário autenticado, status DEVE ser "pending_approval"
+      allow create: if request.auth != null
+                    && request.resource.data.status == 'pending_approval';
       
-      // Atualização: Qualquer usuário autenticado (para views/likes)
-      allow update: if request.auth != null;
+      // Atualização:
+      // - Admin pode alterar tudo (incluindo status para aprovar/rejeitar)
+      // - Qualquer autenticado pode atualizar (views, likes) mas NÃO pode mudar status
+      allow update: if request.auth != null
+                    && (
+                      request.auth.token.admin == true
+                      ||
+                      request.resource.data.status == resource.data.status
+                    );
       
-      // Exclusão: Apenas o dono do anúncio ou admin
+      // Exclusão: apenas dono ou admin
       allow delete: if request.auth != null && 
                        (request.auth.uid == resource.data.userId ||
+                        request.auth.uid == resource.data.advertiserId ||
                         request.auth.token.admin == true);
     }
     
@@ -39,28 +49,48 @@ service cloud.firestore {
     
     // ============================================
     // COLECÇÃO: advertisements (Legado - Compatibilidade)
+    // MODERAÇÃO: Usuário não pode alterar campo status
     // ============================================
     match /advertisements/{advertisementId} {
       // Leitura: Público
       allow read: if true;
       
-      allow create: if request.auth != null;
-      // Atualização: Qualquer usuário autenticado (para views/likes)
-      allow update: if request.auth != null;
-      allow delete: if request.auth != null && 
-                       (request.auth.uid == resource.data.userId ||
-                        request.auth.token.admin == true);
+      // Criação: usuário autenticado, status DEVE ser "pending_approval"
+      allow create: if request.auth != null
+                    && request.resource.data.status == 'pending_approval';
+      
+      // Atualização:
+      // - Admin pode alterar tudo (incluindo status para aprovar/rejeitar)
+      // - Qualquer autenticado pode atualizar (views, likes) mas NÃO pode mudar status
+      allow update: if request.auth != null
+                    && (
+                      request.auth.token.admin == true
+                      ||
+                      request.resource.data.status == resource.data.status
+                    );
+      
+      // Exclusão: apenas dono ou admin
+      allow delete: if request.auth != null 
+                    && (request.auth.uid == resource.data.advertiserId 
+                        || request.auth.token.admin == true);
     }
     
     // ============================================
     // COLECÇÃO: advertisers (Cadastro de Anunciantes)
     // ============================================
     match /advertisers/{advertiserId} {
+      // Leitura: qualquer usuário autenticado (para verificar CPF, role admin, etc.)
       allow read: if request.auth != null;
+      
+      // Criação: apenas para o próprio usuário
       allow create: if request.auth != null && request.auth.uid == advertiserId;
-      allow update: if request.auth != null && 
-                       (request.auth.uid == advertiserId ||
-                        request.auth.token.admin == true);
+      
+      // Atualização: próprio documento OU admin
+      allow update: if request.auth != null 
+                    && (request.auth.uid == advertiserId 
+                        || request.auth.token.admin == true);
+      
+      // Não permitir exclusão
       allow delete: if false;
     }
     
@@ -149,12 +179,9 @@ service cloud.firestore {
     // COLECÇÃO: clientes (Usuários cadastrados como clientes)
     // ============================================
     match /clientes/{clienteId} {
-      // Clientes podem ler apenas seus próprios dados
       allow read: if request.auth != null && request.auth.uid == clienteId;
-      // Clientes podem criar/atualizar apenas seus próprios dados
       allow create: if request.auth != null && request.auth.uid == clienteId;
       allow update: if request.auth != null && request.auth.uid == clienteId;
-      // Não permitir exclusão
       allow delete: if false;
     }
     

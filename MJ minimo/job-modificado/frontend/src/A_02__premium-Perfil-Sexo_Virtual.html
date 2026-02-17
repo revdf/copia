@@ -3878,6 +3878,28 @@
                     return;
                 }
 
+                // ============================================
+                // MODERAÇÃO: Bloquear exibição se não aprovado
+                // ============================================
+                const statusAnuncio = (anuncio.status || '').toLowerCase().trim();
+                if (statusAnuncio !== 'approved') {
+                    const currentUserAuth = auth ? auth.currentUser : null;
+                    const isOwner = currentUserAuth && (
+                        currentUserAuth.uid === anuncio.advertiserId || 
+                        currentUserAuth.email === anuncio.userEmail
+                    );
+                    
+                    if (!isOwner) {
+                        console.warn('🚫 Anúncio não aprovado. Status:', statusAnuncio);
+                        alert('Este anúncio não está disponível no momento.');
+                        const returnPage = getUrlParameter('returnPage') || 'A_02__premium_sexo-virtual_copy.html';
+                        window.location.href = returnPage;
+                        return;
+                    } else {
+                        console.log('⚠️ Anúncio pendente/rejeitado, mas o dono está visualizando. Status:', statusAnuncio);
+                    }
+                }
+
                 console.log('✅ Anúncio carregado com sucesso!');
                 console.log('📋 ========== DADOS COMPLETOS DO ANÚNCIO ==========');
                 console.log('📋 ID do documento:', anuncio.id);
@@ -3981,8 +4003,8 @@
                 });
             }
             
-            // IMPORTANTE: O status "aguardando_verificacao" NÃO impede a exibição na página de perfil!
-            // A página de perfil deve mostrar TODOS os anúncios, independente do status.
+            // MODERAÇÃO: Anúncios não aprovados são bloqueados no check acima.
+            // Apenas anúncios com status "approved" ou visualizados pelo dono são exibidos.
             
             // Função para adicionar preload de imagens críticas
             function addImagePreload(url, as = 'image') {

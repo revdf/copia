@@ -7604,7 +7604,7 @@
                     // Metadados
                     advertiserId: auth.currentUser.uid,
                     userEmail: auth.currentUser.email,
-                    status: 'active',
+                    status: 'pending_approval',
                     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                     updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
                 };
@@ -7641,12 +7641,12 @@
                 }
                 
                 // Mostrar mensagem de sucesso
-                alert('✅ Anúncio criado com sucesso!');
+                alert('✅ Anúncio enviado com sucesso!\n\nSeu anúncio está aguardando aprovação da nossa equipe de moderação.\nVocê será notificado quando ele for aprovado e publicado no site.');
                 
-                // Redirecionar após 2 segundos
+                // Redirecionar após 3 segundos
                 setTimeout(() => {
                     window.location.href = 'A_02__premium_copy.html';
-                }, 2000);
+                }, 3000);
                 
                 return docRef.id;
             } catch (error) {

@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sophia Luz - Acompanhante de Luxo</title>
+    <meta name="description" content="Apresentamos Acompanhante Sophia Luz - (21) 98866-3503, mais uma acompanhante de luxo verificada em São Paulo">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Header Reutilizável - Carregar primeiro -->
+    <script src="js/load-header.js" defer></script>
+    
+    <!-- Sistema de Localização - CSS -->
+    <link rel="stylesheet" href="css/location-styles.css" />
+    
+    <!-- Blaze Slider -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/blaze-slider@1.8.0/dist/blaze.css">
+    
+    <!-- GLightbox -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/css/glightbox.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1f1f1f;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background-color: #151515;
+            border-bottom: 1px solid #414141;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #f58623;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #f58623;
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 300px 1fr 250px;
+            gap: 20px;
+        }
+
+        /* Left Profile Section */
+        .profile-left {
+            background-color: #2a2a2a;
+            border-radius: 10px;
+            padding: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .profile-avatar {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-avatar img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #f58623;
+            object-fit: cover;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            color: #f58623;
+            text-align: center;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .whatsapp-button {
+            background: linear-gradient(45deg, #25d366, #128c7e);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .whatsapp-button:hover {
+            transform: scale(1.05);
+            color: white;
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f58623;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        /* Accordion */
+        .accordion {
+            margin-bottom: 10px;
+        }
+
+        .accordion-header {
+            background-color: #333;
+            padding: 12px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background-color: #444;
+        }
+
+        .accordion-header.active {
+            background-color: #f58623;
+        }
+
+        .accordion-content {
+            background-color: #2a2a2a;
+            border-radius: 0 0 5px 5px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-content.active {
+            max-height: 500px;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .info-table tr:nth-child(even) {
+            background-color: #333;
+        }
+
+        .info-table tr:nth-child(odd) {
+            background-color: #2a2a2a;
+        }
+
+        .info-table th {
+            padding: 10px 15px;
+            text-align: left;
+            font-weight: normal;
+        }
+
+        .info-label {
+            color: #f58623;
+            font-weight: bold;
+        }
+
+        .info-value {
+            color: #ffffff;
+        }
+
+        /* Center Content */
+        .profile-center {
+            background-color: #2a2a2a;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .profile-header-mobile {
+            display: none;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-header-mobile img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #f58623;
+            margin-bottom: 10px;
+        }
+
+        .profile-header-mobile h1 {
+            color: #f58623;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Gallery */
+        .gallery-container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto 30px auto;
+            background-color: #333;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Videos Section */
+        .videos-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            background-color: #f58623;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .video-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .video-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+
+        .video-duration {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+        }
+
+        /* Audio Section */
+        .audio-section {
+            margin-bottom: 30px;
+        }
+
+        .audio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .audio-item {
+            background-color: #333;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .audio-item:hover {
+            background-color: #444;
+        }
+
+        .audio-play-button {
+            width: 40px;
+            height: 40px;
+            background-color: #f58623;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .audio-play-button:hover {
+            background-color: #e67e22;
+        }
+
+        .audio-info {
+            flex: 1;
+        }
+
+        .audio-title {
+            color: #f58623;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .audio-duration {
+            color: #ccc;
+            font-size: 12px;
+        }
+
+        /* Right Sidebar */
+        .profile-right {
+            background-color: #2a2a2a;
+            border-radius: 10px;
+            padding: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .sidebar-title {
+            color: #f58623;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .related-models {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .related-model {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background-color: #333;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .related-model:hover {
+            background-color: #444;
+        }
+
+        .related-model img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .related-model-info h4 {
+            color: #f58623;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+
+        .related-model-info p {
+            color: #ccc;
+            font-size: 12px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .profile-left {
+                position: static;
+                order: 2;
+            }
+
+            .profile-center {
+                order: 1;
+            }
+
+            .profile-right {
+                position: static;
+                order: 3;
+            }
+
+            .profile-header-mobile {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .gallery-container {
+                width: 100%;
+                margin: 0 10px 30px 10px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .videos-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .audio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            top: 80px;
+            left: 20px;
+            background-color: #f58623;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #e67e22;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <!-- Header será carregado dinamicamente via load-header.js -->
+    <div id="header-placeholder"></div>
+
+    <!-- Back Button -->
+    <button class="back-button" onclick="window.history.back()">
+        <i class="fas fa-arrow-left"></i> Voltar
+    </button>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Left Profile Section -->
+        <div class="profile-left">
+            <div class="profile-avatar">
+                <img id="profile-avatar-img" src="fotinha/fotos/ai-generated-8677975_1280.jpg" alt="Carregando...">
+            </div>
+            
+            <h1 class="profile-name" id="profile-name">Carregando...</h1>
+            
+            <a id="whatsapp-link" href="#" target="_blank" class="whatsapp-button">
+                <i class="fab fa-whatsapp"></i>
+                <span id="whatsapp-number">Carregando...</span>
+            </a>
+            
+            <p style="text-align: center; font-size: 12px; color: #ccc; margin-bottom: 20px;">
+                Fale com ela sem adicionar
+            </p>
+            
+            <div class="profile-stats">
+                <div class="stat">
+                    <span class="stat-number">1,247</span>
+                    <span class="stat-label">Views</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">13</span>
+                    <span class="stat-label">Vídeos</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">15</span>
+                    <span class="stat-label">Fotos</span>
+                </div>
+            </div>
+
+            <!-- Accordion -->
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Perfil</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <table class="info-table">
+                        <tr>
+                            <th class="info-label">Bairro:</th>
+                            <th class="info-value">Consolação</th>
+                        </tr>
+                        <tr>
+                            <th class="info-label">Idade:</th>
+                            <th class="info-value">18 anos</th>
+                        </tr>
+                        <tr>
+                            <th class="info-label">Tipo:</th>
+                            <th class="info-value">Morena</th>
+                        </tr>
+                        <tr>
+                            <th class="info-label">Biotipo:</th>
+                            <th class="info-value">Natural</th>
+                        </tr>
+                        <tr>
+                            <th class="info-label">Altura:</th>
+                            <th class="info-value">1.59m</th>
+                        </tr>
+                        <tr>
+                            <th class="info-label">Peso:</th>
+                            <th class="info-value">50kg</th>
+                        </tr>
+                        <tr>
+                            <th class="info-label">Manequim:</th>
+                            <th class="info-value">34</th>
+                        </tr>
+                        <tr>
+                            <th class="info-label">Pés:</th>
+                            <th class="info-value">35</th>
+                        </tr>
+                        <tr>
+                            <th class="info-label">Cabelos:</th>
+                            <th class="info-value">Castanho claros</th>
+                        </tr>
+                        <tr>
+                            <th class="info-label">Olhos:</th>
+                            <th class="info-value">Castanhos</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Atendimento</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <table class="info-table">
+                        <tr>
+                            <th class="info-label">Horário:</th>
+                            <th class="info-value">Qualquer horário</th>
+                        </tr>
+                        <tr>
+                            <th class="info-label">Faz o perfil:</th>
+                            <th class="info-value">Namoradinha Safadinha</th>
+                        </tr>
+                        <tr>
+                            <th class="info-label">Atendo em:</th>
+                            <th class="info-value">Flat Próprio, Motéis, Hotéis, Eventos</th>
+                        </tr>
+                        <tr>
+                            <th class="info-label">Cachê:</th>
+                            <th class="info-value">R$ 1000</th>
+                        </tr>
+                        <tr>
+                            <th class="info-label">Período:</th>
+                            <th class="info-value">1 hora</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Extra</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <table class="info-table">
+                        <tr>
+                            <th class="info-label">Aceita Cartão:</th>
+                            <th class="info-value">Não Aceito</th>
+                        </tr>
+                        <tr>
+                            <th class="info-label">Especialidades:</th>
+                            <th class="info-value">Massagem Relaxante</th>
+                        </tr>
+                        <tr>
+                            <th class="info-label">Permite Fumar:</th>
+                            <th class="info-value">Sim</th>
+                        </tr>
+                        <tr>
+                            <th class="info-label">Viaja:</th>
+                            <th class="info-value">A combinar</th>
+                        </tr>
+                        <tr>
+                            <th class="info-label">Categorias:</th>
+                            <th class="info-value">Sugar Baby</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Center Content -->
+        <div class="profile-center">
+            <!-- Mobile Header -->
+            <div class="profile-header-mobile">
+                <img id="profile-header-mobile-img" src="fotinha/fotos/ai-generated-8677975_1280.jpg" alt="Carregando...">
+                <h1 id="profile-header-mobile-name">Carregando...</h1>
+                <a id="whatsapp-link-mobile" href="#" target="_blank" class="whatsapp-button">
+                    <i class="fab fa-whatsapp"></i>
+                    <span id="whatsapp-number-mobile">Carregando...</span>
+                </a>
+            </div>
+
+            <!-- Photo Gallery -->
+            <div class="gallery-container">
+                <div class="gallery-grid" id="gallery-grid">
+                    <div class="gallery-item" data-glightbox="gallery" data-src="fotinha/fotos/ai-generated-8677975_1280.jpg">
+                        <img src="fotinha/fotos/ai-generated-8677975_1280.jpg" alt="Sophia 1">
+                    </div>
+                    <div class="gallery-item" data-glightbox="gallery" data-src="fotinha/fotos/fantasy-8777508_1280.jpg">
+                        <img src="fotinha/fotos/fantasy-8777508_1280.jpg" alt="Sophia 2">
+                    </div>
+                    <div class="gallery-item" data-glightbox="gallery" data-src="fotinha/fotos/fantasy-8643203_1280.jpg">
+                        <img src="fotinha/fotos/fantasy-8643203_1280.jpg" alt="Sophia 3">
+                    </div>
+                    <div class="gallery-item" data-glightbox="gallery" data-src="fotinha/fotos/one-person-8742116_1280.jpg">
+                        <img src="fotinha/fotos/one-person-8742116_1280.jpg" alt="Sophia 4">
+                    </div>
+                    <div class="gallery-item" data-glightbox="gallery" data-src="fotinha/fotos/outdoors-7213961_1280.jpg">
+                        <img src="fotinha/fotos/outdoors-7213961_1280.jpg" alt="Sophia 5">
+                    </div>
+                    <div class="gallery-item" data-glightbox="gallery" data-src="fotinha/fotos/avatar.jpg">
+                        <img src="fotinha/fotos/avatar.jpg" alt="Sophia 6">
+                    </div>
+                    <div class="gallery-item" data-glightbox="gallery" data-src="fotinha/fotos/foto (6).jpg">
+                        <img src="fotinha/fotos/foto (6).jpg" alt="Sophia 7">
+                    </div>
+                    <div class="gallery-item" data-glightbox="gallery" data-src="fotinha/fotos/foto (10).jpg">
+                        <img src="fotinha/fotos/foto (10).jpg" alt="Sophia 8">
+                    </div>
+                    <div class="gallery-item" data-glightbox="gallery" data-src="fotinha/fotos/foto (11).jpg">
+                        <img src="fotinha/fotos/foto (11).jpg" alt="Sophia 9">
+                    </div>
+                    <div class="gallery-item" data-glightbox="gallery" data-src="fotinha/fotos/foto (12).jpg">
+                        <img src="fotinha/fotos/foto (12).jpg" alt="Sophia 10">
+                    </div>
+                    <div class="gallery-item" data-glightbox="gallery" data-src="fotinha/fotos/ai-generated-8677975_1280.jpg">
+                        <img src="fotinha/fotos/ai-generated-8677975_1280.jpg" alt="Sophia 11">
+                    </div>
+                    <div class="gallery-item" data-glightbox="gallery" data-src="fotinha/fotos/fantasy-8777508_1280.jpg">
+                        <img src="fotinha/fotos/fantasy-8777508_1280.jpg" alt="Sophia 12">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Videos Section -->
+            <div class="videos-section">
+                <div class="section-title">Vídeos 9</div>
+                <div class="videos-grid">
+                    <div class="video-item" data-glightbox="videos" data-src="fotinha/fotos/ai-generated-8677975_1280.jpg">
+                        <img src="fotinha/fotos/ai-generated-8677975_1280.jpg" alt="Vídeo 1">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video-duration">00:15</div>
+                    </div>
+                    <div class="video-item" data-glightbox="videos" data-src="fotinha/fotos/fantasy-8777508_1280.jpg">
+                        <img src="fotinha/fotos/fantasy-8777508_1280.jpg" alt="Vídeo 2">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video-duration">00:12</div>
+                    </div>
+                    <div class="video-item" data-glightbox="videos" data-src="fotinha/fotos/fantasy-8643203_1280.jpg">
+                        <img src="fotinha/fotos/fantasy-8643203_1280.jpg" alt="Vídeo 3">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video-duration">00:09</div>
+                    </div>
+                    <div class="video-item" data-glightbox="videos" data-src="fotinha/fotos/one-person-8742116_1280.jpg">
+                        <img src="fotinha/fotos/one-person-8742116_1280.jpg" alt="Vídeo 4">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video-duration">00:15</div>
+                    </div>
+                    <div class="video-item" data-glightbox="videos" data-src="fotinha/fotos/outdoors-7213961_1280.jpg">
+                        <img src="fotinha/fotos/outdoors-7213961_1280.jpg" alt="Vídeo 5">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video-duration">00:07</div>
+                    </div>
+                    <div class="video-item" data-glightbox="videos" data-src="fotinha/fotos/avatar.jpg">
+                        <img src="fotinha/fotos/avatar.jpg" alt="Vídeo 6">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video-duration">00:14</div>
+                    </div>
+                    <div class="video-item" data-glightbox="videos" data-src="fotinha/fotos/foto (6).jpg">
+                        <img src="fotinha/fotos/foto (6).jpg" alt="Vídeo 7">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video-duration">00:11</div>
+                    </div>
+                    <div class="video-item" data-glightbox="videos" data-src="fotinha/fotos/foto (10).jpg">
+                        <img src="fotinha/fotos/foto (10).jpg" alt="Vídeo 8">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video-duration">00:18</div>
+                    </div>
+                    <div class="video-item" data-glightbox="videos" data-src="fotinha/fotos/foto (11).jpg">
+                        <img src="fotinha/fotos/foto (11).jpg" alt="Vídeo 9">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video-duration">00:13</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audio Section -->
+            <div class="audio-section">
+                <div class="section-title">Áudios 6</div>
+                <div class="audio-grid">
+                    <div class="audio-item">
+                        <div class="audio-play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="audio-info">
+                            <div class="audio-title">Mensagem de Voz 1</div>
+                            <div class="audio-duration">00:17</div>
+                        </div>
+                    </div>
+                    <div class="audio-item">
+                        <div class="audio-play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="audio-info">
+                            <div class="audio-title">Mensagem de Voz 2</div>
+                            <div class="audio-duration">00:23</div>
+                        </div>
+                    </div>
+                    <div class="audio-item">
+                        <div class="audio-play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="audio-info">
+                            <div class="audio-title">Mensagem de Voz 3</div>
+                            <div class="audio-duration">00:31</div>
+                        </div>
+                    </div>
+                    <div class="audio-item">
+                        <div class="audio-play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="audio-info">
+                            <div class="audio-title">Mensagem de Voz 4</div>
+                            <div class="audio-duration">00:19</div>
+                        </div>
+                    </div>
+                    <div class="audio-item">
+                        <div class="audio-play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="audio-info">
+                            <div class="audio-title">Mensagem de Voz 5</div>
+                            <div class="audio-duration">00:25</div>
+                        </div>
+                    </div>
+                    <div class="audio-item">
+                        <div class="audio-play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="audio-info">
+                            <div class="audio-title">Mensagem de Voz 6</div>
+                            <div class="audio-duration">00:21</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="profile-right">
+            <h3 class="sidebar-title">Modelos Relacionadas</h3>
+            <div class="related-models">
+                <div class="related-model">
+                    <img src="fotinha/fotos/fantasy-8777508_1280.jpg" alt="Luna">
+                    <div class="related-model-info">
+                        <h4>Luna</h4>
+                        <p>@luna_model</p>
+                    </div>
+                </div>
+                <div class="related-model">
+                    <img src="fotinha/fotos/fantasy-8643203_1280.jpg" alt="Isabella">
+                    <div class="related-model-info">
+                        <h4>Isabella</h4>
+                        <p>@isabella_model</p>
+                    </div>
+                </div>
+                <div class="related-model">
+                    <img src="fotinha/fotos/ai-generated-8677975_1280.jpg" alt="Valentina">
+                    <div class="related-model-info">
+                        <h4>Valentina</h4>
+                        <p>@valentina_model</p>
+                    </div>
+                </div>
+                <div class="related-model">
+                    <img src="fotinha/fotos/fantasy-8777508_1280.jpg" alt="Camila">
+                    <div class="related-model-info">
+                        <h4>Camila</h4>
+                        <p>@camila_model</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/js/glightbox.min.js"></script>
+    <script>
+        // Initialize GLightbox
+        const lightbox = GLightbox({
+            selector: '[data-glightbox]',
+            touchNavigation: true,
+            loop: true,
+            autoplayVideos: true
+        });
+
+        // Accordion functionality
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('i');
+            
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                header.classList.remove('active');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                // Close all other accordions
+                document.querySelectorAll('.accordion-content.active').forEach(activeContent => {
+                    activeContent.classList.remove('active');
+                });
+                document.querySelectorAll('.accordion-header.active').forEach(activeHeader => {
+                    activeHeader.classList.remove('active');
+                    activeHeader.querySelector('i').style.transform = 'rotate(0deg)';
+                });
+                
+                // Open current accordion
+                content.classList.add('active');
+                header.classList.add('active');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Initialize first accordion as open
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstAccordion = document.querySelector('.accordion-header');
+            if (firstAccordion) {
+                toggleAccordion(firstAccordion);
+            }
+            
+            // Carregar dados do Firebase
+            loadProfileData();
+        });
+
+        // Função helper para obter URL da imagem do Firebase
+        function getFirebaseImageUrl(url, anuncioId) {
+            if (!url) return null;
+            if (url.startsWith('http://') || url.startsWith('https://')) {
+                return url;
+            }
+            if (url.startsWith('gs://')) {
+                const path = url.replace('gs://mansao-do-job.firebasestorage.app/', '').replace(/^\/+/, '');
+                return `https://firebasestorage.googleapis.com/v0/b/mansao-do-job.firebasestorage.app/o/${encodeURIComponent(path)}?alt=media`;
+            }
+            if (!url.includes('://')) {
+                const path = `advertisements/${anuncioId}/${url}`;
+                return `https://firebasestorage.googleapis.com/v0/b/mansao-do-job.firebasestorage.app/o/${encodeURIComponent(path)}?alt=media`;
+            }
+            return url;
+        }
+
+        // Função para carregar dados do perfil do Firebase
+        async function loadProfileData() {
+            try {
+                console.log('🔥 Carregando dados do anúncio...');
+                
+                // Obter ID da URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const anuncioId = urlParams.get('id');
+                
+                if (!anuncioId) {
+                    console.error('❌ ID do anúncio não encontrado na URL');
+                    return;
+                }
+                
+                console.log('🔍 ID do anúncio:', anuncioId);
+                
+                // Aguardar Firebase estar inicializado
+                let attempts = 0;
+                while ((typeof firebase === 'undefined' || typeof firebaseConfig === 'undefined') && attempts < 20) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    attempts++;
+                }
+                
+                if (typeof firebase === 'undefined' || typeof firebaseConfig === 'undefined') {
+                    throw new Error('Firebase não inicializado');
+                }
+                
+                // Inicializar Firebase se ainda não estiver inicializado
+                let db;
+                try {
+                    firebase.initializeApp(firebaseConfig);
+                    db = firebase.firestore();
+                    console.log('✅ Firebase inicializado');
+                } catch (error) {
+                    // Firebase já pode estar inicializado
+                    db = firebase.firestore();
+                    console.log('✅ Firebase já estava inicializado');
+                }
+                
+                // Buscar na coleção 'advertisements'
+                let doc = null;
+                try {
+                    doc = await db.collection('advertisements').doc(anuncioId).get();
+                    if (doc.exists) {
+                        console.log('✅ Anúncio encontrado na coleção "advertisements"');
+                    }
+                } catch (e) {
+                    console.warn('⚠️ Erro ao buscar em "advertisements":', e);
+                }
+                
+                // Se não encontrou, tentar na coleção 'anuncios'
+                if (!doc || !doc.exists) {
+                    try {
+                        doc = await db.collection('anuncios').doc(anuncioId).get();
+                        if (doc.exists) {
+                            console.log('✅ Anúncio encontrado na coleção "anuncios"');
+                        }
+                    } catch (e) {
+                        console.warn('⚠️ Erro ao buscar em "anuncios":', e);
+                    }
+                }
+                
+                if (!doc || !doc.exists) {
+                    console.error('❌ Anúncio não encontrado no Firebase');
+                    return;
+                }
+                
+                const anuncio = { id: doc.id, ...doc.data() };
+                console.log('📋 Dados do anúncio:', anuncio);
+                
+                // Preencher dados do perfil
+                fillProfileData(anuncio);
+                
+            } catch (error) {
+                console.error('❌ Erro ao carregar dados do perfil:', error);
+            }
+        }
+
+        // Função para preencher os dados do perfil
+        function fillProfileData(anuncio) {
+            const nome = anuncio.nome || anuncio.name || 'Nome não informado';
+            const idade = anuncio.idade || '';
+            const telefone = anuncio.telefone_celular || anuncio.telefone || '';
+            const cidade = anuncio.cidade || '';
+            const estado = anuncio.estado || '';
+            const descricao = anuncio.descricao || anuncio.description || '';
+            
+            // Foto principal
+            let fotoPrincipal = '';
+            if (anuncio.foto_capa_url || anuncio.foto_capa) {
+                fotoPrincipal = getFirebaseImageUrl(anuncio.foto_capa_url || anuncio.foto_capa, anuncio.id);
+            } else if (anuncio.galeria_fotos && anuncio.galeria_fotos.length > 0) {
+                fotoPrincipal = getFirebaseImageUrl(anuncio.galeria_fotos[0], anuncio.id);
+            } else if (anuncio.galeria_1) {
+                fotoPrincipal = getFirebaseImageUrl(anuncio.galeria_1, anuncio.id);
+            }
+            
+            // Atualizar avatar e nome (desktop)
+            const avatarImg = document.getElementById('profile-avatar-img');
+            const profileName = document.getElementById('profile-name');
+            const whatsappLink = document.getElementById('whatsapp-link');
+            const whatsappNumber = document.getElementById('whatsapp-number');
+            
+            if (avatarImg && fotoPrincipal) {
+                avatarImg.src = fotoPrincipal;
+                avatarImg.alt = nome;
+            }
+            
+            if (profileName) {
+                profileName.textContent = nome;
+            }
+            
+            // Atualizar WhatsApp (desktop)
+            if (telefone && whatsappLink && whatsappNumber) {
+                const telefoneLimpo = telefone.replace(/\D/g, '');
+                whatsappLink.href = `https://wa.me/${telefoneLimpo}?text=Olá,%20te%20vi%20no%20LUXO!%20Gostaria%20de%20mais%20informações.`;
+                whatsappNumber.textContent = telefone;
+            }
+            
+            // Atualizar header mobile
+            const headerMobileImg = document.getElementById('profile-header-mobile-img');
+            const headerMobileName = document.getElementById('profile-header-mobile-name');
+            const whatsappLinkMobile = document.getElementById('whatsapp-link-mobile');
+            const whatsappNumberMobile = document.getElementById('whatsapp-number-mobile');
+            
+            if (headerMobileImg && fotoPrincipal) {
+                headerMobileImg.src = fotoPrincipal;
+                headerMobileImg.alt = nome;
+            }
+            
+            if (headerMobileName) {
+                headerMobileName.textContent = nome;
+            }
+            
+            // Atualizar WhatsApp (mobile)
+            if (telefone && whatsappLinkMobile && whatsappNumberMobile) {
+                const telefoneLimpo = telefone.replace(/\D/g, '');
+                whatsappLinkMobile.href = `https://wa.me/${telefoneLimpo}?text=Olá,%20te%20vi%20no%20LUXO!%20Gostaria%20de%20mais%20informações.`;
+                whatsappNumberMobile.textContent = telefone;
+            }
+            
+            // Atualizar galeria de fotos
+            const galleryGrid = document.getElementById('gallery-grid');
+            if (galleryGrid) {
+                galleryGrid.innerHTML = '';
+                
+                const fotos = [];
+                
+                // Adicionar foto principal
+                if (fotoPrincipal) {
+                    fotos.push(fotoPrincipal);
+                }
+                
+                // Adicionar fotos da galeria
+                if (anuncio.galeria_fotos && Array.isArray(anuncio.galeria_fotos)) {
+                    anuncio.galeria_fotos.forEach(foto => {
+                        const url = getFirebaseImageUrl(foto, anuncio.id);
+                        if (url && !fotos.includes(url)) {
+                            fotos.push(url);
+                        }
+                    });
+                } else {
+                    // Tentar galeria_1 até galeria_20
+                    for (let i = 1; i <= 20; i++) {
+                        const fotoKey = `galeria_${i}`;
+                        if (anuncio[fotoKey]) {
+                            const url = getFirebaseImageUrl(anuncio[fotoKey], anuncio.id);
+                            if (url && !fotos.includes(url)) {
+                                fotos.push(url);
+                            }
+                        }
+                    }
+                }
+                
+                // Criar elementos de galeria
+                fotos.forEach((foto, index) => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item';
+                    galleryItem.setAttribute('data-glightbox', 'gallery');
+                    galleryItem.setAttribute('data-src', foto);
+                    galleryItem.innerHTML = `<img src="${foto}" alt="${nome} ${index + 1}" loading="lazy">`;
+                    galleryGrid.appendChild(galleryItem);
+                });
+                
+                // Reinicializar GLightbox com novos elementos
+                if (typeof GLightbox !== 'undefined') {
+                    GLightbox({
+                        selector: '[data-glightbox]',
+                        touchNavigation: true,
+                        loop: true,
+                        autoplayVideos: true
+                    });
+                }
+            }
+            
+            // Atualizar informações do accordion
+            updateAccordionData(anuncio);
+        }
+
+        // Função para atualizar dados dos accordions
+        function updateAccordionData(anuncio) {
+            // Perfil
+            const infoTable = document.querySelector('.accordion-content table.info-table');
+            if (infoTable) {
+                const rows = infoTable.querySelectorAll('tr');
+                rows.forEach(row => {
+                    const label = row.querySelector('.info-label')?.textContent.trim();
+                    const valueCell = row.querySelector('.info-value');
+                    
+                    if (valueCell && label) {
+                        switch(label) {
+                            case 'Bairro:':
+                                valueCell.textContent = anuncio.bairro || anuncio.cidade || 'Não informado';
+                                break;
+                            case 'Idade:':
+                                valueCell.textContent = anuncio.idade ? `${anuncio.idade} anos` : 'Não informado';
+                                break;
+                            case 'Tipo:':
+                                valueCell.textContent = anuncio.tipo_fisico || anuncio.tipo || 'Não informado';
+                                break;
+                            case 'Biotipo:':
+                                valueCell.textContent = anuncio.biotipo || 'Não informado';
+                                break;
+                            case 'Altura:':
+                                valueCell.textContent = anuncio.altura || 'Não informado';
+                                break;
+                            case 'Peso:':
+                                valueCell.textContent = anuncio.peso || 'Não informado';
+                                break;
+                            case 'Manequim:':
+                                valueCell.textContent = anuncio.manequim || 'Não informado';
+                                break;
+                            case 'Pés:':
+                                valueCell.textContent = anuncio.pes || 'Não informado';
+                                break;
+                            case 'Cabelos:':
+                                valueCell.textContent = anuncio.cor_cabelo || 'Não informado';
+                                break;
+                            case 'Olhos:':
+                                valueCell.textContent = anuncio.cor_olhos || 'Não informado';
+                                break;
+                        }
+                    }
+                });
+            }
+            
+            // Atendimento
+            const atendimentoTable = document.querySelectorAll('.accordion-content table.info-table')[1];
+            if (atendimentoTable) {
+                const rows = atendimentoTable.querySelectorAll('tr');
+                rows.forEach(row => {
+                    const label = row.querySelector('.info-label')?.textContent.trim();
+                    const valueCell = row.querySelector('.info-value');
+                    
+                    if (valueCell && label) {
+                        switch(label) {
+                            case 'Horário:':
+                                valueCell.textContent = anuncio.horario_atendimento || 'Qualquer horário';
+                                break;
+                            case 'Faz o perfil:':
+                                valueCell.textContent = anuncio.perfil || 'Não informado';
+                                break;
+                            case 'Atendo em:':
+                                valueCell.textContent = anuncio.local_atendimento || 'Não informado';
+                                break;
+                            case 'Cachê:':
+                                const preco1h = anuncio.preco_1h || anuncio.periodo_preco_1h || '';
+                                const preco45min = anuncio.preco_45min || anuncio.periodo_preco_45min || '';
+                                const preco30min = anuncio.preco_30min || anuncio.periodo_preco_30min || '';
+                                if (preco1h) {
+                                    valueCell.textContent = `R$ ${preco1h}`;
+                                } else if (preco45min) {
+                                    valueCell.textContent = `R$ ${preco45min}`;
+                                } else if (preco30min) {
+                                    valueCell.textContent = `R$ ${preco30min}`;
+                                } else {
+                                    valueCell.textContent = 'Sob consulta';
+                                }
+                                break;
+                            case 'Período:':
+                                valueCell.textContent = '1 hora';
+                                break;
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

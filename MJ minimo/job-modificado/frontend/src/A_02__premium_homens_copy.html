@@ -862,117 +862,32 @@ body {
   border-radius: 20px;
 }
 
-/* Estilos para link "Sexo Virtual" bloqueado (Em Breve) */
-.category-link.coming-soon {
-  background: #808080 !important;
-  color: #ffffff !important;
-  opacity: 0.6;
-  cursor: not-allowed !important;
-  position: relative;
-  overflow: visible;
-  pointer-events: none;
-}
-
-.category-link.coming-soon:hover {
-  background: #808080 !important;
-  color: #ffffff !important;
-}
-
-/* Faixa diagonal vermelha com "Em Breve!" */
-.category-link.coming-soon::before {
-  content: 'Em Breve!';
-  position: absolute;
-  top: 8px;
-  left: 10px;
-  width: 120px;
-  height: 25px;
-  background: linear-gradient(135deg, rgba(220, 53, 69, 0.7) 0%, rgba(200, 35, 51, 0.7) 100%);
-  color: white;
-  font-weight: bold;
-  font-size: 0.7rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: rotate(-25deg);
-  transform-origin: center;
-  z-index: 100;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-  letter-spacing: 1px;
-  pointer-events: none;
-  backdrop-filter: blur(2px);
-}
-
-@media (max-width: 768px) {
-  .category-link.coming-soon::before {
-    top: 6px;
-    left: 8px;
-    width: 100px;
-    height: 22px;
-    font-size: 0.65rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .category-link.coming-soon::before {
-    top: 5px;
-    left: 6px;
-    width: 90px;
-    height: 20px;
-    font-size: 0.6rem;
-  }
-}
-
 
 /* 📱 Ajuste responsivo para telas menores */
 @media (max-width: 768px) {
   .categories-container {
     gap: 2px;
-    padding: 6px 2px;
-    flex-wrap: nowrap;
-    justify-content: space-around;
-    overflow: hidden;
+    padding: 8px 4px;
   }
 
   .category-link {
-    font-size: 0.7rem;
-    padding: 3px 6px;
+    font-size: 0.85rem;
+    padding: 5px 8px;
     min-width: auto;
-    flex: 1 1 auto;
-    white-space: nowrap;
-    text-align: center;
-    max-width: 100%;
   }
-  
-  /* Reordenar em mobile: Sexo Virtual após Massagistas */
-  .category-link[data-order="1"] { order: 1; } /* Mulheres */
-  .category-link[data-order="2"] { order: 2; } /* Massagistas */
-  .category-link[data-order="3"] { order: 3; } /* Sexo Virtual */
 }
 
 @media (max-width: 480px) {
   .categories-container {
     gap: 1px;
-    padding: 5px 1px;
-    flex-wrap: nowrap;
-    justify-content: space-around;
-    overflow: hidden;
-  }
-
-  .category-link {
-    font-size: 0.65rem;
-    padding: 2px 4px;
-    min-width: auto;
-    flex: 1 1 auto;
-    white-space: nowrap;
-    text-align: center;
-    max-width: 100%;
+    padding: 6px 2px;
   }
   
-  /* Reordenar em mobile: Sexo Virtual após Massagistas */
-  .category-link[data-order="1"] { order: 1; } /* Mulheres */
-  .category-link[data-order="2"] { order: 2; } /* Massagistas */
-  .category-link[data-order="3"] { order: 3; } /* Sexo Virtual */
+  .category-link {
+    font-size: 0.75rem;
+    padding: 4px 6px;
+    min-width: auto;
+  }
 }
 
 /* ================================== */
@@ -1381,7 +1296,7 @@ body {
     width: 100%;
     padding-bottom: 150%; /* Aspect ratio 2:3 (similar ao preview do cadastro) */
     height: 0;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .card-preview-image-mobile {
@@ -1625,16 +1540,10 @@ body {
     }
   }
 
-  .mobile-layout-2-gallery .gallery-item,
-  .mobile-layout-3-gallery .gallery-item {
-    position: relative;
-    overflow: visible;
-  }
-  
   .mobile-layout-2-gallery .gallery-item {
     width: 100%;
     position: relative;
-    overflow: visible;
+    overflow: hidden;
     border-radius: 8px 8px 0 0; /* Bordas arredondadas apenas no topo */
     background: #f0f0f0;
     /* Garantir que o container acompanhe a altura aumentada da imagem (25% maior) */
@@ -1656,7 +1565,7 @@ body {
   .mobile-layout-3-gallery .gallery-item {
     width: 100%;
     position: relative;
-    overflow: visible;
+    overflow: hidden;
     border-radius: 8px 8px 0 0;
     background: #f0f0f0;
     /* Garantir que o container acompanhe a altura aumentada da imagem (35% maior) */
@@ -2122,67 +2031,13 @@ body {
   width: 120px;
   height: 120px;
   flex-shrink: 0;
-  overflow: visible;
-  position: relative;
+  overflow: hidden;
 }
 
 .card-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-/* Fita "Apenas Virtual" para cards de sexo virtual */
-.virtual-badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 140px;
-  height: 28px;
-  background: linear-gradient(135deg, rgba(220, 53, 69, 0.75) 0%, rgba(200, 35, 51, 0.75) 100%);
-  color: white;
-  font-weight: bold;
-  font-size: clamp(0.7rem, 1.2vw, 0.85rem);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: rotate(-25deg);
-  transform-origin: center;
-  z-index: 100;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-  letter-spacing: 1px;
-  pointer-events: none;
-  backdrop-filter: blur(2px);
-}
-
-/* Ajustes para diferentes layouts */
-.layout-n1 .card-image-wrapper,
-.layout-n2 .card-image-wrapper,
-.layout-n3 .card-image-wrapper,
-.layout-n7 .card-image-wrapper {
-  overflow: visible;
-  position: relative;
-}
-
-@media (max-width: 768px) {
-  .virtual-badge {
-    top: 8px;
-    left: 8px;
-    width: 120px;
-    height: 24px;
-    font-size: 0.65rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .virtual-badge {
-    top: 6px;
-    left: 6px;
-    width: 110px;
-    height: 22px;
-    font-size: 0.6rem;
-  }
 }
 
 .card-info {
@@ -2292,58 +2147,6 @@ body {
   background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
   padding: 20px 15px 15px;
   border-radius: 0 0 15px 15px;
-}
-
-/* Estilos para o Botão Painel de Controle */
-.boton_dashboard {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #e25352 0%, #c44544 100%);
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(226, 83, 82, 0.3);
-  font-weight: 600;
-  font-size: 1rem;
-  border: none;
-}
-
-.boton_dashboard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(226, 83, 82, 0.4);
-  background: linear-gradient(135deg, #c44544 0%, #b33534 100%);
-}
-
-.boton_dashboard img {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-}
-
-.boton_dashboard span {
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-/* Responsividade para o botão */
-@media (max-width: 768px) {
-  .boton_dashboard {
-    padding: 0.6rem 1.2rem;
-    font-size: 0.9rem;
-  }
-  
-  .boton_dashboard img {
-    width: 20px;
-    height: 20px;
-  }
-  
-  .boton_dashboard span {
-    font-size: 0.9rem;
-  }
 }
 
 .gallery-grid.layout-n3 .card-name-overlay .card-name {
@@ -2653,6 +2456,92 @@ body {
 @media (max-width: 576px) {
   .layout-n1-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Estilos específicos para layout-classic (mesmo estilo da seção "As mais Vistas") */
+.layout-classic {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 1rem !important;
+}
+
+.layout-classic .acompanhante-card {
+  background: white !important;
+  border-radius: 15px !important;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+  overflow: hidden !important;
+  transition: transform 0.3s ease !important;
+  text-decoration: none !important;
+  color: inherit !important;
+  display: block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.layout-classic .acompanhante-card:hover {
+  transform: translateY(-5px) !important;
+}
+
+.layout-classic .card-image-wrapper {
+  width: 100% !important;
+  height: 350px !important;
+  position: relative !important;
+  padding-bottom: 0 !important;
+}
+
+.layout-classic .card-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 15px !important;
+  position: static !important;
+}
+
+.layout-classic .card-overlay {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8)) !important;
+  padding: 1rem !important;
+  border-radius: 0 0 15px 15px !important;
+}
+
+.layout-classic .card-name-overlay {
+  color: white !important;
+  font-size: 1.4rem !important;
+  font-weight: 700 !important;
+  margin: 0 0 0.1rem 0 !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7) !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.layout-classic .card-location-overlay {
+  color: white !important;
+  font-size: 0.9rem !important;
+  margin: 0 !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7) !important;
+  text-align: center !important;
+  font-weight: 500 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* Responsividade para layout-classic */
+@media (max-width: 992px) {
+  .layout-classic {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .layout-classic {
+    grid-template-columns: 1fr !important;
   }
 }
 
@@ -3480,6 +3369,151 @@ body.header-transparent {
   100% { transform: translateX(100%); }
 }
 
+/* ==== LAYOUTS ESPECÍFICOS PARA DESKTOP (>= 1025px) ==== */
+@media (min-width: 1025px) {
+  /* PRIME → 3 colunas */
+  .layout-prime {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 15px !important;
+  }
+
+  /* CLASSIC → 3 colunas (mesmo estilo da seção "As mais Vistas" da página Trans) */
+  .layout-classic {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 1rem !important;
+  }
+
+  /* CLASSIC: estilo dos cards (mesmo da seção "As mais Vistas") */
+  .layout-classic .acompanhante-card {
+    background: white !important;
+    border-radius: 15px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+    overflow: hidden !important;
+    transition: transform 0.3s ease !important;
+    text-decoration: none !important;
+    color: inherit !important;
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .layout-classic .acompanhante-card:hover {
+    transform: translateY(-5px) !important;
+  }
+
+  /* CLASSIC: altura 350px (mesmo estilo da seção "As mais Vistas") */
+  .layout-classic .card-image-wrapper {
+    width: 100% !important;
+    height: 350px !important; /* Mesma altura da seção "As mais Vistas" */
+    position: relative !important;
+    padding-bottom: 0 !important;
+  }
+
+  .layout-classic .card-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 15px !important;
+  }
+
+  .layout-classic .card-overlay {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8)) !important;
+    padding: 1rem !important;
+    border-radius: 0 0 15px 15px !important;
+  }
+
+  .layout-classic .card-name-overlay {
+    color: white !important;
+    font-size: 1.4rem !important;
+    font-weight: 700 !important;
+    margin: 0 0 0.1rem 0 !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7) !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .layout-classic .card-location-overlay {
+    color: white !important;
+    font-size: 0.9rem !important;
+    margin: 0 !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7) !important;
+    text-align: center !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* NOVIDADE → 7 colunas */
+  .layout-novidade {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 15px !important;
+  }
+
+  /* Ajustes globais dos cards em desktop */
+  .acompanhante-card {
+    width: 100% !important;
+    height: auto !important;
+    flex-direction: column !important;
+    border-radius: 8px !important;
+    overflow: hidden;
+  }
+
+  /* Altura padrão para outros layouts (PRIME e NOVIDADE) */
+  .card-image-wrapper {
+    width: 100% !important;
+    height: 260px !important;
+  }
+
+  /* Layout N1 Grid: manter altura de 350px (mesmo da página Trans) */
+  .layout-n1-grid .card-image-wrapper {
+    width: 100% !important;
+    height: 350px !important; /* Mesma altura da seção "As mais Vistas" da página Trans */
+    position: relative !important;
+    padding-bottom: 0 !important;
+  }
+
+  .card-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  /* Layout N1 Grid: garantir estilo correto da imagem */
+  .layout-n1-grid .card-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    position: static !important;
+    border-radius: 15px !important;
+  }
+
+  /* Layout N1 Grid: garantir estilo correto do overlay */
+  .layout-n1-grid .card-overlay {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8)) !important;
+    padding: 1rem !important;
+    border-radius: 0 0 15px 15px !important;
+  }
+
+  .card-info {
+    text-align: center !important;
+    padding: 10px 5px !important;
+  }
+}
+
 </style>
   </head>
   <body>
@@ -3494,7 +3528,9 @@ body.header-transparent {
   <div class="categories-container">
     <a href="A_02__premium_copy.html" class="category-link">Mulheres</a>
     <a href="A_02__premium_massagistas_copy.html" class="category-link">Massagistas</a>
-    <a href="A_02__premium_sexo-virtual_copy.html" class="category-link active">Sexo Virtual</a>
+    <a href="A_02__premium_sexo-virtual_copy.html" class="category-link">Sexo Virtual</a>
+    <a href="A_02__premium_trans_copy.html" class="category-link">Trans</a>
+    <a href="A_02__premium_homens_copy.html" class="category-link active">Homens</a>
   </div>
 
   <!-- Barra de Layouts (Mobile) -->
@@ -3638,6 +3674,8 @@ body.header-transparent {
   <script>
 // --- DADOS DOS PERFIS (Carregados do Firebase) ---
 let PROFILES_DATA = [];
+const DEFAULT_PROFILE_IMAGE = 'https://picsum.photos/300/400?random=' + Math.floor(Math.random() * 1000);
+const SELECTED_PROFILE_STORAGE_KEY = 'selectedProfileData';
 
 // Inicializar Firebase
 let db = null;
@@ -3790,58 +3828,221 @@ async function handleLogout(event) {
   }
 }
 
-// Função de Login com Firebase Auth
-async function handleLogin(event) {
-  event.preventDefault();
-  
-  const email = document.getElementById('user_email')?.value;
-  const password = document.getElementById('user_password')?.value;
-  
-  if (!email || !password) {
-    alert('Por favor, preencha todos os campos (email e senha).');
-    return;
-  }
+// Função loadStaticProfiles() removida - não utilizada (código morto ~1450 linhas)
+// Os dados agora vêm exclusivamente do Firebase via loadProfilesFromFirebase()
 
+function normalizeImageValue(value) {
+  if (!value) return null;
+  if (typeof value === 'string') {
+    const trimmed = value.trim();
+    if (trimmed.length === 0) return null;
+    
+    // Se já é uma URL completa (http/https), usar diretamente
+    if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+      return trimmed;
+    }
+    
+    // Se é um caminho do Firebase Storage (gs://), converter para URL pública
+    if (trimmed.startsWith('gs://')) {
+      const path = trimmed.replace('gs://copia-do-job.firebasestorage.app/', '').replace(/^\/+/, '');
+      return `https://firebasestorage.googleapis.com/v0/b/copia-do-job.firebasestorage.app/o/${encodeURIComponent(path)}?alt=media`;
+    }
+    
+    // Se é uma URL do Firebase Storage, usar diretamente
+    if (trimmed.includes('firebasestorage.googleapis.com')) {
+      return trimmed;
+    }
+    
+    // Se parece ser um caminho de pasta (termina com /), tentar construir URL
+    // Exemplo: "0aWufVEINd15lBunmgAY/" -> buscar primeira imagem dentro dessa pasta
+    if (trimmed.endsWith('/')) {
+      // Remover barra final e tentar construir URL (assumindo que há uma imagem dentro)
+      const path = trimmed.replace(/\/+$/, '');
+      // Tentar nomes e extensões comuns de imagens
+      const commonNames = ['image', 'foto', 'photo', 'img', 'cover', 'banner', 'perfil', 'profile', 'avatar', 'main'];
+      const extensions = ['jpg', 'jpeg', 'png', 'webp'];
+      
+      // Tentar combinações comuns (ex: "0aWufVEINd15lBunmgAY/image.jpg")
+      for (const name of commonNames) {
+        for (const ext of extensions) {
+          const testPath = `${path}/${name}.${ext}`;
+          // Retornar o primeiro caminho possível (o navegador tentará carregar e mostrará placeholder se falhar)
+          return `https://firebasestorage.googleapis.com/v0/b/copia-do-job.firebasestorage.app/o/${encodeURIComponent(testPath)}?alt=media`;
+        }
+      }
+      
+      // Se não funcionar, tentar apenas com extensões (ex: "0aWufVEINd15lBunmgAY/0.jpg")
+      for (const ext of extensions) {
+        const testPath = `${path}/0.${ext}`;
+        return `https://firebasestorage.googleapis.com/v0/b/copia-do-job.firebasestorage.app/o/${encodeURIComponent(testPath)}?alt=media`;
+      }
+      
+      // Último fallback: retornar placeholder
+      return null;
+    }
+    
+    // Se parece ser um caminho de arquivo (sem http), tentar construir URL do Storage
+    if (trimmed.includes('/') && !trimmed.startsWith('http')) {
+      const path = trimmed.replace(/^\/+/, '');
+      return `https://firebasestorage.googleapis.com/v0/b/copia-do-job.firebasestorage.app/o/${encodeURIComponent(path)}?alt=media`;
+    }
+    
+    return trimmed;
+  }
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      const normalized = normalizeImageValue(item);
+      if (normalized) return normalized;
+    }
+    return null;
+  }
+  if (typeof value === 'object') {
+    return normalizeImageValue(
+      value.url ||
+      value.src ||
+      value.downloadURL ||
+      value.storageURL ||
+      value.path ||
+      value.fileUrl ||
+      value.image ||
+      value.preview
+    );
+  }
+  return null;
+}
+
+function getMainImageFromAd(ad) {
+  const candidates = [
+    ad.foto_capa_url,
+    ad.foto_capa,
+    ad.foto_banner_url,
+    ad.foto_banner,
+    ad.coverImage,
+    ad.cover_image,
+    ad.fotoPerfil,
+    ad.foto_perfil,
+    ad.profilePicture,
+    ad.profile_picture,
+    ad.avatar,
+    ad.photo,
+    ad.photoUrl,
+    ad.photo_url,
+    ad.featuredPhoto,
+    ad.featured_photo,
+    ad.mediaFiles?.foto_capa,
+    ad.mediaFiles?.banner,
+    ad.mediaFiles?.destaque,
+    ad.mediaFiles?.perfil,
+    ad.mediaFiles?.galeria,
+    ad.mediaFiles?.gallery,
+    ad.galeria,
+    ad.galeriaFotos,
+    ad.galeria_fotos,
+    ad['galeria-fotos'],
+    ad.galeriaUrls,
+    ad.gallery,
+    ad.galleryPhotos,
+    ad.galleryUrls,
+    ad.fotos,
+    ad.fotos_urls,
+    ad.images,
+    ad.imageUrls,
+    ad.photos,
+    ad.photoUrls,
+    // Campos que podem conter referências de pastas do Storage
+    ad.storagePath,
+    ad.storage_path,
+    ad.folderPath,
+    ad.folder_path,
+    ad.mediaFolder,
+    ad.media_folder,
+    ad.uploadFolder,
+    ad.upload_folder,
+    ad.filesFolder,
+    ad.files_folder
+  ];
+  
+  for (const candidate of candidates) {
+    const normalized = normalizeImageValue(candidate);
+    if (normalized) return normalized;
+  }
+  
+  // Se não encontrou nenhuma imagem, retornar null para usar placeholder
+  return null;
+}
+
+function getProfileKeyFromAd(ad, fallback = '') {
+  const normalizedId = ad.id || ad._id || ad.documentId || ad.docId || ad.uid || ad.uuid || ad.key || null;
+  const advertiserRef = ad.advertiserId || ad.advertiser_id || ad.uid_ref || ad.userId || ad.user_id || ad.ownerId;
+  const nameKey = (ad.nome || ad.name || '').trim().toLowerCase();
+  const cityKey = (ad.cidade || ad.city || '').trim().toLowerCase();
+  const stateKey = (ad.estado || ad.state || '').trim().toLowerCase();
+  const composed = [nameKey, cityKey, stateKey].filter(Boolean).join('|') || null;
+  return advertiserRef || normalizedId || composed || fallback || `temp-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function ensureProfileUniqueKey(profile, fallbackIndex = 0) {
+  if (profile.uniqueKey) return profile.uniqueKey;
+  const composed =
+    profile.id ||
+    profile._id ||
+    profile.originalData?.advertiserId ||
+    profile.originalData?.advertiser_id ||
+    profile.originalData?.id ||
+    profile.originalData?._id ||
+    `${(profile.nome || profile.name || 'anon').toLowerCase()}|${(profile.cidade || '').toLowerCase()}|${(profile.estado || '').toLowerCase()}`;
+  profile.uniqueKey = composed || `profile-${fallbackIndex}`;
+  return profile.uniqueKey;
+}
+
+function cardKey(profile, index = 0) {
+  return ensureProfileUniqueKey(profile, index);
+}
+
+function sanitizeProfilePayload(profile) {
+  const baseData = profile.originalData ? { ...profile.originalData } : { ...profile };
   try {
-    console.log('🔐 Tentando fazer login com Firebase Auth:', email);
-    
-    if (!auth) {
-      alert('Firebase não inicializado. Aguarde e tente novamente.');
-      return;
-    }
-    
-    const userCredential = await auth.signInWithEmailAndPassword(email, password);
-    const user = userCredential.user;
-    
-    console.log('✅ Login realizado com sucesso:', user.email);
-    
-    const loginModal = document.getElementById('loginModal');
-    if (loginModal) loginModal.classList.remove('show');
-    
-    document.getElementById('user_email').value = '';
-    document.getElementById('user_password').value = '';
-    
-    updateLoginButton(user);
-    alert('Login realizado com sucesso! Bem-vindo(a), ' + (user.displayName || user.email));
-    
+    return JSON.parse(JSON.stringify(baseData));
   } catch (error) {
-    console.error('❌ Erro ao fazer login:', error);
-    let mensagem = 'Erro ao fazer login. ';
-    switch (error.code) {
-      case 'auth/user-not-found': mensagem += 'Usuário não encontrado.'; break;
-      case 'auth/wrong-password': mensagem += 'Senha incorreta.'; break;
-      case 'auth/invalid-email': mensagem += 'Email inválido.'; break;
-      case 'auth/user-disabled': mensagem += 'Conta desativada.'; break;
-      case 'auth/too-many-requests': mensagem += 'Muitas tentativas. Aguarde.'; break;
-      case 'auth/invalid-credential': mensagem += 'Email ou senha incorretos.'; break;
-      default: mensagem += error.message;
-    }
-    alert(mensagem);
+    console.warn('⚠️ Não foi possível serializar completamente o perfil. Usando dados crus.', error);
+    return baseData;
   }
 }
 
-// Função loadStaticProfiles() removida - não utilizada (código morto ~1450 linhas)
-// Os dados agora vêm exclusivamente do Firebase via loadProfilesFromFirebase()
+function storeSelectedProfile(profileKey) {
+  try {
+    const profile = PROFILES_DATA.find(p => cardKey(p) === profileKey || p.id === profileKey);
+    if (!profile) {
+      console.warn('⚠️ Perfil não encontrado para armazenar:', profileKey);
+      return;
+    }
+    
+    const payloadData = sanitizeProfilePayload(profile);
+    const storedPayload = {
+      id: profile.originalData?.id || profile.id || profileKey,
+      profileKey,
+      source: 'trans',
+      data: payloadData
+    };
+    
+    if (!storedPayload.data.id) {
+      storedPayload.data.id = storedPayload.id;
+    }
+    
+    sessionStorage.setItem(SELECTED_PROFILE_STORAGE_KEY, JSON.stringify(storedPayload));
+    console.log('💾 Perfil armazenado na sessão:', storedPayload.id);
+  } catch (error) {
+    console.error('❌ Erro ao armazenar perfil selecionado:', error);
+  }
+}
+
+document.addEventListener('click', (event) => {
+  const link = event.target.closest('.acompanhante-card-link');
+  if (!link) return;
+  const profileKey = link.dataset.profileKey;
+  if (!profileKey) return;
+  storeSelectedProfile(profileKey);
+});
 
 // Função para carregar perfis diretamente do Firebase Firestore
 async function loadProfilesFromFirebase() {
@@ -4069,9 +4270,13 @@ async function loadProfilesFromFirebase() {
       test: ad.test
     })));
     
-    // FILTRO PARA PÁGINA DE SEXO VIRTUAL (MULHERES)
-    // Esta página deve mostrar APENAS anúncios de Sexo Virtual cadastrados por MULHERES
-    console.log("🔍 Aplicando filtro para página de Sexo Virtual (apenas mulheres)");
+    // FILTRO ESPECÍFICO PARA PÁGINA DE HOMENS
+    // Esta página deve mostrar APENAS anúncios de:
+    // - Gênero/Category: "homem"
+    // - Categoria: "acompanhantes", "massagistas" ou "sexo-virtual"
+    // - Status: ativo ou aguardando verificação
+    // - Anúncio completo (com nome e descrição)
+    console.log("🔍 Aplicando filtro específico para Homens");
     const antesFiltro = advertisements.length;
     
     advertisements = advertisements.filter(ad => {
@@ -4085,63 +4290,66 @@ async function loadProfilesFromFirebase() {
       const categoria = (ad.categoria || ad.category || ad.tipo || '').toLowerCase().trim();
       
       // Normalizar gênero (pode estar em genero, gender, ou sexo)
+      // IMPORTANTE: Quando vem de selecao-categoria.html:
+      // - selectedCategoria -> categoria/category (ex: "acompanhantes", "massagistas", "sexo-virtual")
+      // - selectedCategory -> gender (ex: "homem")
       const genero = (ad.gender || ad.genero || ad.sexo || '').toLowerCase().trim();
       
-      // Verificar se é mulher (pode estar em genero, gender, ou ser mulher-luxo)
-      const isMulher = genero === 'mulher' || 
-                       genero === 'mulher-luxo' || 
-                       genero === 'mulher de luxo' ||
-                       categoria === 'mulher' ||
-                       categoria === 'mulher-luxo' ||
-                       categoria === 'mulher de luxo';
+      // Verificar se é homem
+      // O gênero "homem" pode estar em gender, genero, ou category quando é o gênero
+      const isHomem = genero === 'homem' ||
+                       genero === 'masculino' ||
+                       categoria === 'homem' ||
+                       categoria === 'masculino';
       
-      // Verificar se é Sexo Virtual
-      // Pode ser identificado por:
-      // - categoria contendo "sexo-virtual" ou "sexo virtual" ou "virtual"
-      // - categoria sendo "sexo-virtual"
-      // - combinação de gênero mulher + categoria virtual
-      const isSexoVirtual = categoria.includes('sexo-virtual') || 
-                            categoria.includes('sexo virtual') ||
-                            categoria === 'sexo-virtual' ||
-                            categoria === 'virtual' ||
-                            (categoria.includes('virtual') && isMulher);
+      // Verificar se a categoria é válida para homens (acompanhantes, massagistas, sexo-virtual)
+      const categoriaValida = categoria === 'acompanhantes' ||
+                               categoria === 'massagistas' ||
+                               categoria === 'massagista' ||
+                               categoria === 'sexo-virtual' ||
+                               categoria === 'sexo virtual';
       
-      // EXCLUIR anúncios que não são de Sexo Virtual
-      if (!isSexoVirtual) {
-        console.log(`🚫 Anúncio não é de Sexo Virtual: ${ad.nome || ad.id}`, { categoria, genero });
-        return false;
-      }
-      
-      // EXCLUIR anúncios que não são de mulheres
-      if (!isMulher) {
-        console.log(`🚫 Anúncio de Sexo Virtual não é de mulher (excluído): ${ad.nome || ad.id}`, { categoria, genero });
-        return false;
-      }
-      
-      // Verificar status (apenas aprovados - pendentes e rejeitados não aparecem)
+      // Verificar status (apenas ativos - pendentes e rejeitados não aparecem)
       const status = (ad.status || '').toLowerCase().trim();
-      const statusOk = status === 'approved';
+      const statusOk = status === 'ativo' || status === 'active';
       
-      // Aplicar filtros: deve ser Sexo Virtual + Mulher + Status OK
-      const passou = isSexoVirtual && isMulher && statusOk;
+      // Verificar se o anúncio está completo (tem pelo menos nome e descrição)
+      const temNome = !!(ad.nome || ad.name || ad.nomeAnuncio || ad.nomeCompleto);
+      const temDescricao = !!(ad.descricao || ad.description || ad.frase || ad.phrase);
+      const anuncioCompleto = temNome && temDescricao;
+      
+      // Aplicar todos os filtros
+      // IMPORTANTE: A página de homens deve mostrar APENAS:
+      // - Anúncios com gênero "homem"
+      // - Anúncios com categoria válida (acompanhantes, massagistas, sexo-virtual)
+      // - Anúncios com status ativo ou aguardando verificação
+      // - Anúncios completos (com nome e descrição)
+      const passou = isHomem && categoriaValida && statusOk && anuncioCompleto;
       
       if (!passou) {
         console.log(`🚫 Anúncio filtrado: ${ad.nome || ad.id || ad.advertiserId}`, {
           categoria,
           genero: genero || '(não definido)',
-          isSexoVirtual,
-          isMulher,
+          gender: ad.gender || '(não definido)',
+          isHomem,
+          categoriaValida,
           status: status || '(não definido)',
           statusOk,
-          motivo: !isSexoVirtual ? 'não é Sexo Virtual' :
-                  !isMulher ? 'não é mulher' : 
-                  !statusOk ? 'status inválido' : 'desconhecido'
+          temNome,
+          temDescricao,
+          anuncioCompleto,
+          motivo: !isHomem ? 'não é homem' :
+                  !categoriaValida ? 'categoria inválida' :
+                  !statusOk ? 'status inválido' :
+                  !anuncioCompleto ? 'anúncio incompleto' : 'desconhecido'
         });
       } else {
         console.log(`✅ Anúncio aceito: ${ad.nome || ad.id || ad.advertiserId}`, {
           categoria,
-          genero: genero || '(não definido, assumido mulher)',
-          status: status || '(não definido)'
+          genero: genero || '(não definido)',
+          gender: ad.gender || '(não definido)',
+          status: status || '(não definido)',
+          advertiserId: ad.advertiserId || ad.id
         });
       }
       
@@ -4162,16 +4370,7 @@ async function loadProfilesFromFirebase() {
     // Converter para formato PROFILES_DATA
     PROFILES_DATA = advertisements.map((ad, index) => {
       // Determinar imagem principal
-      const mainImage = 
-        ad.foto_capa_url ||           // URL da foto de capa (prioridade)
-        ad.foto_capa ||               // Foto de capa do Firebase
-        ad.foto_banner_url ||         // URL da foto de banner
-        ad.foto_banner ||             // Foto de banner do Firebase
-        ad.coverImage ||              // Imagem de capa alternativa
-        ad.fotoPerfil ||              // Foto de perfil do Firebase
-        ad.mediaFiles?.foto_capa ||   // Foto de capa do Firebase
-        ad.mediaFiles?.galeria?.[0] || // Primeira foto da galeria
-        "https://picsum.photos/300/400?random=" + Math.random();
+      const mainImage = getMainImageFromAd(ad) || "https://picsum.photos/300/400?random=" + Math.random();
       
       // Usar plano do banco de dados (plano ou nivel como fallback para compatibilidade)
       // MODO TESTE: Todos os anúncios sem plano definido serão considerados PLUS
@@ -4194,8 +4393,12 @@ async function loadProfilesFromFirebase() {
         plano = 'plus'; // Default para 'plus' se não houver plano definido
       }
       
+      const normalizedId = ad.id || ad._id || `temp-${index}`;
+      const uniqueKey = getProfileKeyFromAd(ad, `profile-${index}`);
+      
       return {
-        id: ad.id || ad._id || `temp-${index}`,
+        id: normalizedId,
+        uniqueKey: uniqueKey,
         name: ad.nome || ad.name || ad.nomeAnuncio || ad.nomeCompleto || 'Anônimo',
         nome: ad.nome || ad.name || ad.nomeAnuncio || ad.nomeCompleto || 'Anônimo',
         phrase: ad.descricao || ad.description || ad.frase || ad.phrase || '',
@@ -4203,7 +4406,7 @@ async function loadProfilesFromFirebase() {
         cidade: ad.cidade || ad.city || '',
         estado: ad.estado || ad.state || '',
         preco_1h: ad.preco_1h || ad.preco || ad.price || '',
-        status: ad.status || 'pending_approval',
+        status: ad.status || 'ativo',
         plano: plano,
         nivel: plano, // Compatibilidade
         destaque: ad.destaque || plano === 'camarote',
@@ -4212,6 +4415,47 @@ async function loadProfilesFromFirebase() {
         originalData: ad // Manter dados originais para referência
       };
     });
+    
+    // Remover duplicatas globais (mesmo anúncio vindo de coleções diferentes)
+    // PRIORIDADE: ID do documento Firebase > advertiserId > chave composta
+    const uniqueProfilesMap = new Map();
+    PROFILES_DATA.forEach((profile, index) => {
+      // O ID do documento Firebase é ÚNICO e deve ser a chave primária
+      const documentId = profile.originalData?.id || profile.originalData?._id || profile.id || profile._id;
+      const normalizedId = documentId || `temp-${uniqueProfilesMap.size}`;
+      profile.id = normalizedId;
+      
+      // Gerar chave de deduplicação: priorizar ID do documento Firebase
+      const dedupeKey = 
+        documentId || // ID do documento Firebase (único por documento)
+        profile.uniqueKey || // Chave única já gerada
+        normalizedId || // ID normalizado
+        profile.originalData?.advertiserId || // Fallback: advertiserId
+        profile.originalData?.advertiser_id ||
+        `profile-${index}`; // Último fallback
+      
+      profile.uniqueKey = dedupeKey;
+      
+      if (uniqueProfilesMap.has(dedupeKey)) {
+        const existing = uniqueProfilesMap.get(dedupeKey);
+        console.warn(`⚠️ Perfil duplicado removido: ${dedupeKey}`, {
+          nome: profile.name || profile.nome,
+          documentoId: documentId,
+          advertiserId: profile.originalData?.advertiserId || profile.originalData?.advertiser_id || 'sem advertiser',
+          conflitoCom: {
+            nome: existing.name || existing.nome,
+            documentoId: existing.originalData?.id || existing.originalData?._id || existing.id
+          }
+        });
+        return;
+      }
+      uniqueProfilesMap.set(dedupeKey, profile);
+    });
+    const uniqueProfiles = Array.from(uniqueProfilesMap.values());
+    if (uniqueProfiles.length !== PROFILES_DATA.length) {
+      console.log(`🧹 Removidas ${PROFILES_DATA.length - uniqueProfiles.length} duplicatas de perfis antes do render`);
+    }
+    PROFILES_DATA = uniqueProfiles;
     
     console.log(`📊 ${PROFILES_DATA.length} perfis convertidos e prontos para exibição`);
     console.log("📋 Resumo dos perfis:", {
@@ -4369,42 +4613,23 @@ function formatLocation(estado, cidade) {
 }
 
 // Função auxiliar para determinar a página correta baseada na categoria do anúncio
-function getProfilePageUrl(anuncioId, anuncioNome, categoria, genero) {
-  // Normalizar categoria e gênero
-  const cat = (categoria || '').toLowerCase().trim();
-  const gen = (genero || '').toLowerCase().trim();
-  
-  // Obter a página de origem atual para adicionar como parâmetro returnPage
-  const currentPage = window.location.pathname.split('/').pop() || 'A_02__premium_sexo-virtual_copy.html';
-  const returnPageParam = `&returnPage=${encodeURIComponent(currentPage)}`;
-  
-  // Verificar se é anúncio de Sexo Virtual + Mulher
-  // Apenas anúncios de Mulher + Sexo Virtual devem usar a página específica
-  // Pode ser identificado por:
-  // - categoria contendo "sexo-virtual" ou "sexo virtual" ou "virtual"
-  // - categoria sendo "sexo-virtual"
-  // - combinação de gênero mulher/mulher de luxo + categoria virtual
-  const isSexoVirtual = cat.includes('sexo-virtual') || 
-                        cat.includes('sexo virtual') ||
-                        cat === 'sexo-virtual' ||
-                        cat === 'virtual' ||
-                        cat.includes('virtual');
-  
-  const isMulher = gen.includes('mulher') || gen.includes('luxo');
-  
-  // Se for Sexo Virtual + Mulher, usar a página específica
-  if (isSexoVirtual && isMulher) {
-    console.log(`🔍 Anúncio de Sexo Virtual + Mulher detectado:`, { categoria: cat, genero: gen, anuncioId });
-    return `A_02__premium-Perfil-Sexo_Virtual.html?id=${anuncioId}&name=${encodeURIComponent(anuncioNome)}${returnPageParam}`;
-  }
+function getProfilePageUrl(anuncioId, anuncioNome, categoria) {
+  // Normalizar categoria (pode estar em categoria ou category, e pode ser massagistas ou massagista)
+  const cat = (categoria || '').toLowerCase();
+  const currentPath = window.location?.pathname || '';
   
   // Se for massagistas, usar a página específica
   if (cat === 'massagistas' || cat === 'massagista') {
-    return `A_02__premium_Anuncio_modelo_01_Massagistas.html?id=${anuncioId}&name=${encodeURIComponent(anuncioNome)}${returnPageParam}`;
+    return `A_02__premium_Anuncio_modelo_01_Massagistas.html?id=${anuncioId}&name=${encodeURIComponent(anuncioNome)}`;
+  }
+
+  // Se estiver na página de homens ou trans, usar perfil-homens-trans_COPY.html
+  if (currentPath.includes('A_02__premium_trans_copy') || currentPath.includes('A_02__premium_homens_copy')) {
+    return `perfil-homens-trans_COPY.html?id=${anuncioId}&name=${encodeURIComponent(anuncioNome)}`;
   }
   
   // Para outras categorias, usar a página padrão
-  return `A_02__premium_Anuncio_modelo_01.html?id=${anuncioId}&name=${encodeURIComponent(anuncioNome)}${returnPageParam}`;
+  return `A_02__premium_Anuncio_modelo_01.html?id=${anuncioId}&name=${encodeURIComponent(anuncioNome)}`;
 }
 
 function generateGridCards(level, profiles) {
@@ -4427,25 +4652,24 @@ function generateGridCards(level, profiles) {
     const anuncioNome = profile.name || profile.nome || 'Anônimo';
     // Obter categoria do anúncio (pode estar em categoria ou category)
     const categoria = profile.categoria || profile.category || profile.originalData?.categoria || profile.originalData?.category || '';
-    // Obter gênero do anúncio (pode estar em genero, gender, ou sexo)
-    const genero = profile.genero || profile.gender || profile.sexo || profile.originalData?.genero || profile.originalData?.gender || profile.originalData?.sexo || '';
     
     if (!anuncioId) {
       console.warn(`⚠️ Anúncio sem ID:`, profile);
     }
     
-    const profileUrl = getProfilePageUrl(anuncioId, anuncioNome, categoria, genero);
+    const profileUrl = getProfilePageUrl(anuncioId, anuncioNome, categoria);
     
     let cardContent;
     if (level === 'n1') {
-      // Layout N1: Full Width Article (Camarote) - localização removida para sexo virtual
+      // Layout N1: Full Width Article (Camarote) - com overlay de nome e localização
+      const location = formatLocation(profile.estado, profile.cidade);
       cardContent = `
         <article class="acompanhante-card">
           <div class="card-image-wrapper">
-            <span class="virtual-badge">Apenas Virtual</span>
             <img loading="lazy" src="${profile.image}" alt="${profile.name}" class="card-image">
             <div class="card-overlay">
               <h3 class="card-name-overlay">${profile.nome || profile.name}</h3>
+              <p class="card-location-overlay">${location}</p>
             </div>
           </div>
         </article>
@@ -4453,18 +4677,20 @@ function generateGridCards(level, profiles) {
     } else {
       // Layouts N2, N3 e N7 (Grid/Lista)
       // Detectar se é foto em paisagem
-      const isLandscape = profile.image.includes('|landscape');
-      const imageUrl = profile.image.replace('|landscape', '');
+      const safeImage = profile.image || DEFAULT_PROFILE_IMAGE;
+      const isLandscape = safeImage.includes('|landscape');
+      const imageUrl = safeImage.replace('|landscape', '');
       const landscapeClass = isLandscape ? 'landscape-photo' : '';
       
-      // Layout especial para N3 - localização removida para sexo virtual
+      // Layout especial para N3 - nome e localização sobrepostos na foto
       if (level === 'n3') {
+        const location = formatLocation(profile.estado, profile.cidade);
         cardContent = `
           <div class="card-image-wrapper n3-full-image">
-            <span class="virtual-badge">Apenas Virtual</span>
             <img src="${imageUrl}" alt="${profile.name}" class="card-image ${landscapeClass}">
             <div class="card-overlay n3-overlay">
               <h3 class="card-name-overlay">${profile.nome || profile.name}</h3>
+              <p class="card-location-overlay">${location}</p>
             </div>
           </div>
         `;
@@ -4474,7 +4700,6 @@ function generateGridCards(level, profiles) {
           // Layout N7 - foto no topo, dados na base
           cardContent = `
             <div class="card-image-wrapper n7-top">
-              <span class="virtual-badge">Apenas Virtual</span>
               <img src="${imageUrl}" alt="${profile.name}" class="card-image ${landscapeClass}">
             </div>
             <div class="card-info n7-bottom">
@@ -4486,7 +4711,6 @@ function generateGridCards(level, profiles) {
           // Layout N2 - layout padrão
           cardContent = `
             <div class="card-image-wrapper">
-              <span class="virtual-badge">Apenas Virtual</span>
               <img src="${imageUrl}" alt="${profile.name}" class="card-image ${landscapeClass}">
             </div>
             <div class="card-info">
@@ -4502,9 +4726,12 @@ function generateGridCards(level, profiles) {
     const stateCode = profile.estado || 'N/A';
     const cityName = profile.cidade || 'N/A';
     
+    // Gerar chave única para o card (usado para evitar duplicatas e armazenar dados)
+    const cardId = cardKey(profile, index);
+    
     // IMPORTANTE: Envolver TODO o card em um link <a> para navegar para a página de detalhes
     // Hierarquia: A_02__premium_copy.html → A_02__premium_Anuncio_modelo_01.html?id=ID_DO_FIREBASE
-    html += `<a href="${profileUrl}" class="acompanhante-card-link" data-state="${stateCode}" data-city="${cityName}" data-anuncio-id="${anuncioId}" style="text-decoration: none; color: inherit; display: block;">${cardContent}</a>`;
+    html += `<a href="${profileUrl}" class="acompanhante-card-link" data-state="${stateCode}" data-city="${cityName}" data-anuncio-id="${anuncioId}" data-profile-key="${cardId}" style="text-decoration: none; color: inherit; display: block;">${cardContent}</a>`;
   });
   
   console.log(`✅ generateGridCards concluído:`, {
@@ -4640,25 +4867,34 @@ function sortVIPByEngagement(profiles) {
   });
 }
 
-// Função para organizar "Todas as Acompanhantes" com rotação de planos
-function organizeAllAcompanhantes(profiles, camaroteIds = new Set()) {
+// Função para organizar a seção Premium com rotação de planos
+function organizeAllAcompanhantes(profiles, blockedIds = new Set()) {
   if (!profiles || profiles.length === 0) return [];
   
-  // PRIMEIRO: Remover TODOS os anúncios que apareceram no Camarote para evitar duplicatas
-  const profilesSemCamarote = profiles.filter(p => !camaroteIds.has(p.id));
+  // PRIMEIRO: Remover TODOS os anúncios que apareceram em seções anteriores para evitar duplicatas
+  // Usar ID do documento Firebase para verificar bloqueios
+  const profilesSemBloqueados = profiles.filter((p) => {
+    const docId = p.originalData?.id || p.originalData?._id || p.id || p._id || p.uniqueKey;
+    if (docId) {
+      return !blockedIds.has(docId);
+    }
+    // Fallback: usar cardKey se não houver ID do documento
+    const fallbackKey = cardKey(p, 0);
+    return !blockedIds.has(fallbackKey);
+  });
   
-  console.log(`🔍 Removendo anúncios do Camarote: ${profiles.length} → ${profilesSemCamarote.length} (${camaroteIds.size} removidos)`);
+  console.log(`🔍 Removendo anúncios bloqueados (Camarote/VIP): ${profiles.length} → ${profilesSemBloqueados.length} (${blockedIds.size} removidos)`);
   
   // Separar por plano (após remover os do Camarote)
-  const especial = profilesSemCamarote.filter(p => p.plano === 'especial');
-  const plus = profilesSemCamarote.filter(p => p.plano === 'plus');
-  const basico = profilesSemCamarote.filter(p => p.plano === 'basico');
+  const especial = profilesSemBloqueados.filter(p => p.plano === 'especial');
+  const plus = profilesSemBloqueados.filter(p => p.plano === 'plus');
+  const basico = profilesSemBloqueados.filter(p => p.plano === 'basico');
   
   console.log(`📊 Anúncios após remover Camarote:`, {
     especial: especial.length,
     plus: plus.length,
     basico: basico.length,
-    total: profilesSemCamarote.length
+    total: profilesSemBloqueados.length
   });
   
   // Obter índice de rotação global
@@ -4701,15 +4937,29 @@ function organizeAllAcompanhantes(profiles, camaroteIds = new Set()) {
   // Terceira linha (Especiais - já filtrados, sem anúncios do Camarote)
   const terceiraLinha = especialFinal.slice(0, cardsPorLinha);
   
-  // Remover duplicatas finais do resultado (por ID)
+  // Remover duplicatas finais do resultado (por ID do documento Firebase)
   const todosCards = [...primeiraLinha, ...segundaLinha, ...terceiraLinha];
-  const resultadoSemDuplicatas = [...new Map(todosCards.map(item => [item.id, item])).values()];
+  const resultadoMap = new Map();
+  todosCards.forEach((item) => {
+    // Usar ID do documento Firebase como chave única
+    const docId = item.originalData?.id || item.originalData?._id || item.id || item._id || item.uniqueKey;
+    if (docId && !resultadoMap.has(docId)) {
+      resultadoMap.set(docId, item);
+    } else if (!docId) {
+      // Fallback: usar cardKey se não houver ID do documento
+      const fallbackKey = cardKey(item, resultadoMap.size);
+      if (!resultadoMap.has(fallbackKey)) {
+        resultadoMap.set(fallbackKey, item);
+      }
+    }
+  });
+  const resultadoSemDuplicatas = Array.from(resultadoMap.values());
   
   const removidosDuplicatas = todosCards.length - resultadoSemDuplicatas.length;
   
   resultado.push(...resultadoSemDuplicatas);
   
-  console.log(`🔄 Todas as Acompanhantes - Rotação ${rotationIndex}:`, {
+  console.log(`🔄 Premium - Rotação ${rotationIndex}:`, {
     primeira: primeiraLinha.length,
     segunda: segundaLinha.length,
     terceira: terceiraLinha.length,
@@ -4824,54 +5074,122 @@ function generateTieredGrid() {
     plano: c.plano
   })));
   
-  if (camaroteFinal.length > 0) {
-    // CORREÇÃO: Remover duplicatas do Camarote também
-    const camaroteSemDuplicatas = [...new Map(camaroteFinal.map(item => [item.id, item])).values()];
-    console.log(`🔍 Camarote: removendo duplicatas ${camaroteFinal.length} → ${camaroteSemDuplicatas.length}`);
-    
-    const camaroteTitle = document.createElement('h3');
-    camaroteTitle.className = 'section-title';
-    camaroteTitle.textContent = '🌟 Camarote';
-    camaroteTitle.style.cssText = 'color: #e25352; font-size: 2.2rem; margin: 3rem 0 2rem 0; text-align: left; font-weight: bold; border-bottom: 3px solid #e25352; padding-bottom: 1rem;';
-    galleryGrid.appendChild(camaroteTitle);
-    
-    const camaroteContainer = document.createElement('div');
-    camaroteContainer.className = 'gallery-grid layout-n1-grid';
-    camaroteContainer.style.cssText = 'display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; margin: 3rem 0;';
-    camaroteContainer.innerHTML = generateGridCards('n1', camaroteSemDuplicatas);
-    galleryGrid.appendChild(camaroteContainer);
-  }
-  
-  // ========== SEÇÃO ÁREA VIP ==========
+  // ========== SEÇÃO PRIME (N3) - PRIMEIRO ==========
   const vipSorted = sortVIPByEngagement(vipAnuncios);
   
   if (vipSorted.length > 0) {
-    const vipTitle = document.createElement('h3');
-    vipTitle.className = 'section-title';
-    vipTitle.textContent = '⭐ Área VIP';
-    vipTitle.style.cssText = 'color: #e25352; font-size: 2.2rem; margin: 4rem 0 2rem 0; text-align: left; font-weight: bold; border-bottom: 3px solid #e25352; padding-bottom: 1rem;';
-    galleryGrid.appendChild(vipTitle);
+    // Aplicar rotação circular no N3
+    const rotatedFeatured = rotateCircularQueue(vipSorted);
     
-    const vipContainer = document.createElement('div');
-    vipContainer.className = 'gallery-grid layout-n3';
-    vipContainer.style.cssText = 'display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 3rem 0;';
-    vipContainer.innerHTML = generateGridCards('n3', vipSorted);
-    galleryGrid.appendChild(vipContainer);
+    const primeTitle = document.createElement('h3');
+    primeTitle.className = 'section-title';
+    primeTitle.textContent = 'Prime';
+    primeTitle.style.cssText = 'color: #e25352; font-size: 2.2rem; margin: 3rem 0 2rem 0; text-align: left; font-weight: bold; border-bottom: 3px solid #e25352; padding-bottom: 1rem;';
+    galleryGrid.appendChild(primeTitle);
+    
+    const primeContainer = document.createElement('div');
+    primeContainer.className = 'gallery-grid layout-n3 layout-prime';
+    primeContainer.style.cssText = 'display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 3rem 0;';
+    primeContainer.innerHTML = generateGridCards('n3', rotatedFeatured);
+    galleryGrid.appendChild(primeContainer);
   }
   
-  // ========== SEÇÃO TODAS AS ACOMPANHANTES ==========
-  // Armazenar IDs dos anúncios que apareceram no Camarote para usar na organização
-  const camaroteIds = new Set(camaroteFinal.map(p => p.id));
+  // ========== SEÇÃO CLASSIC (N1) - SEGUNDO - TODOS OS ANÚNCIOS ==========
+  // Mostrar TODOS os anúncios na seção Classic (não apenas os do camarote)
+  if (dadosParaRenderizar.length > 0) {
+    // Remover duplicatas usando ID do documento Firebase
+    const classicMap = new Map();
+    dadosParaRenderizar.forEach((item) => {
+      // Usar ID do documento Firebase como chave única
+      const docId = item.originalData?.id || item.originalData?._id || item.id || item._id || item.uniqueKey;
+      if (docId && !classicMap.has(docId)) {
+        classicMap.set(docId, item);
+      } else if (!docId) {
+        // Fallback: usar cardKey se não houver ID do documento
+        const fallbackKey = cardKey(item, classicMap.size);
+        if (!classicMap.has(fallbackKey)) {
+          classicMap.set(fallbackKey, item);
+        }
+      }
+    });
+    const todosAnunciosSemDuplicatas = Array.from(classicMap.values());
+    console.log(`🔍 Classic: removendo duplicatas ${dadosParaRenderizar.length} → ${todosAnunciosSemDuplicatas.length}`);
+    
+    const classicTitle = document.createElement('h3');
+    classicTitle.className = 'section-title';
+    classicTitle.textContent = 'Prime';
+    classicTitle.style.cssText = 'color: #e25352; font-size: 2.2rem; margin: 4rem 0 2rem 0; text-align: left; font-weight: bold; border-bottom: 3px solid #e25352; padding-bottom: 1rem;';
+    galleryGrid.appendChild(classicTitle);
+    
+    const classicContainer = document.createElement('div');
+    classicContainer.className = 'gallery-grid layout-n1-grid layout-classic';
+    // Não aplicar estilos inline - deixar o CSS fazer o trabalho
+    classicContainer.style.cssText = 'margin: 3rem 0;';
+    classicContainer.innerHTML = generateGridCards('n1', todosAnunciosSemDuplicatas);
+    galleryGrid.appendChild(classicContainer);
+  }
   
-  console.log(`📋 Organizando "Todas as Acompanhantes":`, {
+  // ========== SEÇÃO 🌟 CLASSIC (TODOS OS ANÚNCIOS - ESTILO "AS MAIS VISTAS") ==========
+  // Nova seção com todos os anúncios, mesmo estilo da seção "As mais Vistas" da página Trans
+  if (dadosParaRenderizar.length > 0) {
+    // Remover duplicatas usando ID do documento Firebase
+    const classicAllMap = new Map();
+    dadosParaRenderizar.forEach((item) => {
+      // Usar ID do documento Firebase como chave única
+      const docId = item.originalData?.id || item.originalData?._id || item.id || item._id || item.uniqueKey;
+      if (docId && !classicAllMap.has(docId)) {
+        classicAllMap.set(docId, item);
+      } else if (!docId) {
+        // Fallback: usar cardKey se não houver ID do documento
+        const fallbackKey = cardKey(item, classicAllMap.size);
+        if (!classicAllMap.has(fallbackKey)) {
+          classicAllMap.set(fallbackKey, item);
+        }
+      }
+    });
+    const todosAnunciosClassic = Array.from(classicAllMap.values());
+    console.log(`🔍 Classic (As mais Vistas): removendo duplicatas ${dadosParaRenderizar.length} → ${todosAnunciosClassic.length}`);
+    
+    const classicAllTitle = document.createElement('h3');
+    classicAllTitle.className = 'section-title';
+    classicAllTitle.textContent = '🌟 Classic';
+    classicAllTitle.style.cssText = 'color: #e25352; font-size: 2.2rem; margin: 4rem 0 2rem 0; text-align: left; font-weight: bold; border-bottom: 3px solid #e25352; padding-bottom: 1rem;';
+    galleryGrid.appendChild(classicAllTitle);
+    
+    const classicAllContainer = document.createElement('div');
+    classicAllContainer.className = 'gallery-grid layout-n1-grid';
+    // Mesmo estilo da seção "As mais Vistas" da página Trans: 6 colunas no desktop
+    classicAllContainer.style.cssText = 'display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; margin: 3rem 0;';
+    classicAllContainer.innerHTML = generateGridCards('n1', todosAnunciosClassic);
+    galleryGrid.appendChild(classicAllContainer);
+  }
+  
+  // ========== SEÇÃO PREMIUM ==========
+  // Armazenar IDs dos anúncios que apareceram no Camarote/VIP para usar na organização
+  // Usar ID do documento Firebase como chave única
+  const camaroteIds = new Set();
+  camaroteFinal.forEach((p) => {
+    const docId = p.originalData?.id || p.originalData?._id || p.id || p._id || p.uniqueKey;
+    if (docId) camaroteIds.add(docId);
+    else camaroteIds.add(cardKey(p, camaroteIds.size));
+  });
+  const vipIds = new Set();
+  vipSorted.forEach((p) => {
+    const docId = p.originalData?.id || p.originalData?._id || p.id || p._id || p.uniqueKey;
+    if (docId) vipIds.add(docId);
+    else vipIds.add(cardKey(p, vipIds.size));
+  });
+  const blockedIds = new Set([...camaroteIds, ...vipIds]);
+  
+  console.log(`📋 Organizando "Premium":`, {
     totalAnuncios: todasAnuncios.length,
-    camaroteIds: Array.from(camaroteIds),
+    bloqueados: Array.from(blockedIds),
     anunciosAntes: todasAnuncios.map(a => ({ id: a.id, name: a.name }))
   });
   
-  const todasOrganizadas = organizeAllAcompanhantes(todasAnuncios, camaroteIds);
+  const todasOrganizadas = organizeAllAcompanhantes(todasAnuncios, blockedIds);
   
-  console.log(`📋 "Todas as Acompanhantes" após organização:`, {
+  console.log(`📋 "Premium" após organização:`, {
     total: todasOrganizadas.length,
     anuncios: todasOrganizadas.map(a => ({ id: a.id, name: a.name }))
   });
@@ -4881,26 +5199,26 @@ function generateTieredGrid() {
   const todasParaExibirTemp = todasOrganizadas.length > 0 ? todasOrganizadas : todasAnuncios;
   
   // Remover duplicatas por ID (caso algum anúncio apareça em múltiplas seções)
-  const todasParaExibir = [...new Map(todasParaExibirTemp.map(item => [item.id, item])).values()];
+  const todasParaExibir = [...new Map(todasParaExibirTemp.map((item, idx) => [cardKey(item, idx), item])).values()];
   
   console.log(`🔍 Removendo duplicatas: ${todasParaExibirTemp.length} → ${todasParaExibir.length}`);
   
   if (todasParaExibir.length > 0) {
     const todasTitle = document.createElement('h3');
     todasTitle.className = 'section-title';
-    todasTitle.textContent = '📋 Todas as Acompanhantes';
+    todasTitle.textContent = '📋 Novidades';
     todasTitle.style.cssText = 'color: #e25352; font-size: 2.2rem; margin: 4rem 0 2rem 0; text-align: left; font-weight: bold; border-bottom: 3px solid #e25352; padding-bottom: 1rem;';
     galleryGrid.appendChild(todasTitle);
     
     const todasContainer = document.createElement('div');
-    todasContainer.className = 'gallery-grid layout-n7';
+    todasContainer.className = 'gallery-grid layout-n7 layout-novidade';
     todasContainer.style.cssText = 'display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem; margin: 3rem 0;';
     const cardsHTML = generateGridCards('n7', todasParaExibir);
-    console.log(`🎨 HTML gerado para "Todas as Acompanhantes":`, cardsHTML.substring(0, 200) + '...');
+    console.log(`🎨 HTML gerado para "Premium":`, cardsHTML.substring(0, 200) + '...');
     todasContainer.innerHTML = cardsHTML;
     galleryGrid.appendChild(todasContainer);
   } else {
-    console.warn('⚠️ Nenhum anúncio para exibir em "Todas as Acompanhantes"');
+    console.warn('⚠️ Nenhum anúncio para exibir em "Premium"');
   }
  
   // Ajusta o contêiner principal
@@ -5055,9 +5373,6 @@ async function handleManualLayoutSwitch(level) {
       return;
     }
   }
-  
-  // Esta página já filtra apenas Sexo Virtual de mulheres no loadProfilesFromFirebase
-  // Não precisa de filtro adicional por URL aqui
 
   // limpa conteúdo atual
   container.innerHTML = "";
@@ -5073,17 +5388,16 @@ async function handleManualLayoutSwitch(level) {
         const anuncioId = p.originalData?.id || p.originalData?._id || p.id || p._id;
         const anuncioNome = p.name || p.nome || 'Anônimo';
         const categoria = p.categoria || p.category || p.originalData?.categoria || p.originalData?.category || '';
-        const genero = p.genero || p.gender || p.sexo || p.originalData?.genero || p.originalData?.gender || p.originalData?.sexo || '';
         const imageUrl = p.photo && p.photo !== 'undefined' ? p.photo : (p.image || `https://picsum.photos/400/600?random=${anuncioId || Math.random()}`);
-        // Localização removida para sexo virtual (não necessário)
-        const profileUrl = getProfilePageUrl(anuncioId, anuncioNome, categoria, genero);
+        const location = p.location || formatLocation(p.estado, p.cidade) || 'Localização não informada';
+        const profileUrl = getProfilePageUrl(anuncioId, anuncioNome, categoria);
         html += `
           <a href="${profileUrl}" class="acompanhante-card mobile-layout-preview" style="text-decoration: none; color: inherit; display: block;">
             <div class="card-preview-wrapper-mobile">
-              <span class="virtual-badge">Apenas Virtual</span>
               <img src="${imageUrl}" alt="${anuncioNome}" class="card-preview-image-mobile">
               <div class="card-preview-overlay-mobile">
                 <div class="card-preview-name-mobile">${anuncioNome}</div>
+                <div class="card-preview-location-mobile">${location}</div>
               </div>
             </div>
           </a>`;
@@ -5097,19 +5411,18 @@ async function handleManualLayoutSwitch(level) {
         const anuncioId = p.originalData?.id || p.originalData?._id || p.id || p._id;
         const anuncioNome = p.name || p.nome || 'Anônimo';
         const categoria = p.categoria || p.category || p.originalData?.categoria || p.originalData?.category || '';
-        const genero = p.genero || p.gender || p.sexo || p.originalData?.genero || p.originalData?.gender || p.originalData?.sexo || '';
         const imageUrl = p.photo && p.photo !== 'undefined' ? p.photo : (p.image || `https://picsum.photos/400/400?random=${anuncioId || Math.random()}`);
-        // Localização removida para sexo virtual (não necessário)
-        const profileUrl = getProfilePageUrl(anuncioId, anuncioNome, categoria, genero);
+        const location = p.location || formatLocation(p.estado, p.cidade) || p.cidade || 'Localização não informada';
+        const profileUrl = getProfilePageUrl(anuncioId, anuncioNome, categoria);
         html += `
           <div class="pub-book-item mobile-layout-2-gallery" data-media_id="${index + 1}" data-media_type="photo">
             <a href="${profileUrl}" style="text-decoration: none; color: inherit; display: block;">
-              <div class="gallery-item" data-photo-index="${index}" style="cursor: pointer; position: relative;">
-                <span class="virtual-badge">Apenas Virtual</span>
+              <div class="gallery-item" data-photo-index="${index}" style="cursor: pointer;">
                 <img loading="lazy" src="${imageUrl}" data-fallback="${imageUrl}" class="pub-book-img lazyload" alt="${anuncioNome}" onerror="this.src='${imageUrl}';">
               </div>
               <div class="card-info-n2">
                 <div class="card-name-n2">${anuncioNome}</div>
+                <div class="card-city-n2">${location}</div>
               </div>
             </a>
           </div>`;
@@ -5146,21 +5459,27 @@ async function handleManualLayoutSwitch(level) {
         const categoria = p.categoria || p.category || p.originalData?.categoria || p.originalData?.category || '';
         const imageUrl = p.photo && p.photo !== 'undefined' ? p.photo : (p.image || `https://picsum.photos/400/400?random=${anuncioId || Math.random()}`);
         
-        // Localização removida para sexo virtual (não necessário)
+        // Obter cidade e estado
+        const cidade = p.originalData?.cidade || p.cidade || '';
+        const estado = p.originalData?.estado || p.estado || '';
+        // Formatar UF (apenas 2 primeiros caracteres, maiúsculo)
+        const estadoUF = estado ? (estado.length <= 2 ? estado.toUpperCase() : estado.substring(0, 2).toUpperCase()) : '';
+        // Formato: Cidade/UF ou apenas UF
+        const location = cidade && estadoUF ? `${cidade}/${estadoUF}` : (estadoUF || cidade || 'Localização não informada');
+        
         // Selecionar cor baseada no índice (rotação circular)
         const colorIndex = index % cardColors.length;
         const colors = cardColors[colorIndex];
         
-        const genero = p.genero || p.gender || p.sexo || p.originalData?.genero || p.originalData?.gender || p.originalData?.sexo || '';
-        const profileUrl = getProfilePageUrl(anuncioId, anuncioNome, categoria, genero);
+        const profileUrl = getProfilePageUrl(anuncioId, anuncioNome, categoria);
         html += `
           <div class="pub-book-item mobile-layout-3-gallery" data-media_id="${index + 1}" data-media_type="photo">
             <a href="${profileUrl}" style="text-decoration: none; color: inherit; display: block;">
-              <div class="gallery-item" data-photo-index="${index}" style="cursor: pointer; position: relative;">
-                <span class="virtual-badge">Apenas Virtual</span>
+              <div class="gallery-item" data-photo-index="${index}" style="cursor: pointer;">
                 <img loading="lazy" src="${imageUrl}" data-fallback="${imageUrl}" class="pub-book-img lazyload" alt="${anuncioNome}" onerror="this.src='${imageUrl}';">
               </div>
               <div class="card_title" style="display: block !important; visibility: visible !important; background: ${colors.title} !important; color: #1a202c !important;">${anuncioNome}</div>
+              <div class="card_resume" style="display: block !important; visibility: visible !important; background: ${colors.resume} !important; color: #1a202c !important;">${location}</div>
             </a>
           </div>`;
       });
@@ -5183,11 +5502,12 @@ async function handleManualLayoutSwitch(level) {
         // Resumir descrição se for muito longa (máximo 200 caracteres)
         const shortDescription = description.length > 200 ? description.substring(0, 200) + '...' : description;
         const idade = p.age || p.originalData?.idade || p.idade || 'N/A';
-        // Localização removida para sexo virtual (não necessário)
+        const cidade = p.originalData?.cidade || p.cidade || '';
+        const estado = p.originalData?.estado || p.estado || '';
+        const location = formatLocation(estado, cidade) || 'Localização não informada';
         const categoria = p.categoria || p.category || p.originalData?.categoria || p.originalData?.category || '';
-        const genero = p.genero || p.gender || p.sexo || p.originalData?.genero || p.originalData?.gender || p.originalData?.sexo || '';
         
-        const profileUrl = getProfilePageUrl(anuncioId, anuncioNome, categoria, genero);
+        const profileUrl = getProfilePageUrl(anuncioId, anuncioNome, categoria);
         html += `
           <a href="${profileUrl}" class="acompanhante-card mobile-layout-1-featured" style="text-decoration: none; color: inherit; display: flex;">
             <div class="card-featured-image-wrapper">
@@ -5199,6 +5519,7 @@ async function handleManualLayoutSwitch(level) {
                 ${shortDescription ? `<p class="card-featured-description">${shortDescription}</p>` : ''}
                 <div class="card-featured-details">
                   <span class="card-featured-age">${idade} anos</span>
+                  <span class="card-featured-location">${location}</span>
                 </div>
               </div>
             </div>
@@ -5423,7 +5744,7 @@ function generateMobileLayoutCards(level, profiles) {
           <div class="card-info">
             <div class="card-name">${profile.name}</div>
             <div class="card-phrase">${profile.phrase || 'Frase de efeito não disponível'}</div>
-            <div class="px-item-localhorario">${profile.age || 'N/A'} anos</div>
+            <div class="px-item-localhorario">${profile.age || 'N/A'} anos • ${profile.location || 'Localização não informada'}</div>
           </div>
         </a>
       `;
@@ -5448,7 +5769,7 @@ function generateMobileLayoutCards(level, profiles) {
       // Layout Destaque - estilo Skokka
       const description = profile.description || 'Descrição não disponível';
       const shortDescription = description.length > 130 ? description.substring(0, 130) + '...' : description;
-      // Localização removida para sexo virtual (não necessário)
+      const location = profile.location || 'Localização não informada';
       const imageUrl = profile.photo && profile.photo !== 'undefined' ? profile.photo : `https://picsum.photos/400/300?random=${profile.id}`;
       
       html += `
@@ -5462,6 +5783,7 @@ function generateMobileLayoutCards(level, profiles) {
             <div class="card-description">${shortDescription}</div>
             <div class="card-details">
               <span class="card-age">${profile.age || 'N/A'} anos</span>
+              <span class="card-location">${location}</span>
             </div>
           </div>
         </a>
@@ -7209,8 +7531,121 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         });
       }
+      
+      // Função de login
+      async function handleLogin(event) {
+        event.preventDefault();
+        
+        const loginForm = document.getElementById('loginForm');
+        if (!loginForm) {
+          console.error('❌ Formulário de login não encontrado');
+          return;
+        }
+        
+        const emailInput = document.getElementById('user_email');
+        const passwordInput = document.getElementById('user_password');
+        const statusDiv = loginForm.querySelector('.login-status') || document.createElement('div');
+        
+        if (!statusDiv.parentNode) {
+          statusDiv.className = 'login-status';
+          statusDiv.style.cssText = 'margin-top: 10px; padding: 10px; border-radius: 5px; text-align: center;';
+          loginForm.appendChild(statusDiv);
+        }
+        
+        if (!emailInput || !passwordInput) {
+          statusDiv.innerHTML = '<span style="color: #dc3545;">❌ Campos de email ou senha não encontrados</span>';
+          return;
+        }
+        
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+        
+        if (!email || !password) {
+          statusDiv.innerHTML = '<span style="color: #dc3545;">❌ Por favor, preencha email e senha</span>';
+          return;
+        }
+        
+        try {
+          // Garantir que Firebase está inicializado
+          ensureFirebaseInitialized();
+          
+          if (!auth) {
+            throw new Error('Firebase Auth não inicializado');
+          }
+          
+          statusDiv.innerHTML = '<span style="color: #ffc107;">⏳ Fazendo login...</span>';
+          
+          // Fazer login com Firebase Auth
+          const userCredential = await auth.signInWithEmailAndPassword(email, password);
+          const user = userCredential.user;
+          
+          console.log('✅ Login realizado com sucesso:', user.email);
+          
+          // Fechar modal de login
+          const loginModal = document.getElementById('loginModal');
+          if (loginModal) {
+            loginModal.classList.remove('show');
+          }
+          
+          // Limpar formulário
+          loginForm.reset();
+          
+          // Atualizar botão de login
+          updateLoginButton(user);
+          
+          // Mostrar mensagem de sucesso
+          statusDiv.innerHTML = '<span style="color: #28a745;">✅ Login realizado com sucesso!</span>';
+          
+          // Recarregar página após 1 segundo
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+          
+        } catch (error) {
+          console.error('❌ Erro ao fazer login:', error);
+          
+          let errorMessage = 'Erro ao fazer login. Tente novamente.';
+          
+          if (error.code === 'auth/user-not-found') {
+            errorMessage = '❌ Usuário não encontrado. Verifique o email.';
+          } else if (error.code === 'auth/wrong-password') {
+            errorMessage = '❌ Senha incorreta. Tente novamente.';
+          } else if (error.code === 'auth/invalid-email') {
+            errorMessage = '❌ Email inválido. Verifique o formato.';
+          } else if (error.code === 'auth/user-disabled') {
+            errorMessage = '❌ Conta desabilitada. Entre em contato com o suporte.';
+          } else if (error.code === 'auth/too-many-requests') {
+            errorMessage = '❌ Muitas tentativas. Tente novamente mais tarde.';
+          } else if (error.message) {
+            errorMessage = '❌ ' + error.message;
+          }
+          
+          statusDiv.innerHTML = `<span style="color: #dc3545;">${errorMessage}</span>`;
+        }
+      }
+      
+      // Função para garantir que Firebase está inicializado
+      function ensureFirebaseInitialized() {
+        if (typeof firebase === 'undefined' || !window.firebaseConfig) {
+          throw new Error('Firebase não configurado. Verifique firebase-config.js');
+        }
+        
+        if (!firebase.apps || firebase.apps.length === 0) {
+          firebase.initializeApp(firebaseConfig);
+        }
+        
+        if (!db) {
+          db = firebase.firestore();
+        }
+        
+        if (!auth) {
+          auth = firebase.auth();
+        }
+      }
+    </script>
 
-      // Sistema de Dropdown Brasil e Localização - Scripts
+    <!-- Sistema de Dropdown Brasil e Localização - Scripts -->
+    <script>
       // Carregar módulos na ordem correta
       (function() {
         // 0. Estados do Brasil (deve carregar PRIMEIRO)
@@ -7274,42 +7709,6 @@ document.addEventListener('DOMContentLoaded', function() {
           console.error('❌ Erro ao carregar estados-brasil.js');
         };
         document.body.appendChild(script0);
-      })();
-    </script>
-    
-    <!-- Script para ocultar Painel de Controle nas páginas principais -->
-    <script>
-      (function() {
-        // Lista de páginas principais onde o elemento não deve ser mostrado
-        const paginasPrincipais = [
-          'A_01__index.html',
-          'A_02__premium.html',
-          'A_02__premium_copy.html',
-          'A_03__massagistas.html',
-          'A_04__trans.html',
-          'A_05__homens.html',
-          'luxo.html'
-        ];
-        
-        // Obter o nome do arquivo atual
-        const nomeArquivoAtual = window.location.pathname.split('/').pop() || window.location.href.split('/').pop();
-        
-        // Verificar se é uma página principal
-        const ehPaginaPrincipal = paginasPrincipais.some(pagina => nomeArquivoAtual.includes(pagina));
-        
-        // Ocultar o elemento se for página principal
-        if (ehPaginaPrincipal) {
-          const elementoPainel = document.getElementById('painel-controle-container') || document.getElementById('boton_control_footer') || document.getElementById('boton_control');
-          if (elementoPainel) {
-            // Ocultar o container ou a section pai se existir
-            const sectionPai = elementoPainel.closest('section');
-            if (sectionPai) {
-              sectionPai.style.display = 'none';
-            } else {
-              elementoPainel.style.display = 'none';
-            }
-          }
-        }
       })();
     </script>
   </body>

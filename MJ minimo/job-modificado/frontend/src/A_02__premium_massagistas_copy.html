@@ -3964,9 +3964,9 @@ async function loadProfilesFromFirebase() {
                        genero === 'mulher-luxo' || 
                        (isMassagistas && !genero); // Se for massagistas e não tiver gender definido, assumir mulher
       
-      // Verificar status (apenas ativos - pendentes e rejeitados não aparecem)
+      // Verificar status (apenas aprovados - pendentes e rejeitados não aparecem)
       const status = (ad.status || '').toLowerCase().trim();
-      const statusOk = status === 'ativo' || status === 'active';
+      const statusOk = status === 'approved';
       
       // Verificar se o anúncio está completo (tem pelo menos nome e descrição)
       const temNome = !!(ad.nome || ad.name || ad.nomeAnuncio || ad.nomeCompleto);
@@ -4066,7 +4066,7 @@ async function loadProfilesFromFirebase() {
         cidade: ad.cidade || ad.city || '',
         estado: ad.estado || ad.state || '',
         preco_1h: ad.preco_1h || ad.preco || ad.price || '',
-        status: ad.status || 'ativo',
+        status: ad.status || 'pending_approval',
         plano: plano,
         nivel: plano, // Compatibilidade
         destaque: ad.destaque || plano === 'camarote',

@@ -6,7 +6,11 @@
     <title>Login Administrativo - Mansão do Job</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="admin-login.css">
-    <!-- Removendo temporariamente o reCAPTCHA -->
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="firebase-config.js"></script>
 </head>
 <body>
     <div class="login-container">
@@ -33,50 +37,23 @@
                     <input type="password" id="password" name="password" required>
                 </div>
 
-                <div class="form-group security-code" style="display: none;">
-                    <label for="securityCode">
-                        <i class="fas fa-shield-alt"></i>
-                        Código de Segurança
-                    </label>
-                    <input type="text" id="securityCode" name="securityCode">
-                </div>
-
-                <div class="form-group authenticator-code" style="display: none;">
-                    <label for="authenticatorCode">
-                        <i class="fas fa-mobile-alt"></i>
-                        Código do Google Authenticator
-                    </label>
-                    <input type="text" id="authenticatorCode" name="authenticatorCode" placeholder="Digite o código de 6 dígitos">
-                </div>
-
-                <!-- Removendo temporariamente o container do reCAPTCHA -->
-
-                <div class="form-options">
-                    <label class="remember-me">
-                        <input type="checkbox" id="remember" name="remember">
-                        Manter conectado
-                    </label>
-                    <a href="#" class="forgot-password">Esqueceu a senha?</a>
-                </div>
-
                 <button type="submit" class="login-button">
                     <i class="fas fa-sign-in-alt"></i>
                     Entrar
                 </button>
 
                 <div class="security-info">
-                    <p><i class="fas fa-shield-alt"></i> Acesso restrito a IPs autorizados</p>
+                    <p><i class="fas fa-shield-alt"></i> Acesso restrito a administradores</p>
                     <p><i class="fas fa-clock"></i> Bloqueio após 5 tentativas falhas</p>
-                    <p><i class="fas fa-lock"></i> Autenticação em duas etapas</p>
-                    <p><i class="fas fa-mobile-alt"></i> Google Authenticator</p>
+                    <p><i class="fas fa-lock"></i> Autenticação via Firebase</p>
                 </div>
             </form>
 
             <div class="login-footer">
-                <p>© 2024 Mansão do Job - Todos os direitos reservados</p>
+                <p>&copy; 2026 Mansão do Job - Todos os direitos reservados</p>
             </div>
         </div>
     </div>
     <script src="admin-login.js"></script>
 </body>
-</html> 
+</html>
